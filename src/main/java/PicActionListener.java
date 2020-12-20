@@ -17,7 +17,6 @@ public class PicActionListener implements ActionListener {
         this.desc=Description;
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         JFrame new_frame = new JFrame("Enlarged Picture");
