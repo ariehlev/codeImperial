@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class Download_img implements ActionListener {
                 String home = System.getProperty("user.home");
                 String path=home+"/Downloads/"+name+".jpg";
                 Files.copy(in, Paths.get(path));
+                JOptionPane.showMessageDialog(null, "The Image has been downloaded to: "+path);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -34,6 +36,7 @@ public class Download_img implements ActionListener {
                 String home = System.getProperty("user.home");
                 String path=home+"/Downloads/"+name+".jpg";
                 Files.copy(in, Paths.get(path));
+                JOptionPane.showMessageDialog(null, "The Image has been downloaded to: "+path);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
