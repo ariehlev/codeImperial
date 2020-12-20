@@ -17,10 +17,9 @@ public class Upload implements ActionListener{
 
         int val = file_select.showOpenDialog(null);
         if (val == JFileChooser.APPROVE_OPTION) {
-            if (file_select.getSelectedFile().isDirectory()) {
-                File file_path = file_select.getSelectedFile();
-                System.out.println(file_path.getAbsolutePath());
-            }
+            File file_path = file_select.getSelectedFile();
+            System.out.println(file_path.getAbsolutePath());
+
         }
     }
 }
