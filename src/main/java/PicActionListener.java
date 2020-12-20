@@ -38,6 +38,7 @@ public class PicActionListener implements ActionListener {
         JPanel big_pic = new JPanel();
         JPanel text = new JPanel();
         JButton download = new JButton("Download image");
+        download.addActionListener(new Download_img(location,name));
 
         big_pic.setSize(750,600);
         pic.setSize(750,600);
