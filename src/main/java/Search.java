@@ -1,38 +1,34 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.imageio.ImageIO;
-import java.io.IOException;
 
-public class Search implements ActionListener{
+public class Search  implements ActionListener {
 
     private JPanel images;
     private JFrame frame;
-    private JCheckBox ch1,ch2,ch3,ch4;
+    private JCheckBox ch1,ch2,ch3,ch4,ch5,ch6;
 
-    public Search(JPanel imagee, JFrame framee, JCheckBox checkBox1,JCheckBox checkBox2,JCheckBox checkBox3,JCheckBox checkBox4){
+    public Search(JPanel imagee, JFrame framee, JCheckBox checkBox1,JCheckBox checkBox2,JCheckBox checkBox3,JCheckBox checkBox4, JCheckBox checkBox5, JCheckBox checkBox6){
         this.images=imagee;
         this.frame=framee;
         this.ch1=checkBox1;
         this.ch2=checkBox2;
         this.ch3=checkBox3;
         this.ch4=checkBox4;
+        this.ch5=checkBox5;
+        this.ch6=checkBox6;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ArrayList<String> file_location = new ArrayList<String>();
-        file_location.add("https://codeimperial-mib.s3.eu-west-2.amazonaws.com/testImage.jpeg");
 
-        ArrayList<String> file_name = new ArrayList<String>();
-        file_name.add("Cat with mask");
-
-        ArrayList<String> file_description = new ArrayList<String>();
-        file_description.add("Healthy cat");
 
         ArrayList<String> filter_select = new ArrayList<String>();
 
@@ -43,14 +39,25 @@ public class Search implements ActionListener{
             filter_select.add("CT");
         }
         if(ch3.isSelected()){
-            filter_select.add("ULTRA");
+            filter_select.add("Microscope");
         }
         if(ch4.isSelected()){
-            filter_select.add("Leg");
+            filter_select.add("Lungs");
         }
+        if(ch5.isSelected()){
+            filter_select.add("Brain");
+        }
+        if(ch6.isSelected()){
+            filter_select.add("Spine");
+        }
+        ArrayList<String> file_location = new ArrayList<String>();
+        file_location.add("https://codeimperial-mib.s3.eu-west-2.amazonaws.com/testImage.jpeg");
 
+        ArrayList<String> file_name = new ArrayList<String>();
+        file_name.add("Cat with mask");
 
-
+        ArrayList<String> file_description = new ArrayList<String>();
+        file_description.add("Healthy cat");
         images.removeAll();
         int n_of_rows = (int) Math.ceil((file_location.size())/4.0);
         JPanel[] big_result = new JPanel[n_of_rows];
@@ -124,6 +131,9 @@ public class Search implements ActionListener{
         images.add(big_result[k]);
         frame.getContentPane().validate();
         frame.getContentPane().repaint();
+
+        //making thumbnails and outputting them
+
     }
 
 }

@@ -3,8 +3,8 @@ import javax.swing.*;
 
 
 public class Interface extends Search{
-    public Interface(JPanel images,JFrame frame,JCheckBox ch1,JCheckBox ch2,JCheckBox ch3,JCheckBox ch4) {
-        super(images,frame,ch1,ch2,ch3,ch4);
+    public Interface(JPanel images,JFrame frame,JCheckBox ch1,JCheckBox ch2,JCheckBox ch3,JCheckBox ch4,JCheckBox ch5,JCheckBox ch6) {
+        super(images,frame,ch1,ch2,ch3,ch4,ch5,ch6);
 
     }
     public static void inter() {
@@ -12,8 +12,10 @@ public class Interface extends Search{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JCheckBox checkBox1 = new JCheckBox("MRI");
         JCheckBox checkBox2 = new JCheckBox("CT");
-        JCheckBox checkBox3 = new JCheckBox("Ultra");
-        JCheckBox checkBox4 = new JCheckBox("Leg");
+        JCheckBox checkBox3 = new JCheckBox("Microscope");
+        JCheckBox checkBox4 = new JCheckBox("Lungs");
+        JCheckBox checkBox5 = new JCheckBox("Brain");
+        JCheckBox checkBox6 = new JCheckBox("Spine");
 
         JPanel filter = new JPanel();
         JPanel top_bar1 = new JPanel();
@@ -53,7 +55,7 @@ public class Interface extends Search{
         JTextField search_stuff = new JTextField();
         search_stuff.setSize(100, 15);
 
-        search.addActionListener(new Search(images,frame,checkBox1,checkBox2,checkBox3,checkBox4));
+        search.addActionListener(new Search(images,frame,checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6));
 
         top_bar1.add(logo);
         top_bar2.add(title);
@@ -79,7 +81,11 @@ public class Interface extends Search{
                         .addComponent(body)
                         .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(body,checkBox4, LayoutStyle.ComponentPlacement.INDENT)
-                                .addComponent(checkBox4)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    .addComponent(checkBox4)
+                                    .addComponent(checkBox5)
+                                    .addComponent(checkBox6)
+                                )
                         )
                         .addComponent(search_stuff)
                         .addComponent(search)
@@ -102,6 +108,8 @@ public class Interface extends Search{
                                 .addComponent(body)
                                 .addGroup(layout.createSequentialGroup()
                                         .addComponent(checkBox4)
+                                        .addComponent(checkBox5)
+                                        .addComponent(checkBox6)
                                 )
                         )
 

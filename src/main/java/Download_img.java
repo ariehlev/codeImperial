@@ -18,11 +18,7 @@ public class Download_img implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String os=System.getProperty("os.name");
-        String win="Win";
-        String mac="Mac";
-        String short_os = os.substring(0,3);
-        if(win.equals(short_os)) {
+
             try(InputStream in = new URL(location).openStream()){
                 String home = System.getProperty("user.home");
                 String path=home+"/Downloads/"+name+".jpg";
@@ -38,23 +34,6 @@ public class Download_img implements ActionListener {
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
-        }
-        if(mac.equals(short_os)) {
-            try(InputStream in = new URL(location).openStream()){
-                String home = System.getProperty("user.home");
-                String path=home+"/Downloads/"+name+".jpg";
-                File file = new File(path);
-                if(file.exists() && !file.isDirectory()) {
-                    JOptionPane.showMessageDialog(null, "The Image already exists at: "+path);
-                }
-                else{
-                    Files.copy(in, Paths.get(path));
-                    JOptionPane.showMessageDialog(null, "The Image has been downloaded to: "+path);
-                }
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }
 
 
     }
