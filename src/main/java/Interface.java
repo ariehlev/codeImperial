@@ -50,6 +50,7 @@ public class Interface extends Search{
         JLabel title = new JLabel("Medical Image Database");
         title.setAlignmentY(JLabel.CENTER_ALIGNMENT);
         JButton upload = new JButton("Upload");
+        upload.addActionListener(new Upload());
         upload.setAlignmentY(JLabel.CENTER_ALIGNMENT);
         JButton search = new JButton("Search");
         JTextField search_stuff = new JTextField();
