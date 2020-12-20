@@ -3,8 +3,8 @@ import javax.swing.*;
 
 
 public class Interface extends Search{
-    public Interface(JPanel images, JFrame frame) {
-        super(images,frame);
+    public Interface(JPanel images,JFrame frame,JCheckBox ch1,JCheckBox ch2,JCheckBox ch3,JCheckBox ch4) {
+        super(images,frame,ch1,ch2,ch3,ch4);
 
     }
     public static void inter() {
@@ -41,7 +41,6 @@ public class Interface extends Search{
         JLabel scan = new JLabel("Scan Type");
         JLabel body = new JLabel("Body Part");
 
-
         logo.setVerticalAlignment(JLabel.CENTER);
         logo.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         logo.setAlignmentY(JLabel.CENTER_ALIGNMENT);
@@ -54,8 +53,7 @@ public class Interface extends Search{
         JTextField search_stuff = new JTextField();
         search_stuff.setSize(100, 15);
 
-        search.addActionListener(new Search(images,frame));
-
+        search.addActionListener(new Search(images,frame,checkBox1,checkBox2,checkBox3,checkBox4));
 
         top_bar1.add(logo);
         top_bar2.add(title);
@@ -85,8 +83,6 @@ public class Interface extends Search{
                         )
                         .addComponent(search_stuff)
                         .addComponent(search)
-
-
 
                 )
 

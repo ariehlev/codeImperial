@@ -12,10 +12,15 @@ public class Search implements ActionListener{
 
     private JPanel images;
     private JFrame frame;
+    private JCheckBox ch1,ch2,ch3,ch4;
 
-    public Search(JPanel imagee, JFrame framee){
+    public Search(JPanel imagee, JFrame framee, JCheckBox checkBox1,JCheckBox checkBox2,JCheckBox checkBox3,JCheckBox checkBox4){
         this.images=imagee;
         this.frame=framee;
+        this.ch1=checkBox1;
+        this.ch2=checkBox2;
+        this.ch3=checkBox3;
+        this.ch4=checkBox4;
     }
 
     @Override
@@ -23,12 +28,28 @@ public class Search implements ActionListener{
         ArrayList<String> file_location = new ArrayList<String>();
         file_location.add("https://codeimperial-mib.s3.eu-west-2.amazonaws.com/testImage.jpeg");
 
-
         ArrayList<String> file_name = new ArrayList<String>();
         file_name.add("Cat with mask");
 
         ArrayList<String> file_description = new ArrayList<String>();
         file_description.add("Healthy cat");
+
+        ArrayList<String> filter_select = new ArrayList<String>();
+
+        if(ch1.isSelected()){
+            filter_select.add("MRI");
+        }
+        if(ch2.isSelected()){
+            filter_select.add("CT");
+        }
+        if(ch3.isSelected()){
+            filter_select.add("ULTRA");
+        }
+        if(ch4.isSelected()){
+            filter_select.add("Leg");
+        }
+
+
 
         images.removeAll();
         int n_of_rows = (int) Math.ceil((file_location.size())/4.0);
