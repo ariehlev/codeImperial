@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -25,8 +26,15 @@ public class Download_img implements ActionListener {
             try(InputStream in = new URL(location).openStream()){
                 String home = System.getProperty("user.home");
                 String path=home+"/Downloads/"+name+".jpg";
-                Files.copy(in, Paths.get(path));
-                JOptionPane.showMessageDialog(null, "The Image has been downloaded to: "+path);
+                File file = new File(path);
+                if(file.exists() && !file.isDirectory()) {
+                    JOptionPane.showMessageDialog(null, "The Image already exists at: "+path);
+                }
+                else{
+                    Files.copy(in, Paths.get(path));
+                    JOptionPane.showMessageDialog(null, "The Image has been downloaded to: "+path);
+                }
+
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -35,8 +43,14 @@ public class Download_img implements ActionListener {
             try(InputStream in = new URL(location).openStream()){
                 String home = System.getProperty("user.home");
                 String path=home+"/Downloads/"+name+".jpg";
-                Files.copy(in, Paths.get(path));
-                JOptionPane.showMessageDialog(null, "The Image has been downloaded to: "+path);
+                File file = new File(path);
+                if(file.exists() && !file.isDirectory()) {
+                    JOptionPane.showMessageDialog(null, "The Image already exists at: "+path);
+                }
+                else{
+                    Files.copy(in, Paths.get(path));
+                    JOptionPane.showMessageDialog(null, "The Image has been downloaded to: "+path);
+                }
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
