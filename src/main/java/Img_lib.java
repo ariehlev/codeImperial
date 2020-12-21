@@ -1,23 +1,46 @@
-import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.Serializable;
 import java.util.ArrayList;
-import javax.swing.*;
-import javax.imageio.ImageIO;
-import java.io.IOException;
 
-public class Img_lib {
-    ArrayList<Img> IMG = new ArrayList<Img>();
-    protected JPanel images1;
-    protected JFrame frame1;
+public class Img_lib implements Serializable {
+    protected ArrayList<Img> Library = new ArrayList<>();
 
-    public Img_lib(JPanel Imag,JFrame Fram){
-        this.images1=Imag;
-        this.frame1=Fram;
+    public ArrayList<Img> getLibrary() {
+        return Library;
     }
-    public void Img_lib_f(){
 
+    public void setLibrary(ArrayList<Img> library) {
+        Library = library;
+    }
+
+    public void Details(){
+        for(int i = 0; i<Library.size(); i++) {
+            System.out.println(Library.get(i).getPatientID());
+        }
+    }
+    public Integer getSize(){
+        return Library.size();
+    }
+    public ArrayList<String> getURL (){
+        ArrayList<String> array = new ArrayList<String>();
+        for (int i=0; i < Library.size(); i++){
+            array.add(Library.get(i).getImageURL());
+        }
+        return array;
+    }
+
+    public ArrayList<String> getPatientId (){
+        ArrayList<String> array = new ArrayList<String>();
+        for (int i=0; i < Library.size(); i++){
+            array.add(Library.get(i).getPatientID());
+        }
+
+        return array;
+    }
+    public ArrayList<String> getModality () {
+        ArrayList<String> array = new ArrayList<String>();
+        for (int i = 0; i < Library.size(); i++) {
+            array.add(Library.get(i).getModality());
+        }
+        return array;
     }
 }
