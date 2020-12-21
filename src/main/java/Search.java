@@ -39,7 +39,7 @@ public class Search  implements ActionListener {
         ArrayList<String> filter_body_select = new ArrayList<String>();
         ArrayList<String> filter_modality_select = new ArrayList<String>();
         ArrayList<String> filter_dates_select = new ArrayList<String>();
-        String[] patient_id = new String[6];
+        String[] patient_id = new String[1];
 
 
         if(ch1.isSelected()){
@@ -60,6 +60,12 @@ public class Search  implements ActionListener {
         if(ch6.isSelected()){
             filter_body_select.add("spine");
         }
+        if(filter_modality_select.isEmpty()) {
+            filter_modality_select.add("");
+        }
+        if(filter_body_select.isEmpty()){
+            filter_body_select.add("");
+        }
         filter_dates_select.add(start.getText());
         filter_dates_select.add(end.getText());
         patient_id[0]=id.getText();
@@ -73,27 +79,6 @@ public class Search  implements ActionListener {
         pars.setPatientID(patient_id);
         //pars.setPatientID(new String[]{"not null"});
 
-        String request = "SELECT * FROM MedImages WHERE modality in ('";
-        String delim = "','";
-        request = request.concat(String.join(delim,(pars.getModality())));
-        request = request.concat("')");
-        request = request.concat(" AND bodyPart in ('");
-        request = request.concat(String.join(delim,(pars.getBodyPart())));
-        request = request.concat("')");
-        //request = request.concat(" AND date BETWEEN'");
-        //request = request.concat(String.join("' AND '",(pars.getDate())));
-        //request = request.concat("'");
-        String part = "";
-        if (String.join(delim,(pars.getPatientID()))==("not null")){
-            part = part.concat(" AND patientid is not null;");
-        }
-        else{
-            part = part.concat(" AND patientid = '");
-            part = part.concat(String.join(delim,(pars.getPatientID())));
-            part = part.concat("';");
-        }
-        request = request.concat(part);
-        System.out.println(request);
         Img_lib libr = new Img_lib();
         try {
             libr = makePostRequest(pars);
@@ -104,31 +89,21 @@ public class Search  implements ActionListener {
 
         ArrayList<String> file_location = new ArrayList<String>();
         //file_location.add("https://codeimperial-mib.s3.eu-west-2.amazonaws.com/testImage.jpeg");
-        file_location = libr.getURL();
-        for(int i = 0; i<file_location.size(); i++) {
-            System.out.println(file_location.get(i));
-        }
+        file_location = libr.getURLs();
 
-        ArrayList<String> file_name = new ArrayList<String>();
+        ArrayList<String> file_PatientID = new ArrayList<String>();
         //file_name.add("Cat with mask");
-        file_name = libr.getPatientId();
-        for(int i = 0; i<file_name.size(); i++) {
-            System.out.println(file_name.get(i));
-        }
+        file_PatientID = libr.getPatientIds();
 
-        ArrayList<String> file_description = new ArrayList<String>();
+        ArrayList<String> file_Modalities = new ArrayList<String>();
         //file_description.add("Healthy cat");
-        file_description = libr.getModality();
-        for(int i = 0; i<file_description.size(); i++) {
-            System.out.println(file_description.get(i));
-        }
-
+        file_Modalities = libr.getModalities();
 
         ArrayList<String> file_body_part = new ArrayList<String>();
-        file_body_part = libr.getBodyPart();
-        for(int i = 0; i<file_body_part.size(); i++) {
-            System.out.println(file_body_part.get(i));
-        }
+        file_body_part = libr.getBodyParts();
+
+        ArrayList<String> file_dates = new ArrayList<String>();
+        file_dates = libr.getDates();
         //need to make arrays for other parameters
 
         images.removeAll();
@@ -156,12 +131,12 @@ public class Search  implements ActionListener {
 
             JLabel name = new JLabel("ID:");
             name.setPreferredSize(new Dimension(100,15));
-            JLabel name_i = new JLabel(file_name.get(i));
+            JLabel name_i = new JLabel(file_PatientID.get(i));
             name_i.setPreferredSize(new Dimension(100,15));
 
             JLabel modality = new JLabel("Modality:");
             modality.setPreferredSize(new Dimension(100,15));
-            JLabel modality_i= new JLabel(file_description.get(i));
+            JLabel modality_i= new JLabel(file_Modalities.get(i));
             modality_i.setPreferredSize(new Dimension(100,15));
 
             JLabel body_part = new JLabel("Body Part:");
@@ -191,7 +166,7 @@ public class Search  implements ActionListener {
             button.setPreferredSize(new Dimension(250,200));
             button.setIcon(new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(250, 200, Image.SCALE_DEFAULT)));
             button.setVisible(true);
-            button.addActionListener(new PicActionListener(file_location.get(i),file_name.get(i),file_description.get(i)));
+            button.addActionListener(new PicActionListener(file_location.get(i),file_PatientID.get(i),file_Modalities.get(i)));
 
             img_panel.add(button);
             info_panel.add(name);
@@ -230,7 +205,8 @@ public class Search  implements ActionListener {
 
         URL myURL = null;
         try {
-            myURL = new URL("http://localhost:8080/LocalServlet/main");
+            //myURL = new URL("http://localhost:8080/LocalServlet/main");
+            myURL = new URL("https://hlabsmedimagedatabase.herokuapp.com/main");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
