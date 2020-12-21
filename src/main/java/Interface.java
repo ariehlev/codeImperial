@@ -6,8 +6,8 @@ import javax.swing.*;
 
 
 public class Interface extends Search{
-    public Interface(JPanel images,JFrame frame,JCheckBox ch1,JCheckBox ch2,JCheckBox ch3,JCheckBox ch4,JCheckBox ch5,JCheckBox ch6) {
-        super(images,frame,ch1,ch2,ch3,ch4,ch5,ch6);
+    public Interface(JPanel images,JFrame frame,JCheckBox ch1,JCheckBox ch2,JCheckBox ch3,JCheckBox ch4,JCheckBox ch5,JCheckBox ch6,JTextField start, JTextField end,JTextField id) {
+        super(images,frame,ch1,ch2,ch3,ch4,ch5,ch6,start,end,id);
 
     }
     public static void inter() {
@@ -25,6 +25,14 @@ public class Interface extends Search{
         JPanel top_bar2 = new JPanel();
         JPanel top_bar3 = new JPanel();
         JPanel images = new JPanel();
+
+        JLabel date = new JLabel("Date");
+        JTextField start_date = new JTextField();
+        JTextField end_date = new JTextField();
+        JLabel start =new JLabel("Start Date:");
+        JLabel end =new JLabel("End Date:");
+
+        JLabel patient_id = new JLabel("Patient ID");
 
         images.setAutoscrolls(true);
         images.setLayout(new BoxLayout(images, BoxLayout.Y_AXIS));
@@ -66,16 +74,18 @@ public class Interface extends Search{
         upload.setPreferredSize(new Dimension(125,45));
         upload.setFont(scan.getFont().deriveFont(20.0f));
         JButton search = new JButton("Search");
-        JTextField search_stuff = new JTextField();
-        search_stuff.setSize(100, 15);
+        JTextField patient_id_window = new JTextField();
+        patient_id_window.setSize(100, 15);
 
-        search.addActionListener(new Search(images,frame,checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6));
+        search.addActionListener(new Search(images,frame,checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6,start_date,end_date,patient_id_window));
 
         top_bar1.add(logo);
         top_bar2.add(title);
         top_bar3.add(upload);
         scan.setFont(scan.getFont().deriveFont(18.0f));
         body.setFont(body.getFont().deriveFont(18.0f));
+        date.setFont(body.getFont().deriveFont(18.0f));
+        patient_id.setFont(body.getFont().deriveFont(18.0f));
         title.setFont(body.getFont().deriveFont(35.0f));
 
         GroupLayout layout = new GroupLayout(filter);
@@ -102,7 +112,23 @@ public class Interface extends Search{
                                     .addComponent(checkBox6)
                                 )
                         )
-                        .addComponent(search_stuff)
+                        .addComponent(date)
+                        .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(date,start, LayoutStyle.ComponentPlacement.INDENT)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(start)
+                                        .addComponent(end)
+                                )
+                                .addGroup(layout.createParallelGroup()
+                                        .addComponent(start_date)
+                                        .addComponent(end_date)
+                                )
+                        )
+                        .addComponent(patient_id)
+                        .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(patient_id, patient_id_window, LayoutStyle.ComponentPlacement.INDENT)
+                                .addComponent(patient_id_window)
+                        )
                         .addComponent(search)
 
                 )
@@ -127,11 +153,23 @@ public class Interface extends Search{
                                         .addComponent(checkBox6)
                                 )
                         )
-
-
-                )
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(search_stuff)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(date)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(start)
+                                        .addComponent(start_date)
+                                )
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(end)
+                                        .addComponent(end_date)
+                                )
+                        )
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(patient_id)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(patient_id_window)
+                                )
+                        )
                 )
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(search)

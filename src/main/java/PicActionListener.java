@@ -33,8 +33,8 @@ public class PicActionListener implements ActionListener {
             ioException.printStackTrace();
         }
         JLabel pic = new JLabel();
-        JLabel nam = new JLabel("Name: " + name);
-        JLabel descr = new JLabel("Description: " + desc);
+        JLabel nam = new JLabel("ID: " + name);
+        JLabel descr = new JLabel("Modality: " + desc);
         JPanel big_pic = new JPanel();
         JPanel text = new JPanel();
         JButton download = new JButton("Download image");

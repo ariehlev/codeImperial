@@ -28,19 +28,18 @@ public class Upload implements ActionListener{
         int val = file_select.showOpenDialog(null);
         if (val == JFileChooser.APPROVE_OPTION) {
             File file_path = file_select.getSelectedFile();
-            System.out.println(file_path.getAbsolutePath());
-            System.out.println(FilenameUtils.getExtension(String.valueOf(file_path)));
-            if(FilenameUtils.getExtension(String.valueOf(file_path))=="jpg"){
+            String file_type = (FilenameUtils.getExtension(file_path.toString())).toString();
+            if("jpg".equalsIgnoreCase(file_type)){
                 JFrame new_frame = new JFrame("Enlarged Picture");
                 Image image1 = null;
                 try {
-                    image1= ImageIO.read(file_path);
+                    image1 = ImageIO.read(file_path);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
                 JLabel pic = new JLabel();
 
-                JLabel nam = new JLabel("Name: ");
+                JLabel nam = new JLabel("ID: ");
                 JLabel descr = new JLabel("Description: ");
 
                 JTextField name = new JTextField();
@@ -52,8 +51,8 @@ public class Upload implements ActionListener{
                 JButton upload = new JButton("Upload");
 
 
-                big_pic.setSize(750,600);
-                pic.setSize(750,600);
+                big_pic.setSize(750, 600);
+                pic.setSize(750, 600);
 
                 pic.setIcon(new ImageIcon(new ImageIcon(image1).getImage().getScaledInstance(750, 600, Image.SCALE_DEFAULT)));
                 big_pic.add(pic);
@@ -88,8 +87,8 @@ public class Upload implements ActionListener{
                 upload.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        String name_input=name.getText();
-                        String description_input=desc.getText();
+                        String name_input = name.getText();
+                        String description_input = desc.getText();
                         ArrayList<String> data_upload = new ArrayList<String>();
                         data_upload.add(name_input);
                         data_upload.add(description_input);
@@ -98,16 +97,21 @@ public class Upload implements ActionListener{
                 });
 
 
-                text.setBounds(750,0,400,600);
+                text.setBounds(750, 0, 400, 600);
 
                 new_frame.add(big_pic);
                 new_frame.add(text);
-                new_frame.setSize(1200,600);
+                new_frame.setSize(1200, 600);
                 new_frame.setLayout(null);
                 new_frame.setVisible(true);
                 new_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
             }
+            else{
+
+            }
+
+
 
 
         }

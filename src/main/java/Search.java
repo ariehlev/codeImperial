@@ -17,8 +17,9 @@ public class Search  implements ActionListener {
     private JPanel images;
     private JFrame frame;
     private JCheckBox ch1,ch2,ch3,ch4,ch5,ch6;
+    private JTextField start,end,id;
 
-    public Search(JPanel imagee, JFrame framee, JCheckBox checkBox1,JCheckBox checkBox2,JCheckBox checkBox3,JCheckBox checkBox4, JCheckBox checkBox5, JCheckBox checkBox6){
+    public Search(JPanel imagee, JFrame framee, JCheckBox checkBox1,JCheckBox checkBox2,JCheckBox checkBox3,JCheckBox checkBox4, JCheckBox checkBox5, JCheckBox checkBox6, JTextField start_date, JTextField end_date, JTextField patient_id_window){
         this.images=imagee;
         this.frame=framee;
         this.ch1=checkBox1;
@@ -27,6 +28,9 @@ public class Search  implements ActionListener {
         this.ch4=checkBox4;
         this.ch5=checkBox5;
         this.ch6=checkBox6;
+        this.start=start_date;
+        this.end=end_date;
+        this.id=patient_id_window;
     }
 
     @Override
@@ -35,7 +39,8 @@ public class Search  implements ActionListener {
         ArrayList<String> filter_body_select = new ArrayList<String>();
         ArrayList<String> filter_modality_select = new ArrayList<String>();
         ArrayList<String> filter_dates_select = new ArrayList<String>();
-        String patient_id;
+        String[] patient_id = new String[6];
+
 
         if(ch1.isSelected()){
             filter_modality_select.add("MRI");
@@ -56,13 +61,14 @@ public class Search  implements ActionListener {
             filter_body_select.add("spine");
         }
 
+
         SearchParameters pars = new SearchParameters();
         pars.setModality(filter_modality_select.toArray(new String [0]));
         pars.setBodyPart(filter_body_select.toArray(new String [0]));
-        //pars.setDate(filter_dates_select.toArray(new String [0]));
-        pars.setDate(new String[]{"14/01/2020","20/12/2020"});
-        //pars.setPatientID(patient_id);
-        pars.setPatientID(new String[]{"not null"});
+        pars.setDate(filter_dates_select.toArray(new String [0]));
+        //pars.setDate(new String[]{"14/01/2020","20/12/2020"});
+        pars.setPatientID(patient_id);
+        //pars.setPatientID(new String[]{"not null"});
 
         String request = "SELECT * FROM MedImages WHERE modality in ('";
         String delim = "','";
@@ -113,6 +119,9 @@ public class Search  implements ActionListener {
         for(int i = 0; i<file_description.size(); i++) {
             System.out.println(file_description.get(i));
         }
+
+        //need to make arrays for receiving body part etc
+
         images.removeAll();
         int n_of_rows = (int) Math.ceil((file_location.size())/4.0);
         JPanel[] big_result = new JPanel[n_of_rows];
@@ -136,12 +145,23 @@ public class Search  implements ActionListener {
             JPanel result = new JPanel();
             result.setPreferredSize(new Dimension(270,350));
 
-            JLabel name = new JLabel("Name:");
+            JLabel name = new JLabel("ID:");
             name.setPreferredSize(new Dimension(100,15));
             JLabel name_i = new JLabel(file_name.get(i));
             name_i.setPreferredSize(new Dimension(100,15));
-            URL url = null;
 
+            JLabel modality = new JLabel("Modality:");
+            modality.setPreferredSize(new Dimension(100,15));
+            JLabel modality_i= new JLabel(file_description.get(i));
+            modality_i.setPreferredSize(new Dimension(100,15));
+
+            //JLabel body_part = new JLabel("Body Part:");
+            //body_part.setPreferredSize(new Dimension(100,15));
+            //JLabel body_part_i= new JLabel(filter_modality_select.get(i));
+            //body_part_i.setPreferredSize(new Dimension(100,15));
+
+
+            URL url = null;
             try {
                 url = new URL(file_location.get(i));
             } catch (MalformedURLException malformedURLException) {
@@ -167,6 +187,8 @@ public class Search  implements ActionListener {
             img_panel.add(button);
             info_panel.add(name);
             info_panel.add(name_i);
+            info_panel.add(modality);
+            info_panel.add(modality_i);
 
             result.add(img_panel);
             result.add(info_panel);
