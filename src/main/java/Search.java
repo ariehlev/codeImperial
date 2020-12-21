@@ -60,6 +60,9 @@ public class Search  implements ActionListener {
         if(ch6.isSelected()){
             filter_body_select.add("spine");
         }
+        filter_dates_select.add(start.getText());
+        filter_dates_select.add(end.getText());
+        patient_id[0]=id.getText();
 
 
         SearchParameters pars = new SearchParameters();
@@ -140,7 +143,7 @@ public class Search  implements ActionListener {
             img_panel.setPreferredSize(new Dimension(250,200));
 
             JPanel info_panel = new JPanel();
-            info_panel.setPreferredSize(new Dimension(250,140));
+            info_panel.setPreferredSize(new Dimension(250,100));
 
             JPanel buff_panel1 = new JPanel();
             buff_panel1.setPreferredSize(new Dimension(270,10));
