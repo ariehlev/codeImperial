@@ -35,10 +35,14 @@ public class PicActionListener implements ActionListener {
             ioException.printStackTrace();
         }
         JLabel pic = new JLabel();
-        JLabel nam = new JLabel("ID: " + name);
-        JLabel descr = new JLabel("Modality: " + desc);
-        JLabel body = new JLabel("Body Part: " + body_part);
-        JLabel date_label = new JLabel("Date: " + date);
+        JLabel nam = new JLabel(" ID: " + name);
+        nam.setFont(nam.getFont().deriveFont(20.0f));
+        JLabel descr = new JLabel(" Modality: " + desc);
+        descr.setFont(descr.getFont().deriveFont(20.0f));
+        JLabel body = new JLabel(" Body Part: " + body_part);
+        body.setFont(body.getFont().deriveFont(20.0f));
+        JLabel date_label = new JLabel(" Date: " + date);
+        date_label.setFont(date_label.getFont().deriveFont(20.0f));
         JPanel big_pic = new JPanel();
         JPanel text = new JPanel();
         JButton download = new JButton("Download Image");
