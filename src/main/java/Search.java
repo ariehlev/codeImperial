@@ -144,6 +144,11 @@ public class Search  implements ActionListener {
             JLabel body_part_i= new JLabel(file_body_part.get(i));
             body_part_i.setPreferredSize(new Dimension(100,15));
 
+            JLabel date_label = new JLabel("Date:");
+            date_label.setPreferredSize(new Dimension(100,15));
+            JLabel date_label_i= new JLabel(file_dates.get(i));
+            date_label_i.setPreferredSize(new Dimension(100,15));
+
 
             URL url = null;
             try {
@@ -166,13 +171,17 @@ public class Search  implements ActionListener {
             button.setPreferredSize(new Dimension(250,200));
             button.setIcon(new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(250, 200, Image.SCALE_DEFAULT)));
             button.setVisible(true);
-            button.addActionListener(new PicActionListener(file_location.get(i),file_PatientID.get(i),file_Modalities.get(i)));
+            button.addActionListener(new PicActionListener(file_location.get(i),file_PatientID.get(i),file_Modalities.get(i), file_body_part.get(i), file_dates.get(i)));
 
             img_panel.add(button);
             info_panel.add(name);
             info_panel.add(name_i);
             info_panel.add(modality);
             info_panel.add(modality_i);
+            info_panel.add(body_part);
+            info_panel.add(body_part_i);
+            info_panel.add(date_label);
+            info_panel.add(date_label_i);
 
             result.add(img_panel);
             result.add(info_panel);

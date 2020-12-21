@@ -9,12 +9,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class PicActionListener implements ActionListener {
-    private String location,name,desc;
+    private String location,name,desc, body_part, date;
 
-    public PicActionListener(String Location, String Name, String Description){
+    public PicActionListener(String Location, String Name, String Description, String Body_Part, String Date){
         this.location=Location;
         this.name=Name;
         this.desc=Description;
+        this.body_part=Body_Part;
+        this.date=Date;
     }
 
     @Override
@@ -35,10 +37,13 @@ public class PicActionListener implements ActionListener {
         JLabel pic = new JLabel();
         JLabel nam = new JLabel("ID: " + name);
         JLabel descr = new JLabel("Modality: " + desc);
+        JLabel body = new JLabel("Body Part: " + body_part);
+        JLabel date_label = new JLabel("Date: " + date);
         JPanel big_pic = new JPanel();
         JPanel text = new JPanel();
-        JButton download = new JButton("Download image");
+        JButton download = new JButton("Download Image");
         download.addActionListener(new Download_img(location,name));
+        JButton delete_button = new JButton("Delete Image");
 
         big_pic.setSize(750,600);
         pic.setSize(750,600);
@@ -47,11 +52,15 @@ public class PicActionListener implements ActionListener {
         big_pic.add(pic);
         text.add(nam);
         text.add(descr);
+        text.add(body);
+        text.add(date_label);
         text.add(download);
+        text.add(delete_button);
         text.setLayout(new BoxLayout(text, BoxLayout.Y_AXIS));
 
         nam.setAlignmentX(Component.LEFT_ALIGNMENT);
         descr.setAlignmentX(Component.LEFT_ALIGNMENT);
+        text.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 
         text.setBounds(750,0,400,600);
