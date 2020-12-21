@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
@@ -38,20 +41,30 @@ public class Interface extends Search{
         top_bar1.setBorder(BorderFactory.createLineBorder(Color.black));
         top_bar2.setBorder(BorderFactory.createLineBorder(Color.black));
         top_bar3.setBorder(BorderFactory.createLineBorder(Color.black));
+        filter.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        JLabel logo = new JLabel("Logo");
+        JLabel logo = new JLabel();
         JLabel scan = new JLabel("Scan Type");
         JLabel body = new JLabel("Body Part");
 
+        Image image1 = null;
+        try {
+            image1= ImageIO.read(new File("../codeimperial/holloway_lab_logo.jpg"));
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
         logo.setVerticalAlignment(JLabel.CENTER);
         logo.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         logo.setAlignmentY(JLabel.CENTER_ALIGNMENT);
+        logo.setIcon(new ImageIcon(new ImageIcon(image1).getImage().getScaledInstance(240, 45, Image.SCALE_SMOOTH)));
 
         JLabel title = new JLabel("Medical Image Database");
         title.setAlignmentY(JLabel.CENTER_ALIGNMENT);
         JButton upload = new JButton("Upload");
         upload.addActionListener(new Upload());
         upload.setAlignmentY(JLabel.CENTER_ALIGNMENT);
+        upload.setPreferredSize(new Dimension(125,45));
+        upload.setFont(scan.getFont().deriveFont(20.0f));
         JButton search = new JButton("Search");
         JTextField search_stuff = new JTextField();
         search_stuff.setSize(100, 15);
@@ -63,6 +76,7 @@ public class Interface extends Search{
         top_bar3.add(upload);
         scan.setFont(scan.getFont().deriveFont(18.0f));
         body.setFont(body.getFont().deriveFont(18.0f));
+        title.setFont(body.getFont().deriveFont(35.0f));
 
         GroupLayout layout = new GroupLayout(filter);
         filter.setLayout(layout);
