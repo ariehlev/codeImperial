@@ -20,7 +20,6 @@ public class Delete_img implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try(InputStream in = new URL(location).openStream()){
             int dialogButton = JOptionPane.YES_NO_OPTION;
-
             if (JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this Image from the Database?", "WARNING",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 // yes option
