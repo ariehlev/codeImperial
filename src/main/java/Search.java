@@ -39,7 +39,7 @@ public class Search  implements ActionListener {
         ArrayList<String> filter_body_select = new ArrayList<String>();
         ArrayList<String> filter_modality_select = new ArrayList<String>();
         ArrayList<String> filter_dates_select = new ArrayList<String>();
-        String[] patient_id = new String[1];
+        //String[] patient_id = new String[1];
 
 
         if(ch1.isSelected()){
@@ -68,7 +68,7 @@ public class Search  implements ActionListener {
         }
         filter_dates_select.add(start.getText());
         filter_dates_select.add(end.getText());
-        patient_id[0]=id.getText();
+        String patient_id=id.getText();
 
 
         SearchParameters pars = new SearchParameters();
