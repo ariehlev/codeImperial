@@ -27,6 +27,14 @@ public class Img_lib implements Serializable {
         }
         return array;
     }
+    public ArrayList<String> getBodyPart (){
+        ArrayList<String> array = new ArrayList<String>();
+        for (int i=0; i < Library.size(); i++){
+            array.add(Library.get(i).getBodyPart());
+        }
+
+        return array;
+    }
 
     public ArrayList<String> getPatientId (){
         ArrayList<String> array = new ArrayList<String>();

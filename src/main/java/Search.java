@@ -120,7 +120,13 @@ public class Search  implements ActionListener {
             System.out.println(file_description.get(i));
         }
 
-        //need to make arrays for receiving body part etc
+
+        ArrayList<String> file_body_part = new ArrayList<String>();
+        file_body_part = libr.getBodyPart();
+        for(int i = 0; i<file_body_part.size(); i++) {
+            System.out.println(file_body_part.get(i));
+        }
+        //need to make arrays for other parameters
 
         images.removeAll();
         int n_of_rows = (int) Math.ceil((file_location.size())/4.0);
@@ -155,10 +161,10 @@ public class Search  implements ActionListener {
             JLabel modality_i= new JLabel(file_description.get(i));
             modality_i.setPreferredSize(new Dimension(100,15));
 
-            //JLabel body_part = new JLabel("Body Part:");
-            //body_part.setPreferredSize(new Dimension(100,15));
-            //JLabel body_part_i= new JLabel(filter_modality_select.get(i));
-            //body_part_i.setPreferredSize(new Dimension(100,15));
+            JLabel body_part = new JLabel("Body Part:");
+            body_part.setPreferredSize(new Dimension(100,15));
+            JLabel body_part_i= new JLabel(file_body_part.get(i));
+            body_part_i.setPreferredSize(new Dimension(100,15));
 
 
             URL url = null;
