@@ -30,25 +30,28 @@ public class Search  implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
 
-        ArrayList<String> filter_select = new ArrayList<String>();
+        ArrayList<String> filter_body_select = new ArrayList<String>();
+        ArrayList<String> filter_modality_select = new ArrayList<String>();
+        ArrayList<String> filter_dates_select = new ArrayList<String>();
+        String patient_id;
 
         if(ch1.isSelected()){
-            filter_select.add("MRI");
+            filter_modality_select.add("MRI");
         }
         if(ch2.isSelected()){
-            filter_select.add("CT");
+            filter_modality_select.add("CT");
         }
         if(ch3.isSelected()){
-            filter_select.add("Microscope");
+            filter_modality_select.add("Microscope");
         }
         if(ch4.isSelected()){
-            filter_select.add("Lungs");
+            filter_body_select.add("Lungs");
         }
         if(ch5.isSelected()){
-            filter_select.add("Brain");
+            filter_body_select.add("Brain");
         }
         if(ch6.isSelected()){
-            filter_select.add("Spine");
+            filter_body_select.add("Spine");
         }
         ArrayList<String> file_location = new ArrayList<String>();
         file_location.add("https://codeimperial-mib.s3.eu-west-2.amazonaws.com/testImage.jpeg");
