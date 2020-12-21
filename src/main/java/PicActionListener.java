@@ -48,6 +48,7 @@ public class PicActionListener implements ActionListener {
         JButton download = new JButton("Download Image");
         download.addActionListener(new Download_img(location,name));
         JButton delete_button = new JButton("Delete Image");
+        delete_button.addActionListener(new Delete_img(location, name));
 
         big_pic.setSize(750,600);
         pic.setSize(750,600);
