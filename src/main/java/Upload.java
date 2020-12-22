@@ -162,9 +162,14 @@ public class Upload implements ActionListener{
                         img.setPatientID(id_input);
                         System.out.println(finalFile.getName());
                         try {
-                            makeUploadImagePOSTRequest(finalFile);
+                            img.setImageURL(makeUploadImagePOSTRequest(finalFile));
+
+                            Files.deleteIfExists(finalFile.toPath());
+                            JOptionPane.showMessageDialog(null, "The upload was successful");
+                            new_frame.dispose();
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
+                            JOptionPane.showMessageDialog(null, "The upload was unsuccessful");
                         }
                     }
                 });
@@ -197,7 +202,7 @@ public class Upload implements ActionListener{
 
         }
     }
-    protected static void makeUploadImagePOSTRequest(File file) throws IOException {
+    protected static String makeUploadImagePOSTRequest(File file) throws IOException {
         final String UPLOAD_URL = "http://localhost:8080/LocalServlet/uploadimage";
         final int BUFFER_SIZE = 4096;
 
@@ -242,8 +247,11 @@ public class Upload implements ActionListener{
                     httpConn.getInputStream()));
             String response = reader.readLine();
             System.out.println("Server's response: " + response);
+            return response;
         } else {
             System.out.println("Server returned non-OK code: " + responseCode);
+            return "505";
         }
+
     }
 }
