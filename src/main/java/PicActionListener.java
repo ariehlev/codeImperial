@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -52,11 +53,23 @@ public class PicActionListener implements ActionListener {
         download.addActionListener(new Download_img(location,name));
         JButton delete_button = new JButton("Delete Image");
         delete_button.addActionListener(new Delete_img(location, name));
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(url);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        int image_height = image.getHeight();
+        int image_width = image.getWidth();
 
-        big_pic.setSize(750,600);
-        pic.setSize(750,600);
+        if(image_height>1000){
+            image_height=(int)(image_height/1.5);
+            image_width=(int)(image_width/1.5);
+        }
+        big_pic.setSize(image_width,image_height);
+        pic.setSize(image_width,image_height);
 
-        pic.setIcon(new ImageIcon(new ImageIcon(image1).getImage().getScaledInstance(750, 600, Image.SCALE_DEFAULT)));
+        pic.setIcon(new ImageIcon(new ImageIcon(image1).getImage().getScaledInstance(image_width, image_height, Image.SCALE_DEFAULT)));
         big_pic.add(pic);
         text.add(nam);
         text.add(descr);
@@ -72,12 +85,12 @@ public class PicActionListener implements ActionListener {
         text.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 
-        text.setBounds(750,0,400,600);
+        text.setBounds(image_width,0,400,600);
 
 
         new_frame.add(big_pic);
         new_frame.add(text);
-        new_frame.setSize(1100,700);
+        new_frame.setSize(image_width+400,image_height+50);
         new_frame.setLayout(null);
         new_frame.setVisible(true);
         new_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

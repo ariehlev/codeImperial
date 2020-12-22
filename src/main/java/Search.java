@@ -117,7 +117,7 @@ public class Search  implements ActionListener {
         file_dates = libr.getDates();
 
         images.removeAll();
-        int n_of_rows = (int) Math.ceil((file_location.size())/4.0);
+        int n_of_rows = ((int) Math.ceil((file_location.size())/4.0))+4;
         JPanel[] big_result = new JPanel[n_of_rows];
         int k=0;
         big_result[k]= new JPanel();
