@@ -40,7 +40,6 @@ public class Upload implements ActionListener{
             if("dcm".equalsIgnoreCase(file_type) || "dicom".equalsIgnoreCase(file_type)){
                 DicomConvert conv = new DicomConvert();
                 img = conv.getTagByFile(file.getPath());
-                img.setFileName(file.getName());
                 StringBuffer date_dashes = new StringBuffer(img.getDate());
                 date_dashes.insert(4,'-');
                 date_dashes.insert(7, '-');
@@ -57,6 +56,7 @@ public class Upload implements ActionListener{
                 }
 
             }
+            img.setFileName(file.getName());
             //if("jpg".equalsIgnoreCase(file_type)){
             JFrame new_frame = new JFrame("Enlarged Picture");
             Image image1 = null;
