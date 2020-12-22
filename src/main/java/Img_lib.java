@@ -20,6 +20,15 @@ public class Img_lib implements Serializable {
     public Integer getSize(){
         return Library.size();
     }
+
+    public ArrayList<String> getNames (){
+        ArrayList<String> array = new ArrayList<String>();
+        for (int i=0; i < Library.size(); i++){
+            array.add(Library.get(i).getFileName());
+        }
+        return array;
+    }
+
     public ArrayList<String> getURLs (){
         ArrayList<String> array = new ArrayList<String>();
         for (int i=0; i < Library.size(); i++){

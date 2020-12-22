@@ -101,6 +101,9 @@ public class Search  implements ActionListener {
         ArrayList<String> file_location = new ArrayList<String>();
         file_location = libr.getURLs();
 
+        ArrayList<String> file_name = new ArrayList<String>();
+        file_name = libr.getNames();
+
         ArrayList<String> file_PatientID = new ArrayList<String>();
         file_PatientID = libr.getPatientIds();
 
