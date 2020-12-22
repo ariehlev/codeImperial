@@ -39,11 +39,15 @@ public class Upload implements ActionListener{
                 }
                 JLabel pic = new JLabel();
 
-                JLabel nam = new JLabel("ID: ");
-                JLabel descr = new JLabel("Description: ");
+                JLabel name_label = new JLabel("ID: ");
+                JLabel modality_label = new JLabel("Modality: ");
+                JLabel body_label = new JLabel("Body Part: ");
+                JLabel date_label = new JLabel("Date: ");
 
-                JTextField name = new JTextField();
-                JTextField desc = new JTextField();
+                JTextField name_field = new JTextField();
+                JTextField modality_field = new JTextField();
+                JTextField body_field = new JTextField();
+                JTextField date_field = new JTextField();
 
                 JPanel big_pic = new JPanel();
                 JPanel text = new JPanel();
@@ -63,36 +67,51 @@ public class Upload implements ActionListener{
                 layout.setAutoCreateContainerGaps(true);
                 layout.setHorizontalGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(nam)
-                                .addComponent(descr)
+                                .addComponent(name_label)
+                                .addComponent(modality_label)
+                                .addComponent(body_label)
+                                .addComponent(date_label)
                                 .addComponent(upload)
                         )
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(name)
-                                .addComponent(desc)
+                                .addComponent(name_field)
+                                .addComponent(modality_field)
+                                .addComponent(body_field)
+                                .addComponent(date_field)
                         )
 
                 );
                 layout.setVerticalGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(nam)
-                                .addComponent(name)
+                                .addComponent(name_label)
+                                .addComponent(name_field)
                         )
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(descr)
-                                .addComponent(desc)
+                                .addComponent(modality_label)
+                                .addComponent(modality_field)
+                        )
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(body_label)
+                                .addComponent(body_field)
+                        )
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(date_label)
+                                .addComponent(date_field)
                         )
                         .addComponent(upload)
                 );
                 upload.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        String name_input = name.getText();
-                        String description_input = desc.getText();
+                        String name_input = name_field.getText();
+                        String modality_input = modality_field.getText();
+                        String body_part_input = body_field.getText();
+                        String date_input = date_field.getText();
                         ArrayList<String> data_upload = new ArrayList<String>();
                         data_upload.add(name_input);
-                        data_upload.add(description_input);
-
+                        data_upload.add(modality_input);
+                        data_upload.add(body_part_input);
+                        data_upload.add(date_input);
                     }
                 });
 
@@ -110,9 +129,6 @@ public class Upload implements ActionListener{
             else{
 
             }
-
-
-
 
         }
     }

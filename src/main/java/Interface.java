@@ -29,10 +29,14 @@ public class Interface extends Search{
         JLabel date = new JLabel("Date");
         JTextField start_date = new JTextField();
         JTextField end_date = new JTextField();
+        JLabel date_format_label_YYYY = new JLabel("YYYY-MM-DD");
+        JLabel date_format_label =new JLabel("Date Format:");
         JLabel start =new JLabel("Start Date:");
         JLabel end =new JLabel("End Date:");
 
         JLabel patient_id = new JLabel("Patient ID");
+        JLabel patient_id_format = new JLabel("Search for Individual Patient ID");
+        JLabel patient_id_format_example = new JLabel("Example: 012345");
 
         images.setAutoscrolls(true);
         images.setLayout(new BoxLayout(images, BoxLayout.Y_AXIS));
@@ -116,15 +120,25 @@ public class Interface extends Search{
                         .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(date,start, LayoutStyle.ComponentPlacement.INDENT)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(date_format_label)
                                         .addComponent(start)
                                         .addComponent(end)
                                 )
                                 .addGroup(layout.createParallelGroup()
+                                        .addComponent(date_format_label_YYYY)
                                         .addComponent(start_date)
                                         .addComponent(end_date)
                                 )
                         )
                         .addComponent(patient_id)
+                        .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(patient_id, patient_id_format, LayoutStyle.ComponentPlacement.INDENT)
+                                .addComponent(patient_id_format)
+                        )
+                        .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(patient_id, patient_id_format_example, LayoutStyle.ComponentPlacement.INDENT)
+                                .addComponent(patient_id_format_example)
+                        )
                         .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(patient_id, patient_id_window, LayoutStyle.ComponentPlacement.INDENT)
                                 .addComponent(patient_id_window)
@@ -156,6 +170,10 @@ public class Interface extends Search{
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(date)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(date_format_label)
+                                        .addComponent(date_format_label_YYYY)
+                                )
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(start)
                                         .addComponent(start_date)
                                 )
@@ -166,6 +184,8 @@ public class Interface extends Search{
                         )
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(patient_id)
+                                .addComponent(patient_id_format)
+                                .addComponent(patient_id_format_example)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(patient_id_window)
                                 )

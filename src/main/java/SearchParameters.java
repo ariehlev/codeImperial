@@ -1,14 +1,14 @@
 public class SearchParameters {
-    protected String PatientID[];
+    protected String PatientID;
     protected String Modality[];
     protected String BodyPart[];
     protected String Date[];
 
-    public String[] getPatientID() {
+    public String getPatientID() {
         return PatientID;
     }
 
-    public void setPatientID(String[] patientID) {
+    public void setPatientID(String patientID) {
         PatientID = patientID;
     }
 
