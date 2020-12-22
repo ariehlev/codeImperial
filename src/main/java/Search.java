@@ -180,7 +180,7 @@ public class Search  implements ActionListener {
             button.setPreferredSize(new Dimension(250,200));
             button.setIcon(new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(250, 200, Image.SCALE_DEFAULT)));
             button.setVisible(true);
-            button.addActionListener(new PicActionListener(file_location.get(i),file_PatientID.get(i),file_Modalities.get(i), file_body_part.get(i), file_dates.get(i), file_name.get(i)));
+            button.addActionListener(new PicActionListener(file_location.get(i),file_PatientID.get(i),file_Modalities.get(i), file_body_part.get(i), file_dates.get(i), file_name.get(i), libr.getimg(i).getID()));
 
             img_panel.add(button);
             info_panel.add(name);

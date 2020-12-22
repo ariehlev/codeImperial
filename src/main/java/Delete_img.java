@@ -9,25 +9,18 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Delete_img implements ActionListener {
-    private String location,name;
+    private int ID;
 
-    public Delete_img(String Location, String Name){
-        this.location=Location;
-        this.name=Name;
+    public Delete_img(int ID){
+        this.ID=ID;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        try(InputStream in = new URL(location).openStream()){
-            int dialogButton = JOptionPane.YES_NO_OPTION;
-            if (JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this Image from the Database?", "WARNING",
-                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                // yes option
-            } else {
-                // no option
-            }
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        if (JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this Image from the Database?", "WARNING",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
         }
     }
 }
