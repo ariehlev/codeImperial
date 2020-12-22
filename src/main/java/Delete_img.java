@@ -1,5 +1,4 @@
 import com.google.gson.Gson;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +25,7 @@ public class Delete_img implements ActionListener {
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             try {
                 makeDeleteRequest(img);
+                JOptionPane.showMessageDialog(null, "The image was deleted successfully!");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
