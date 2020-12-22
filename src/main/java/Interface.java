@@ -151,9 +151,9 @@ public class Interface extends Search{
                         .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(patient_id, patient_id_window, LayoutStyle.ComponentPlacement.INDENT)
                                 .addComponent(patient_id_window)
-                                .addComponent(search)
-                        )
 
+                        )
+                        .addComponent(search)
                 )
 
 
@@ -201,9 +201,10 @@ public class Interface extends Search{
                                 .addComponent(patient_id_format_example)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(patient_id_window)
-                                        .addComponent(search)
+
                                 )
                         )
+                        .addComponent(search)
                 )
 
 
