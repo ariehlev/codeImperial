@@ -21,7 +21,8 @@ public class Download_img implements ActionListener {
 
             try(InputStream in = new URL(location).openStream()){
                 String home = System.getProperty("user.home");
-                String path=home+"/Downloads/"+name+".jpg";
+                File file_name = new File(location);
+                String path=home+"/Downloads/"+file_name.getName();
                 File file = new File(path);
                 if(file.exists() && !file.isDirectory()) {
                     JOptionPane.showMessageDialog(null, "The Image already exists at: "+path);

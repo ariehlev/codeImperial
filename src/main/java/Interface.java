@@ -6,8 +6,8 @@ import javax.swing.*;
 
 
 public class Interface extends Search{
-    public Interface(JPanel images,JFrame frame,JCheckBox ch1,JCheckBox ch2,JCheckBox ch3,JCheckBox ch4,JCheckBox ch5,JCheckBox ch6,JTextField start, JTextField end,JTextField id) {
-        super(images,frame,ch1,ch2,ch3,ch4,ch5,ch6,start,end,id);
+    public Interface(JPanel images,JFrame frame,JCheckBox ch1,JCheckBox ch2,JCheckBox ch3,JCheckBox ch4,JCheckBox ch5,JCheckBox ch6,JCheckBox ch7,JCheckBox ch8,JCheckBox ch9,JCheckBox ch10,JTextField start, JTextField end,JTextField id) {
+        super(images,frame,ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch8,ch9,ch10,start,end,id);
 
     }
     public static void inter() {
@@ -15,10 +15,15 @@ public class Interface extends Search{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JCheckBox checkBox1 = new JCheckBox("MRI");
         JCheckBox checkBox2 = new JCheckBox("CT");
-        JCheckBox checkBox3 = new JCheckBox("Microscope");
-        JCheckBox checkBox4 = new JCheckBox("Lungs");
-        JCheckBox checkBox5 = new JCheckBox("Brain");
-        JCheckBox checkBox6 = new JCheckBox("Spine");
+        JCheckBox checkBox3 = new JCheckBox("ECG");
+        JCheckBox checkBox4 = new JCheckBox("US");
+        JCheckBox checkBox5 = new JCheckBox("X-ray");
+
+        JCheckBox checkBox6 = new JCheckBox("Leg");
+        JCheckBox checkBox7 = new JCheckBox("Head");
+        JCheckBox checkBox8 = new JCheckBox("Arm");
+        JCheckBox checkBox9 = new JCheckBox("Body");
+        JCheckBox checkBox10 = new JCheckBox("Heart");
 
         JPanel filter = new JPanel();
         JPanel top_bar1 = new JPanel();
@@ -81,7 +86,7 @@ public class Interface extends Search{
         JTextField patient_id_window = new JTextField();
         patient_id_window.setSize(100, 15);
 
-        search.addActionListener(new Search(images,frame,checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6,start_date,end_date,patient_id_window));
+        search.addActionListener(new Search(images,frame,checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6,checkBox7,checkBox8,checkBox9,checkBox10,start_date,end_date,patient_id_window));
 
         top_bar1.add(logo);
         top_bar2.add(title);
@@ -105,15 +110,19 @@ public class Interface extends Search{
                                         .addComponent(checkBox1)
                                         .addComponent(checkBox2)
                                         .addComponent(checkBox3)
+                                        .addComponent(checkBox4)
+                                        .addComponent(checkBox5)
                                 )
                         )
                         .addComponent(body)
                         .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(body,checkBox4, LayoutStyle.ComponentPlacement.INDENT)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkBox4)
-                                    .addComponent(checkBox5)
-                                    .addComponent(checkBox6)
+                                        .addComponent(checkBox6)
+                                        .addComponent(checkBox7)
+                                        .addComponent(checkBox8)
+                                        .addComponent(checkBox9)
+                                        .addComponent(checkBox10)
                                 )
                         )
                         .addComponent(date)
@@ -142,8 +151,8 @@ public class Interface extends Search{
                         .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(patient_id, patient_id_window, LayoutStyle.ComponentPlacement.INDENT)
                                 .addComponent(patient_id_window)
+                                .addComponent(search)
                         )
-                        .addComponent(search)
 
                 )
 
@@ -157,14 +166,18 @@ public class Interface extends Search{
                                         .addComponent(checkBox1)
                                         .addComponent(checkBox2)
                                         .addComponent(checkBox3)
+                                        .addComponent(checkBox4)
+                                        .addComponent(checkBox5)
                                 )
                         )
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(body)
                                 .addGroup(layout.createSequentialGroup()
-                                        .addComponent(checkBox4)
-                                        .addComponent(checkBox5)
                                         .addComponent(checkBox6)
+                                        .addComponent(checkBox7)
+                                        .addComponent(checkBox8)
+                                        .addComponent(checkBox9)
+                                        .addComponent(checkBox10)
                                 )
                         )
                         .addGroup(layout.createSequentialGroup()
@@ -188,12 +201,11 @@ public class Interface extends Search{
                                 .addComponent(patient_id_format_example)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(patient_id_window)
+                                        .addComponent(search)
                                 )
                         )
                 )
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(search)
-                )
+
 
         );
 
