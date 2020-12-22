@@ -36,6 +36,7 @@ public class Interface extends Search{
 
         JLabel patient_id = new JLabel("Patient ID");
         JLabel patient_id_format = new JLabel("Search for Individual Patient ID");
+        JLabel patient_id_format_example = new JLabel("Example: 012345");
 
         images.setAutoscrolls(true);
         images.setLayout(new BoxLayout(images, BoxLayout.Y_AXIS));
@@ -132,11 +133,15 @@ public class Interface extends Search{
                         .addComponent(patient_id)
                         .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(patient_id, patient_id_format, LayoutStyle.ComponentPlacement.INDENT)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                    .addComponent(patient_id_format)
-                                    .addComponent(patient_id_window)
-                                )
-
+                                .addComponent(patient_id_format)
+                        )
+                        .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(patient_id, patient_id_format_example, LayoutStyle.ComponentPlacement.INDENT)
+                                .addComponent(patient_id_format_example)
+                        )
+                        .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(patient_id, patient_id_window, LayoutStyle.ComponentPlacement.INDENT)
+                                .addComponent(patient_id_window)
                         )
                         .addComponent(search)
 
@@ -179,8 +184,9 @@ public class Interface extends Search{
                         )
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(patient_id)
-                                .addGroup(layout.createSequentialGroup()
-                                        .addComponent(patient_id_format)
+                                .addComponent(patient_id_format)
+                                .addComponent(patient_id_format_example)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(patient_id_window)
                                 )
                         )
