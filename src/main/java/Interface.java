@@ -41,7 +41,7 @@ public class Interface extends Search{
 
         JLabel patient_id = new JLabel("Patient ID");
         JLabel patient_id_format = new JLabel("Search for Individual Patient ID");
-        JLabel patient_id_format_example = new JLabel("Example: 012345");
+        JLabel patient_id_format_example = new JLabel("Example: 12345");
 
         images.setAutoscrolls(true);
         images.setLayout(new BoxLayout(images, BoxLayout.Y_AXIS));
@@ -151,9 +151,9 @@ public class Interface extends Search{
                         .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(patient_id, patient_id_window, LayoutStyle.ComponentPlacement.INDENT)
                                 .addComponent(patient_id_window)
-                                .addComponent(search)
-                        )
 
+                        )
+                        .addComponent(search)
                 )
 
 
@@ -201,9 +201,10 @@ public class Interface extends Search{
                                 .addComponent(patient_id_format_example)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(patient_id_window)
-                                        .addComponent(search)
+
                                 )
                         )
+                        .addComponent(search)
                 )
 
 

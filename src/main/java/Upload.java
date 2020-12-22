@@ -27,13 +27,29 @@ public class Upload implements ActionListener{
 
         int val = file_select.showOpenDialog(null);
         if (val == JFileChooser.APPROVE_OPTION) {
-            File file_path = file_select.getSelectedFile();
-            String file_type = (FilenameUtils.getExtension(file_path.toString())).toString();
-            if("jpg".equalsIgnoreCase(file_type)){
+            File file = file_select.getSelectedFile();
+            String file_type = (FilenameUtils.getExtension(file.toString())).toString();
+            Img img = new Img();
+            if("dcm".equalsIgnoreCase(file_type) || "dicom".equalsIgnoreCase(file_type)){
+                DicomConvert conv = new DicomConvert();
+                img = conv.getTagByFile(file.getPath());
+                img.setFileName(file.getName());
+                System.out.println(img.getDate());
+                System.out.println(img.getFileName());
+                System.out.println(img.getModality());
+                System.out.println(img.getPatientID());
+                try {
+                    file = conv.jpgconvert(file.getPath());
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+
+            }
+            //if("jpg".equalsIgnoreCase(file_type)){
                 JFrame new_frame = new JFrame("Enlarged Picture");
                 Image image1 = null;
                 try {
-                    image1 = ImageIO.read(file_path);
+                    image1 = ImageIO.read(file);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -125,10 +141,21 @@ public class Upload implements ActionListener{
                 new_frame.setVisible(true);
                 new_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-            }
+            //}
+            /*
             else{
-
+                DicomConvert conv = new DicomConvert();
+                String filePath = "C:\\Programming3\\Dicom\\us heart 1.dcm";
+                try {
+                    conv.jpgconvert(file.getPath());
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                Img img = new Img();
+                img = conv.getTagByFile(file.getPath());
             }
+
+             */
 
         }
     }

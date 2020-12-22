@@ -9,14 +9,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class PicActionListener implements ActionListener {
-    private String location,name,desc, body_part, date;
+    private String location,name,desc, body_part, date, file_name;
 
-    public PicActionListener(String Location, String Name, String Description, String Body_Part, String Date){
+    public PicActionListener(String Location, String Name, String Description, String Body_Part, String Date, String File){
         this.location=Location;
         this.name=Name;
         this.desc=Description;
         this.body_part=Body_Part;
         this.date=Date;
+        this.file_name = File;
     }
 
     @Override
@@ -35,7 +36,7 @@ public class PicActionListener implements ActionListener {
             ioException.printStackTrace();
         }
         JLabel pic = new JLabel();
-        JLabel nam = new JLabel(" ID: " + name);
+        JLabel nam = new JLabel(" Patient: " + name);
         nam.setFont(nam.getFont().deriveFont(20.0f));
         JLabel descr = new JLabel(" Modality: " + desc);
         descr.setFont(descr.getFont().deriveFont(20.0f));
@@ -43,6 +44,8 @@ public class PicActionListener implements ActionListener {
         body.setFont(body.getFont().deriveFont(20.0f));
         JLabel date_label = new JLabel(" Date: " + date);
         date_label.setFont(date_label.getFont().deriveFont(20.0f));
+        JLabel file_name_label = new JLabel(" File Name: " + file_name);
+        file_name_label.setFont(date_label.getFont().deriveFont(20.0f));
         JPanel big_pic = new JPanel();
         JPanel text = new JPanel();
         JButton download = new JButton("Download Image");
@@ -59,6 +62,7 @@ public class PicActionListener implements ActionListener {
         text.add(descr);
         text.add(body);
         text.add(date_label);
+        text.add(file_name_label);
         text.add(download);
         text.add(delete_button);
         text.setLayout(new BoxLayout(text, BoxLayout.Y_AXIS));
@@ -73,7 +77,7 @@ public class PicActionListener implements ActionListener {
 
         new_frame.add(big_pic);
         new_frame.add(text);
-        new_frame.setSize(1000,600);
+        new_frame.setSize(1100,700);
         new_frame.setLayout(null);
         new_frame.setVisible(true);
         new_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
