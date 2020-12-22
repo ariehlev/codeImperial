@@ -26,6 +26,7 @@ public class Delete_img implements ActionListener {
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             try {
                 makeDeleteRequest(img);
+                JOptionPane.showMessageDialog(null, "The image was deleted successfully! Please click 'Search' again on the main window to refresh the search");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -41,7 +42,8 @@ public class Delete_img implements ActionListener {
 
         URL myURL = null;
         try {
-            myURL = new URL("http://localhost:8080/LocalServlet/delete");
+            //myURL = new URL("http://localhost:8080/LocalServlet/delete");
+            myURL = new URL("https://hlabsmedimagedatabase.herokuapp.com/delete");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

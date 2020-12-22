@@ -206,7 +206,8 @@ public class Upload implements ActionListener{
         }
     }
     protected static String makeUploadImagePOSTRequest(File file) throws IOException {
-        final String UPLOAD_URL = "http://localhost:8080/LocalServlet/uploadimage";
+        //final String UPLOAD_URL = "http://localhost:8080/LocalServlet/uploadimage";
+        final String UPLOAD_URL = "https://hlabsmedimagedatabase.herokuapp.com/uploadimage";
         final int BUFFER_SIZE = 4096;
 
         // takes file path from first program's argument
@@ -267,7 +268,8 @@ public class Upload implements ActionListener{
 
         URL myURL = null;
         try {
-            myURL = new URL("http://localhost:8080/LocalServlet/upload");
+            //myURL = new URL("http://localhost:8080/LocalServlet/upload");
+            myURL = new URL("https://hlabsmedimagedatabase.herokuapp.com/upload");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
