@@ -7,8 +7,8 @@ import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -142,7 +142,8 @@ public class Upload implements ActionListener{
                         )
                         .addComponent(upload)
                 );
-                upload.addActionListener(new ActionListener() {
+            File finalFile = file;
+            upload.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         Img img = new Img();
@@ -159,6 +160,12 @@ public class Upload implements ActionListener{
                         img.setBodyPart(body_part_input);
                         img.setDate(date_input);
                         img.setPatientID(id_input);
+                        System.out.println(finalFile.getName());
+                        try {
+                            makeUploadImagePOSTRequest(finalFile);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 });
 
@@ -188,6 +195,55 @@ public class Upload implements ActionListener{
 
              */
 
+        }
+    }
+    protected static void makeUploadImagePOSTRequest(File file) throws IOException {
+        final String UPLOAD_URL = "http://localhost:8080/LocalServlet/uploadimage";
+        final int BUFFER_SIZE = 4096;
+
+        // takes file path from first program's argument
+        //String filePath = "/Users/lilmaga/Desktop/test.dcm";
+        //File uploadFile = new File(filePath);
+        System.out.println("File to upload: " + file.getPath());
+
+        // creates a HTTP connection
+        URL url = new URL(UPLOAD_URL);
+        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+        httpConn.setUseCaches(false);
+        httpConn.setDoOutput(true);
+        httpConn.setRequestMethod("POST");
+        // sets file name as a HTTP header
+        httpConn.setRequestProperty("fileName", file.getName());
+
+        // opens output stream of the HTTP connection for writing data
+        OutputStream outputStream = httpConn.getOutputStream();
+
+        // Opens input stream of the file for reading data
+        FileInputStream inputStream = new FileInputStream(file);
+
+        byte[] buffer = new byte[BUFFER_SIZE];
+        int bytesRead = -1;
+
+        System.out.println("Start writing data...");
+
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+
+        System.out.println("Data was written.");
+        outputStream.close();
+        inputStream.close();
+
+        // always check HTTP response code from server
+        int responseCode = httpConn.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            // reads server's response
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    httpConn.getInputStream()));
+            String response = reader.readLine();
+            System.out.println("Server's response: " + response);
+        } else {
+            System.out.println("Server returned non-OK code: " + responseCode);
         }
     }
 }
