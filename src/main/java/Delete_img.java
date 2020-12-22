@@ -25,7 +25,7 @@ public class Delete_img implements ActionListener {
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             try {
                 makeDeleteRequest(img);
-                JOptionPane.showMessageDialog(null, "The image was deleted successfully!");
+                JOptionPane.showMessageDialog(null, "The image was deleted successfully! Please click 'Search' again on the main window to refresh the search");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
