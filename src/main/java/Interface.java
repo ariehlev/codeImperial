@@ -41,7 +41,7 @@ public class Interface extends Search{
 
         JLabel patient_id = new JLabel("Patient ID");
         JLabel patient_id_format = new JLabel("Search for Individual Patient ID");
-        JLabel patient_id_format_example = new JLabel("Example: 012345");
+        JLabel patient_id_format_example = new JLabel("Example: 12345");
 
         images.setAutoscrolls(true);
         images.setLayout(new BoxLayout(images, BoxLayout.Y_AXIS));

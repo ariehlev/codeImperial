@@ -133,7 +133,7 @@ public class Search  implements ActionListener {
             JPanel result = new JPanel();
             result.setPreferredSize(new Dimension(270,350));
 
-            JLabel name = new JLabel("ID:");
+            JLabel name = new JLabel("Patient:");
             name.setPreferredSize(new Dimension(100,15));
             JLabel name_i = new JLabel(file_PatientID.get(i));
             name_i.setPreferredSize(new Dimension(100,15));
@@ -152,6 +152,11 @@ public class Search  implements ActionListener {
             date_label.setPreferredSize(new Dimension(100,15));
             JLabel date_label_i= new JLabel(file_dates.get(i));
             date_label_i.setPreferredSize(new Dimension(100,15));
+
+            JLabel file_name_label = new JLabel("File Name:");
+            file_name_label.setPreferredSize(new Dimension(100,15));
+            JLabel file_name_label_i= new JLabel(file_name.get(i));
+            file_name_label_i.setPreferredSize(new Dimension(100,15));
 
 
             URL url = null;
@@ -175,7 +180,7 @@ public class Search  implements ActionListener {
             button.setPreferredSize(new Dimension(250,200));
             button.setIcon(new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(250, 200, Image.SCALE_DEFAULT)));
             button.setVisible(true);
-            button.addActionListener(new PicActionListener(file_location.get(i),file_PatientID.get(i),file_Modalities.get(i), file_body_part.get(i), file_dates.get(i)));
+            button.addActionListener(new PicActionListener(file_location.get(i),file_PatientID.get(i),file_Modalities.get(i), file_body_part.get(i), file_dates.get(i), file_name.get(i)));
 
             img_panel.add(button);
             info_panel.add(name);
@@ -186,6 +191,8 @@ public class Search  implements ActionListener {
             info_panel.add(body_part_i);
             info_panel.add(date_label);
             info_panel.add(date_label_i);
+            info_panel.add(file_name_label);
+            info_panel.add(file_name_label_i);
 
             result.add(img_panel);
             result.add(info_panel);
