@@ -60,6 +60,12 @@ public class Search  implements ActionListener {
         if(ch6.isSelected()){
             filter_body_select.add("spine");
         }
+        if(filter_modality_select.isEmpty()){
+            filter_modality_select.add("");
+        }
+        if(filter_body_select.isEmpty()){
+            filter_body_select.add("");
+        }
         filter_dates_select.add(start.getText());
         filter_dates_select.add(end.getText());
         patient_id[0]=id.getText();
