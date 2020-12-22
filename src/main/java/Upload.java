@@ -29,11 +29,20 @@ public class Upload implements ActionListener{
         if (val == JFileChooser.APPROVE_OPTION) {
             File file = file_select.getSelectedFile();
             String file_type = (FilenameUtils.getExtension(file.toString())).toString();
+
             Img img = new Img();
+
+            //JTextField id_field = new JTextField();
+
             if("dcm".equalsIgnoreCase(file_type) || "dicom".equalsIgnoreCase(file_type)){
                 DicomConvert conv = new DicomConvert();
                 img = conv.getTagByFile(file.getPath());
                 img.setFileName(file.getName());
+                StringBuffer date_dashes = new StringBuffer(img.getDate());
+                date_dashes.insert(4,'-');
+                date_dashes.insert(7, '-');
+                img.setDate(date_dashes.toString());
+
                 System.out.println(img.getDate());
                 System.out.println(img.getFileName());
                 System.out.println(img.getModality());
@@ -55,17 +64,26 @@ public class Upload implements ActionListener{
                 }
                 JLabel pic = new JLabel();
 
-                JLabel name_label = new JLabel("ID: ");
+                JLabel name_label = new JLabel("File Name: ");
                 JLabel modality_label = new JLabel("Modality: ");
                 JLabel body_label = new JLabel("Body Part: ");
                 JLabel date_label = new JLabel("Date: ");
+                JLabel id_label = new JLabel("ID: ");
+
 
                 JTextField name_field = new JTextField();
                 JTextField modality_field = new JTextField();
                 JTextField body_field = new JTextField();
                 JTextField date_field = new JTextField();
+                JTextField id_field = new JTextField();
 
-                String provisional_name =
+
+                name_field.setText(img.getFileName());
+                modality_field.setText(img.getModality());
+                body_field.setText(img.getBodyPart());
+                date_field.setText(img.getDate());
+                id_field.setText(img.getPatientID());
+
 
                 JPanel big_pic = new JPanel();
                 JPanel text = new JPanel();
@@ -89,6 +107,7 @@ public class Upload implements ActionListener{
                                 .addComponent(modality_label)
                                 .addComponent(body_label)
                                 .addComponent(date_label)
+                                .addComponent(id_label)
                                 .addComponent(upload)
                         )
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -96,6 +115,7 @@ public class Upload implements ActionListener{
                                 .addComponent(modality_field)
                                 .addComponent(body_field)
                                 .addComponent(date_field)
+                                .addComponent(id_field)
                         )
 
                 );
@@ -116,20 +136,29 @@ public class Upload implements ActionListener{
                                 .addComponent(date_label)
                                 .addComponent(date_field)
                         )
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(id_label)
+                                .addComponent(id_field)
+                        )
                         .addComponent(upload)
                 );
                 upload.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        Img img = new Img();
                         String name_input = name_field.getText();
                         String modality_input = modality_field.getText();
                         String body_part_input = body_field.getText();
                         String date_input = date_field.getText();
-                        ArrayList<String> data_upload = new ArrayList<String>();
-                        data_upload.add(name_input);
-                        data_upload.add(modality_input);
-                        data_upload.add(body_part_input);
-                        data_upload.add(date_input);
+                        String id_input = id_field.getText();
+
+                        //ArrayList<String> data_upload = new ArrayList<String>();
+
+                        img.setFileName(name_input);
+                        img.setModality(modality_input);
+                        img.setBodyPart(body_part_input);
+                        img.setDate(date_input);
+                        img.setPatientID(id_input);
                     }
                 });
 
