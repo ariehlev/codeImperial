@@ -9,10 +9,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Delete_img implements ActionListener {
-    private int ID;
+    private Img img;
 
-    public Delete_img(int ID){
-        this.ID=ID;
+    public Delete_img(Img img){
+        this.img=img;
     }
 
     @Override

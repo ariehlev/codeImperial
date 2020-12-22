@@ -10,16 +10,16 @@ import java.net.URL;
 
 public class PicActionListener implements ActionListener {
     private String location,name,desc, body_part, date, file_name;
-    private int ID;
+    private Img img;
 
-    public PicActionListener(String Location, String Name, String Description, String Body_Part, String Date, String File, int ID){
+    public PicActionListener(String Location, String Name, String Description, String Body_Part, String Date, String File, Img img){
         this.location=Location;
         this.name=Name;
         this.desc=Description;
         this.body_part=Body_Part;
         this.date=Date;
         this.file_name = File;
-        this.ID = ID;
+        this.img = img;
 
     }
 
@@ -54,7 +54,7 @@ public class PicActionListener implements ActionListener {
         JButton download = new JButton("Download Image");
         download.addActionListener(new Download_img(location,name));
         JButton delete_button = new JButton("Delete Image");
-        delete_button.addActionListener(new Delete_img(ID));
+        delete_button.addActionListener(new Delete_img(img));
 
         big_pic.setSize(750,1595);
         pic.setSize(750,1595);
