@@ -65,6 +65,8 @@ public class Upload implements ActionListener{
                 JTextField body_field = new JTextField();
                 JTextField date_field = new JTextField();
 
+                String provisional_name =
+
                 JPanel big_pic = new JPanel();
                 JPanel text = new JPanel();
 
