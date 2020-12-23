@@ -14,6 +14,8 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.ConnectException;
 import java.nio.file.Files;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 public class Upload implements ActionListener {
 
@@ -99,7 +101,13 @@ public class Upload implements ActionListener {
 
             modality_field.setText(img.getModality());
             body_field.setText(img.getBodyPart());
-            date_field.setText(img.getDate());
+            if (img.getDate() == null){
+                //https://www.scribd.com/doc/3846457/GET-DATE-TIME-in-java
+                Calendar cal = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                date_field.setText(sdf.format(cal.getTime()));
+            }
+            else date_field.setText(img.getDate());
             id_field.setText(img.getPatientID());
 
             int image_height = image1.getHeight();
