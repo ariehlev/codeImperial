@@ -12,13 +12,9 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.imageio.ImageIO;
 
-public class Search  implements ActionListener {
+public class Search extends Interface implements ActionListener {
 
-    private JPanel images;
-    private JFrame frame;
-    private JCheckBox ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch8,ch9,ch10;
-    private JTextField start,end,id;
-
+    /*
     public Search(JPanel imagee, JFrame framee, JCheckBox checkBox1,JCheckBox checkBox2,JCheckBox checkBox3,JCheckBox checkBox4, JCheckBox checkBox5, JCheckBox checkBox6, JCheckBox checkBox7,JCheckBox checkBox8,JCheckBox checkBox9, JCheckBox checkBox10, JTextField start_date, JTextField end_date, JTextField patient_id_window){
         this.images=imagee;
         this.frame=framee;
@@ -37,6 +33,8 @@ public class Search  implements ActionListener {
         this.id=patient_id_window;
     }
 
+     */
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -44,34 +42,34 @@ public class Search  implements ActionListener {
         ArrayList<String> filter_modality_select = new ArrayList<String>();
         ArrayList<String> filter_dates_select = new ArrayList<String>();
 
-        if(ch1.isSelected()){
+        if(checkBox1.isSelected()){
             filter_modality_select.add("MRI");
         }
-        if(ch2.isSelected()){
+        if(checkBox2.isSelected()){
             filter_modality_select.add("CT");
         }
-        if(ch3.isSelected()){
+        if(checkBox3.isSelected()){
             filter_modality_select.add("ECG");
         }
-        if(ch4.isSelected()){
+        if(checkBox4.isSelected()){
             filter_modality_select.add("US");
         }
-        if(ch5.isSelected()){
+        if(checkBox5.isSelected()){
             filter_modality_select.add("XRAY");
         }
-        if(ch6.isSelected()){
+        if(checkBox6.isSelected()){
             filter_body_select.add("Leg");
         }
-        if(ch7.isSelected()){
+        if(checkBox7.isSelected()){
             filter_body_select.add("Head");
         }
-        if(ch8.isSelected()){
+        if(checkBox8.isSelected()){
             filter_body_select.add("Arm");
         }
-        if(ch9.isSelected()){
+        if(checkBox9.isSelected()){
             filter_body_select.add("Body");
         }
-        if(ch10.isSelected()){
+        if(checkBox10.isSelected()){
             filter_body_select.add("Heart");
         }
         if(filter_modality_select.isEmpty()) {
@@ -80,9 +78,9 @@ public class Search  implements ActionListener {
         if(filter_body_select.isEmpty()){
             filter_body_select.add("");
         }
-        filter_dates_select.add(start.getText());
-        filter_dates_select.add(end.getText());
-        String patient_id=id.getText();
+        filter_dates_select.add(start_date.getText());
+        filter_dates_select.add(end_date.getText());
+        String patient_id=patient_id_window.getText();
 
         SearchParameters pars = new SearchParameters();
         pars.setModality(filter_modality_select.toArray(new String [0]));

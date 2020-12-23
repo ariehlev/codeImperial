@@ -15,9 +15,11 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.ArrayList;
+
 
 public class Upload implements ActionListener{
+
+    boolean Dicomchecker = false;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -31,16 +33,17 @@ public class Upload implements ActionListener{
         int val = file_select.showOpenDialog(null);
         if (val == JFileChooser.APPROVE_OPTION) {
             File file = file_select.getSelectedFile();
-            String file_type = (FilenameUtils.getExtension(file.toString())).toString();
+            String file_type = (FilenameUtils.getExtension(file.toString()));
 
             Img img = new Img();
 
             //JTextField id_field = new JTextField();
 
             if("dcm".equalsIgnoreCase(file_type) || "dicom".equalsIgnoreCase(file_type)){
-                DicomConvert conv = new DicomConvert();
-                img = conv.getTagByFile(file.getPath());
-                StringBuffer date_dashes = new StringBuffer(img.getDate());
+                Dicomchecker = true;
+                //DicomConvert conv = new DicomConvert();
+                img = DicomConvert.getTagByFile(file.getPath());
+                StringBuilder date_dashes = new StringBuilder(img.getDate());
                 date_dashes.insert(4,'-');
                 date_dashes.insert(7, '-');
                 img.setDate(date_dashes.toString());
@@ -50,7 +53,8 @@ public class Upload implements ActionListener{
                 System.out.println(img.getModality());
                 System.out.println(img.getPatientID());
                 try {
-                    file = conv.jpgconvert(file.getPath());
+                    file = DicomConvert.jpgconvert(file.getPath());
+                    //Files.deleteIfExists(file.toPath());
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -98,6 +102,7 @@ public class Upload implements ActionListener{
             big_pic.setSize(750, 600);
             pic.setSize(750, 600);
 
+            assert image1 != null;
             pic.setIcon(new ImageIcon(new ImageIcon(image1).getImage().getScaledInstance(750, 600, Image.SCALE_DEFAULT)));
             big_pic.add(pic);
 
@@ -172,7 +177,10 @@ public class Upload implements ActionListener{
                         img.setImageURL(makeUploadImagePOSTRequest(finalFile));
                         makeUploadPostRequest(img);
 
-                        Files.deleteIfExists(finalFile.toPath());
+                        if (Dicomchecker){
+                            Files.deleteIfExists(finalFile.toPath());
+                            System.out.println("jpg deleted from computer");
+                        }
                         JOptionPane.showMessageDialog(null, "The upload was successful");
                         new_frame.dispose();
                     } catch (IOException ioException) {
@@ -280,6 +288,7 @@ public class Upload implements ActionListener{
         HttpURLConnection conn = null;
 
         try {
+            assert myURL != null;
             conn = (HttpURLConnection) myURL.openConnection();
         } catch (IOException e) {
             e.printStackTrace();
@@ -287,6 +296,7 @@ public class Upload implements ActionListener{
 
         // Set up the header
         try {
+            assert conn != null;
             conn.setRequestMethod("POST");
         } catch (ProtocolException e) {
             e.printStackTrace();
