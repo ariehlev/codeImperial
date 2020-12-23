@@ -12,6 +12,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.ConnectException;
 import java.nio.file.Files;
 
 public class Upload implements ActionListener {
@@ -197,13 +198,17 @@ public class Upload implements ActionListener {
                     try {
                         img.setImageURL(ServerComm.makeUploadImagePOSTRequest(finalFile));
                         ServerComm.makeUploadPostRequest(img);
-
+                        //img.setImageURL();
                         if (Dicomchecker){
                             Files.deleteIfExists(finalFile.toPath());
                             System.out.println("jpg deleted from computer");
                         }
                         JOptionPane.showMessageDialog(null, "The upload was successful");
                         new_frame.dispose();
+                    }
+                    catch (InvalidObjectException | ConnectException o){
+                        o.printStackTrace();
+                        JOptionPane.showMessageDialog(null, o.getMessage());
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                         JOptionPane.showMessageDialog(null, "The upload was unsuccessful");

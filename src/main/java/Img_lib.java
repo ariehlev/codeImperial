@@ -21,6 +21,10 @@ public class Img_lib implements Serializable {
         return Library.size();
     }
 
+    public boolean isEmpty(){
+        return Library.isEmpty();
+    }
+
     public Img getimg(int i){
         return Library.get(i);
     }

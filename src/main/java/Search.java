@@ -73,7 +73,10 @@ public class Search extends Interface implements ActionListener {
         Img_lib libr = new Img_lib();
         try {
             libr = ServerComm.makeSearchRequest(pars);
-        } catch (IOException ioException) {
+        }catch (InvalidObjectException o){
+            JOptionPane.showMessageDialog(null, o.getMessage());
+        }
+        catch (IOException ioException) {
             ioException.printStackTrace();
         }
         libr.Details();

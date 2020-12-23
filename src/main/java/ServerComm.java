@@ -1,15 +1,13 @@
 import com.google.gson.Gson;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 
 public class ServerComm {
     public static Img_lib makeSearchRequest(SearchParameters pars) throws IOException {
         // Set up the body data
+        System.out.println("Sending search to servlet");
         Gson gson = new Gson();
         String jsonString = gson.toJson(pars);
         byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);
@@ -59,7 +57,11 @@ public class ServerComm {
         bufferedReader.close();
         Gson gson2 = new Gson();
         Img_lib libr = gson2.fromJson(inputLine,Img_lib.class);
-        libr.Details();
+        System.out.println(inputLine);
+        //libr.Details();
+        if (libr.isEmpty()){
+            throw new InvalidObjectException("No images found in database");
+        }
         return libr;
     }
 
@@ -166,10 +168,13 @@ public class ServerComm {
                     httpConn.getInputStream()));
             String response = reader.readLine();
             System.out.println("Server's response: " + response);
-            return response;
+            if (response == "Duplicate file") {
+                throw new InvalidObjectException("Another file on the database already has that name, please choose a unique name");
+            }
+            else return response;
         } else {
             System.out.println("Server returned non-OK code: " + responseCode);
-            return "505";
+            throw new ConnectException("Failed to connect to server");
         }
 
     }
