@@ -14,27 +14,6 @@ import javax.imageio.ImageIO;
 
 public class Search extends Interface implements ActionListener {
 
-    /*
-    public Search(JPanel imagee, JFrame framee, JCheckBox checkBox1,JCheckBox checkBox2,JCheckBox checkBox3,JCheckBox checkBox4, JCheckBox checkBox5, JCheckBox checkBox6, JCheckBox checkBox7,JCheckBox checkBox8,JCheckBox checkBox9, JCheckBox checkBox10, JTextField start_date, JTextField end_date, JTextField patient_id_window){
-        this.images=imagee;
-        this.frame=framee;
-        this.ch1=checkBox1;
-        this.ch2=checkBox2;
-        this.ch3=checkBox3;
-        this.ch4=checkBox4;
-        this.ch5=checkBox5;
-        this.ch6=checkBox6;
-        this.ch7=checkBox7;
-        this.ch8=checkBox8;
-        this.ch9=checkBox9;
-        this.ch10=checkBox10;
-        this.start=start_date;
-        this.end=end_date;
-        this.id=patient_id_window;
-    }
-
-     */
-
     @Override
     public void actionPerformed(ActionEvent e) {
         searchaction();
@@ -93,7 +72,7 @@ public class Search extends Interface implements ActionListener {
 
         Img_lib libr = new Img_lib();
         try {
-            libr = makePostRequest(pars);
+            libr = ServerComm.makeSearchRequest(pars);
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
@@ -217,60 +196,7 @@ public class Search extends Interface implements ActionListener {
         //making thumbnails and outputting them
 
     }
-    protected static Img_lib makePostRequest(SearchParameters pars) throws IOException {
-        // Set up the body data
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(pars);
-        byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);
 
-        URL myURL = null;
-        try {
-            //myURL = new URL("http://localhost:8080/LocalServlet/main");
-            myURL = new URL("https://hlabsmedimagedatabase.herokuapp.com/main");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        HttpURLConnection conn = null;
-
-        try {
-            conn = (HttpURLConnection) myURL.openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Set up the header
-        try {
-            conn.setRequestMethod("POST");
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        }
-        conn.setRequestProperty("Accept", "application/json");
-        conn.setRequestProperty("charset", "utf-8");
-        conn.setRequestProperty("Content-Length", Integer.toString(body.length));
-        conn.setDoOutput(true);
-        // Write the body of the request
-        try (OutputStream outputStream = conn.getOutputStream()) {
-            try {
-                outputStream.write(body, 0, body.length);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        BufferedReader bufferedReader = null;
-        try {
-            bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String inputLine;
-        inputLine = bufferedReader.readLine();
-        bufferedReader.close();
-        Gson gson2 = new Gson();
-        Img_lib libr = gson2.fromJson(inputLine,Img_lib.class);
-        libr.Details();
-        return libr;
-    }
 
 }
 
