@@ -21,6 +21,10 @@ public class Img_lib implements Serializable {
         return Library.size();
     }
 
+    public Img getimg(int i){
+        return Library.get(i);
+    }
+
     public ArrayList<String> getNames (){
         ArrayList<String> array = new ArrayList<String>();
         for (int i=0; i < Library.size(); i++){
