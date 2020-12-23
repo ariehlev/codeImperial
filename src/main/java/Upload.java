@@ -8,6 +8,7 @@ import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -63,7 +64,7 @@ public class Upload implements ActionListener{
             img.setFileName(file.getName());
             //if("jpg".equalsIgnoreCase(file_type)){
             JFrame new_frame = new JFrame("Enlarged Picture");
-            Image image1 = null;
+            BufferedImage image1 = null;
             try {
                 image1 = ImageIO.read(file);
             } catch (IOException ioException) {
@@ -92,6 +93,17 @@ public class Upload implements ActionListener{
             date_field.setText(img.getDate());
             id_field.setText(img.getPatientID());
 
+            int image_height = image1.getHeight();
+            int image_width = image1.getWidth();
+
+            if(image_height>1500){
+                image_height=(int)(image_height/1.5);
+                image_width=(int)(image_width/1.5);
+            }
+            if(image_height>1100){
+                image_height=(int)(image_height/1.1);
+                image_width=(int)(image_width/1.1);
+            }
 
             JPanel big_pic = new JPanel();
             JPanel text = new JPanel();
@@ -99,11 +111,11 @@ public class Upload implements ActionListener{
             JButton upload = new JButton("Upload");
 
 
-            big_pic.setSize(750, 600);
-            pic.setSize(750, 600);
+            big_pic.setSize(image_width, image_height);
+            pic.setSize(image_width, image_height);
 
             assert image1 != null;
-            pic.setIcon(new ImageIcon(new ImageIcon(image1).getImage().getScaledInstance(750, 600, Image.SCALE_DEFAULT)));
+            pic.setIcon(new ImageIcon(new ImageIcon(image1).getImage().getScaledInstance(image_width, image_height, Image.SCALE_DEFAULT)));
             big_pic.add(pic);
 
             GroupLayout layout = new GroupLayout(text);
@@ -191,11 +203,11 @@ public class Upload implements ActionListener{
             });
 
 
-            text.setBounds(750, 0, 400, 600);
+            text.setBounds(image_width, 0, 400, 600);
 
             new_frame.add(big_pic);
             new_frame.add(text);
-            new_frame.setSize(1200, 600);
+            new_frame.setSize(image_width+400, image_height+50);
             new_frame.setLayout(null);
             new_frame.setVisible(true);
             new_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
