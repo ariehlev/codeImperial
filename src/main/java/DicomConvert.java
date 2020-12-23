@@ -17,10 +17,17 @@ import java.nio.file.Files;
 public class DicomConvert {
     public static File jpgconvert (String filePath) throws IOException {
         File src = new File(filePath);
-        String destPath = filePath.substring(0,filePath.length() - 4) + "temporary.dcm";
+        //String destPath = filePath.substring(0,filePath.length() - 4) + "temporary.dcm";
+        String destPath = System.getProperty("java.io.tmpdir")+ src.getName().substring(0,src.getName().length() - 4) + "temporary.dcm";
         File dest = new File(destPath);
-        String imagePath = filePath.substring(0,filePath.length() - 4) + ".jpg";
+        //String imagePath = filePath.substring(0,filePath.length() - 4) + ".jpg";
+        String imagePath = System.getProperty("java.io.tmpdir")+ src.getName().substring(0,src.getName().length() - 4) + ".jpg";
         File destjpg = new File(imagePath);
+        //System.out.println(src.getName());
+        //System.out.println(dest.getName());
+        //System.out.println(destjpg.getName());
+        //System.out.println(dest.getPath());
+        //System.out.println(destjpg.getPath());
         try (Transcoder transcoder = new Transcoder(src)) {
             transcoder.setDestinationTransferSyntax(UID.ExplicitVRLittleEndian);
             transcoder.transcode(new Transcoder.Handler(){

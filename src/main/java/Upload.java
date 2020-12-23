@@ -7,21 +7,24 @@ import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 
-public class Upload implements ActionListener{
+public class Upload implements ActionListener {
 
     boolean Dicomchecker = false;
 
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser file_select = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        file_select.setDialogTitle("Choose a directory to save your file: ");
+        file_select.setDialogTitle("Choose a file to upload: ");
         file_select.setFileSelectionMode(JFileChooser.FILES_ONLY);
         file_select.setAcceptAllFileFilterUsed(false);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("DICOM and JPG Files","dcm","dicom","jpg");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("DICOM, JPG, PNG, JFIF Files","dcm","dicom","jpg","png","jfif");
         file_select.addChoosableFileFilter(filter);
 
         int val = file_select.showOpenDialog(null);
@@ -48,6 +51,7 @@ public class Upload implements ActionListener{
                 System.out.println(img.getPatientID());
                 try {
                     file = DicomConvert.jpgconvert(file.getPath());
+                    file_type = (FilenameUtils.getExtension(file.toString()));
                     //Files.deleteIfExists(file.toPath());
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
@@ -73,14 +77,25 @@ public class Upload implements ActionListener{
 
 
             JTextField name_field = new JTextField();
-            JLabel jpg_label = new JLabel(".jpg");
+            JLabel jpg_label = new JLabel();
             JTextField modality_field = new JTextField();
             JTextField body_field = new JTextField();
             JTextField date_field = new JTextField();
             JTextField id_field = new JTextField();
 
+            if("jpg".equalsIgnoreCase(file_type)) {
+                jpg_label.setText(".jpg");
+                name_field.setText(img.getFileName().substring(0,file.getName().length() - 4));
+            }
+            if("png".equalsIgnoreCase(file_type)) {
+                jpg_label.setText(".png");
+                name_field.setText(img.getFileName().substring(0,file.getName().length() - 4));
+            }
+            if("jfif".equalsIgnoreCase(file_type)) {
+                jpg_label.setText(".jfif");
+                name_field.setText(img.getFileName().substring(0,file.getName().length() - 5));
+            }
 
-            name_field.setText(img.getFileName());
             modality_field.setText(img.getModality());
             body_field.setText(img.getBodyPart());
             date_field.setText(img.getDate());
@@ -107,7 +122,6 @@ public class Upload implements ActionListener{
             big_pic.setSize(image_width, image_height);
             pic.setSize(image_width, image_height);
 
-            assert image1 != null;
             pic.setIcon(new ImageIcon(new ImageIcon(image1).getImage().getScaledInstance(image_width, image_height, Image.SCALE_DEFAULT)));
             big_pic.add(pic);
 
@@ -160,6 +174,8 @@ public class Upload implements ActionListener{
                     .addComponent(upload)
             );
             File finalFile = file;
+
+            String finalFile_type = file_type;
             upload.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -172,7 +188,7 @@ public class Upload implements ActionListener{
 
                     //ArrayList<String> data_upload = new ArrayList<String>();
 
-                    img.setFileName(name_input);
+                    img.setFileName(name_input + "." + finalFile_type);
                     img.setModality(modality_input);
                     img.setBodyPart(body_part_input);
                     img.setDate(date_input);
@@ -203,25 +219,22 @@ public class Upload implements ActionListener{
             new_frame.setSize(image_width+400, image_height+50);
             new_frame.setLayout(null);
             new_frame.setVisible(true);
+            new_frame.addWindowListener(new WindowAdapter() {
+                                            @Override
+                                            public void windowClosing(WindowEvent e) {
+                                                try {
+                                                    Files.deleteIfExists(finalFile.toPath());
+                                                } catch (IOException ioException) {
+                                                    ioException.printStackTrace();
+                                                }
+                                            }
+                                        });
             new_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-            //}
-            /*
-            else{
-                DicomConvert conv = new DicomConvert();
-                String filePath = "C:\\Programming3\\Dicom\\us heart 1.dcm";
-                try {
-                    conv.jpgconvert(file.getPath());
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-                Img img = new Img();
-                img = conv.getTagByFile(file.getPath());
-            }
-             */
-
         }
     }
 
-
+    //@Override
+    //public void windowClosing(WindowEvent e) {
+//
+   // }
 }
