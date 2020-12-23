@@ -54,10 +54,10 @@ public class Search extends Interface implements ActionListener {
         if(checkBox10.isSelected()){
             filter_body_select.add("Heart");
         }
-        if(filter_modality_select.isEmpty()) {
+        if(filter_modality_select.isEmpty() && other_scan_field.getText().isEmpty()) {
             filter_modality_select.add("");
         }
-        if(filter_body_select.isEmpty()){
+        if(filter_body_select.isEmpty() && other_body_field.getText().isEmpty()){
             filter_body_select.add("");
         }
         filter_dates_select.add(start_date.getText());
