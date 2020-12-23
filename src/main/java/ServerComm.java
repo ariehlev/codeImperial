@@ -10,6 +10,7 @@ public class ServerComm {
         System.out.println("Sending search to servlet");
         Gson gson = new Gson();
         String jsonString = gson.toJson(pars);
+        System.out.println(jsonString);
         byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);
 
         URL myURL = null;

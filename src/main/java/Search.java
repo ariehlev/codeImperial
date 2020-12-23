@@ -62,6 +62,12 @@ public class Search extends Interface implements ActionListener {
         }
         filter_dates_select.add(start_date.getText());
         filter_dates_select.add(end_date.getText());
+        if(!other_scan_field.getText().isEmpty()){
+            filter_modality_select.add(other_scan_field.getText());
+        }
+        if(!other_body_field.getText().isEmpty()){
+            filter_body_select.add(other_body_field.getText());
+        }
         String patient_id=patient_id_window.getText();
 
         SearchParameters pars = new SearchParameters();

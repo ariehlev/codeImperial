@@ -12,7 +12,7 @@ public class Interface{
     protected static JPanel images;
     protected static JFrame frame;
     protected static JCheckBox checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6,checkBox7,checkBox8,checkBox9,checkBox10;
-    protected static JTextField start_date,end_date,patient_id_window;
+    protected static JTextField start_date,end_date,patient_id_window, other_scan_field, other_body_field;
 
     public static void inter() {
         frame = new JFrame("Image Database");
@@ -22,12 +22,17 @@ public class Interface{
         checkBox3 = new JCheckBox("ECG");
         checkBox4 = new JCheckBox("US");
         checkBox5 = new JCheckBox("X-ray");
+        JLabel other_scan_label = new JLabel("Other:");
+        other_scan_field = new JTextField();
 
         checkBox6 = new JCheckBox("Leg");
         checkBox7 = new JCheckBox("Head");
         checkBox8 = new JCheckBox("Arm");
         checkBox9 = new JCheckBox("Body");
         checkBox10 = new JCheckBox("Heart");
+        JLabel other_body_label = new JLabel("Other:");
+        other_body_field = new JTextField();
+
 
         JPanel filter = new JPanel();
         JPanel top_bar1 = new JPanel();
@@ -119,6 +124,15 @@ public class Interface{
                                         .addComponent(checkBox5)
                                 )
                         )
+                        .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(scan,other_scan_label, LayoutStyle.ComponentPlacement.INDENT)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(other_scan_label)
+                                )
+                                .addGroup(layout.createParallelGroup()
+                                        .addComponent(other_scan_field)
+                                )
+                        )
                         .addComponent(body)
                         .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(body,checkBox4, LayoutStyle.ComponentPlacement.INDENT)
@@ -128,6 +142,15 @@ public class Interface{
                                         .addComponent(checkBox8)
                                         .addComponent(checkBox9)
                                         .addComponent(checkBox10)
+                                )
+                        )
+                        .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(scan,other_scan_label, LayoutStyle.ComponentPlacement.INDENT)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(other_body_label)
+                                )
+                                .addGroup(layout.createParallelGroup()
+                                        .addComponent(other_body_field)
                                 )
                         )
                         .addComponent(date)
@@ -175,6 +198,10 @@ public class Interface{
                                         .addComponent(checkBox5)
                                 )
                         )
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(other_scan_label)
+                                .addComponent(other_scan_field)
+                        )
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(body)
                                 .addGroup(layout.createSequentialGroup()
@@ -184,6 +211,10 @@ public class Interface{
                                         .addComponent(checkBox9)
                                         .addComponent(checkBox10)
                                 )
+                        )
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(other_body_label)
+                                .addComponent(other_body_field)
                         )
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(date)
