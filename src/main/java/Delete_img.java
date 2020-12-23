@@ -13,9 +13,11 @@ import java.nio.file.Paths;
 
 public class Delete_img implements ActionListener {
     private Img img;
+    public JFrame new_frame;
 
-    public Delete_img(Img img){
+    public Delete_img(Img img, JFrame new_frame){
         this.img=img;
+        this.new_frame = new_frame;
     }
 
     @Override
@@ -26,6 +28,7 @@ public class Delete_img implements ActionListener {
             try {
                 makeDeleteRequest(img);
                 JOptionPane.showMessageDialog(null, "The image was deleted successfully! Please click 'Search' again on the main window to refresh the search");
+                new_frame.dispose();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
