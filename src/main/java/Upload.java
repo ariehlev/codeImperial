@@ -1,6 +1,5 @@
 import org.apache.commons.io.FilenameUtils;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
@@ -9,13 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InvalidObjectException;
 import java.net.ConnectException;
 import java.nio.file.Files;
-import java.util.Calendar;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class Upload implements ActionListener {
 
@@ -23,11 +22,12 @@ public class Upload implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Dicomchecker = false;
         JFileChooser file_select = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         file_select.setDialogTitle("Choose a file to upload: ");
         file_select.setFileSelectionMode(JFileChooser.FILES_ONLY);
         file_select.setAcceptAllFileFilterUsed(false);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("DICOM, JPG, PNG, JFIF Files","dcm","dicom","jpg","png","jfif");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("DICOM, JPG, PNG, JFIF, GIF Files","dcm","dicom","jpg","png","jfif","gif");
         file_select.addChoosableFileFilter(filter);
 
         int val = file_select.showOpenDialog(null);
@@ -55,7 +55,7 @@ public class Upload implements ActionListener {
                 try {
                     file = DicomConvert.jpgconvert(file.getPath());
                     file_type = (FilenameUtils.getExtension(file.toString()));
-                    //Files.deleteIfExists(file.toPath());
+
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -64,12 +64,8 @@ public class Upload implements ActionListener {
             img.setFileName(file.getName());
             //if("jpg".equalsIgnoreCase(file_type)){
             JFrame new_frame = new JFrame("Enlarged Picture");
-            BufferedImage image1 = null;
-            try {
-                image1 = ImageIO.read(file);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            ImageIcon image2 = new ImageIcon(file.getPath());
+
             JLabel pic = new JLabel();
 
             JLabel name_label = new JLabel("File Name: ");
@@ -77,7 +73,6 @@ public class Upload implements ActionListener {
             JLabel body_label = new JLabel("Body Part: ");
             JLabel date_label = new JLabel("Date: ");
             JLabel id_label = new JLabel("ID: ");
-
 
             JTextField name_field = new JTextField();
             JLabel jpg_label = new JLabel();
@@ -98,6 +93,10 @@ public class Upload implements ActionListener {
                 jpg_label.setText(".jfif");
                 name_field.setText(img.getFileName().substring(0,file.getName().length() - 5));
             }
+            if("gif".equalsIgnoreCase(file_type)) {
+                jpg_label.setText(".gif");
+                name_field.setText(img.getFileName().substring(0,file.getName().length() - 4));
+            }
 
             modality_field.setText(img.getModality());
             body_field.setText(img.getBodyPart());
@@ -110,8 +109,8 @@ public class Upload implements ActionListener {
             else date_field.setText(img.getDate());
             id_field.setText(img.getPatientID());
 
-            int image_height = image1.getHeight();
-            int image_width = image1.getWidth();
+            int image_height = image2.getIconHeight();
+            int image_width = image2.getIconWidth();
 
             if(image_height>1500){
                 image_height=(int)(image_height/1.5);
@@ -131,7 +130,7 @@ public class Upload implements ActionListener {
             big_pic.setSize(image_width, image_height);
             pic.setSize(image_width, image_height);
 
-            pic.setIcon(new ImageIcon(new ImageIcon(image1).getImage().getScaledInstance(image_width, image_height, Image.SCALE_DEFAULT)));
+            pic.setIcon(new ImageIcon(image2.getImage().getScaledInstance(image_width, image_height, Image.SCALE_DEFAULT)));
             big_pic.add(pic);
 
             GroupLayout layout = new GroupLayout(text);
@@ -240,7 +239,10 @@ public class Upload implements ActionListener {
                                             @Override
                                             public void windowClosing(WindowEvent e) {
                                                 try {
-                                                    if (Dicomchecker) Files.deleteIfExists(finalFile.toPath());
+                                                    if (Dicomchecker){
+                                                        System.out.println("Attempting to delete image");
+                                                        Files.deleteIfExists(finalFile.toPath());
+                                                    }
                                                 } catch (IOException ioException) {
                                                     ioException.printStackTrace();
                                                 }

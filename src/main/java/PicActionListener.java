@@ -27,18 +27,15 @@ public class PicActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JFrame new_frame = new JFrame("Enlarged Picture");
-        Image image1 = null;
+
         URL url = null;
         try {
             url = new URL(location);
         } catch (MalformedURLException malformedURLException) {
             malformedURLException.printStackTrace();
         }
-        try {
-            image1=ImageIO.read(url);
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+        ImageIcon image2 = new ImageIcon(url);
+
         JLabel pic = new JLabel();
         JLabel nam = new JLabel(" Patient: " + name);
         nam.setFont(nam.getFont().deriveFont(20.0f));
@@ -76,7 +73,7 @@ public class PicActionListener implements ActionListener {
         big_pic.setSize(image_width,image_height);
         pic.setSize(image_width,image_height);
 
-        pic.setIcon(new ImageIcon(new ImageIcon(image1).getImage().getScaledInstance(image_width, image_height, Image.SCALE_DEFAULT)));
+        pic.setIcon(new ImageIcon(image2.getImage().getScaledInstance(image_width, image_height, Image.SCALE_DEFAULT)));
         big_pic.add(pic);
         text.add(nam);
         text.add(descr);

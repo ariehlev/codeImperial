@@ -1,16 +1,13 @@
-import com.google.gson.Gson;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import javax.swing.*;
 import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InvalidObjectException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 
 public class Search extends Interface implements ActionListener {
 
@@ -20,9 +17,9 @@ public class Search extends Interface implements ActionListener {
     }
 
     public static void searchaction(){
-        ArrayList<String> filter_body_select = new ArrayList<String>();
-        ArrayList<String> filter_modality_select = new ArrayList<String>();
-        ArrayList<String> filter_dates_select = new ArrayList<String>();
+        ArrayList<String> filter_body_select = new ArrayList<>();
+        ArrayList<String> filter_modality_select = new ArrayList<>();
+        ArrayList<String> filter_dates_select = new ArrayList<>();
 
         if(checkBox1.isSelected()){
             filter_modality_select.add("MRI");
@@ -88,22 +85,22 @@ public class Search extends Interface implements ActionListener {
         }
         libr.Details();
 
-        ArrayList<String> file_location = new ArrayList<String>();
+        ArrayList<String> file_location;
         file_location = libr.getURLs();
 
-        ArrayList<String> file_name = new ArrayList<String>();
+        ArrayList<String> file_name;
         file_name = libr.getNames();
 
-        ArrayList<String> file_PatientID = new ArrayList<String>();
+        ArrayList<String> file_PatientID;
         file_PatientID = libr.getPatientIds();
 
-        ArrayList<String> file_Modalities = new ArrayList<String>();
+        ArrayList<String> file_Modalities;
         file_Modalities = libr.getModalities();
 
-        ArrayList<String> file_body_part = new ArrayList<String>();
+        ArrayList<String> file_body_part;
         file_body_part = libr.getBodyParts();
 
-        ArrayList<String> file_dates = new ArrayList<String>();
+        ArrayList<String> file_dates;
         file_dates = libr.getDates();
 
         images.removeAll();
@@ -155,20 +152,15 @@ public class Search extends Interface implements ActionListener {
             } catch (MalformedURLException malformedURLException) {
                 malformedURLException.printStackTrace();
             }
-
-            Image image = null;
-            try {
-                image = ImageIO.read(url);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            ImageIcon image1 = new ImageIcon(url);
 
             JButton button = new JButton();
             button.setHorizontalTextPosition(JButton.CENTER);
             button.setVerticalTextPosition(JButton.CENTER);
             button.setMargin(new Insets(0,0,0,0));
             button.setPreferredSize(new Dimension(250,200));
-            button.setIcon(new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(250, 200, Image.SCALE_DEFAULT)));
+            button.setIcon(new ImageIcon(image1.getImage().getScaledInstance(250, 200, Image.SCALE_DEFAULT)));
+
             button.setVisible(true);
             button.addActionListener(new PicActionListener(file_location.get(i),file_PatientID.get(i),file_Modalities.get(i), file_body_part.get(i), file_dates.get(i), file_name.get(i), libr.getimg(i)));
 
