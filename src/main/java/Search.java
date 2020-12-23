@@ -37,7 +37,10 @@ public class Search extends Interface implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        searchaction();
+    }
 
+    public static void searchaction(){
         ArrayList<String> filter_body_select = new ArrayList<String>();
         ArrayList<String> filter_modality_select = new ArrayList<String>();
         ArrayList<String> filter_dates_select = new ArrayList<String>();
