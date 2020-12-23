@@ -75,6 +75,7 @@ public class Upload implements ActionListener{
 
 
             JTextField name_field = new JTextField();
+            JLabel jpg_label = new JLabel(".jpg");
             JTextField modality_field = new JTextField();
             JTextField body_field = new JTextField();
             JTextField date_field = new JTextField();
@@ -120,12 +121,15 @@ public class Upload implements ActionListener{
                             .addComponent(date_field)
                             .addComponent(id_field)
                     )
-
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(jpg_label)
+                    )
             );
             layout.setVerticalGroup(layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(name_label)
                             .addComponent(name_field)
+                            .addComponent(jpg_label)
                     )
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(modality_label)
