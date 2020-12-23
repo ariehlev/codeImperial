@@ -186,6 +186,10 @@ public class Upload implements ActionListener {
                     String body_part_input = body_field.getText();
                     String date_input = date_field.getText();
                     String id_input = id_field.getText();
+                    if (name_input.equals("") || modality_input.equals("") || body_part_input.equals("") || date_input.equals("") || id_input.equals("")){
+                        JOptionPane.showMessageDialog(null, "Please input something in all fields");
+                        return;
+                    }
 
                     //ArrayList<String> data_upload = new ArrayList<String>();
 
@@ -194,9 +198,9 @@ public class Upload implements ActionListener {
                     img.setBodyPart(body_part_input);
                     img.setDate(date_input);
                     img.setPatientID(id_input);
-                    System.out.println(finalFile.getName());
+                    System.out.println(img.getFileName());
                     try {
-                        img.setImageURL(ServerComm.makeUploadImagePOSTRequest(finalFile));
+                        img.setImageURL(ServerComm.makeUploadImagePOSTRequest(finalFile, img.getFileName()));
                         ServerComm.makeUploadPostRequest(img);
                         //img.setImageURL();
                         if (Dicomchecker){
@@ -221,14 +225,14 @@ public class Upload implements ActionListener {
 
             new_frame.add(big_pic);
             new_frame.add(text);
-            new_frame.setSize(image_width+400, image_height+50);
+            new_frame.setSize(image_width+420, image_height+50);
             new_frame.setLayout(null);
             new_frame.setVisible(true);
             new_frame.addWindowListener(new WindowAdapter() {
                                             @Override
                                             public void windowClosing(WindowEvent e) {
                                                 try {
-                                                    Files.deleteIfExists(finalFile.toPath());
+                                                    if (Dicomchecker) Files.deleteIfExists(finalFile.toPath());
                                                 } catch (IOException ioException) {
                                                     ioException.printStackTrace();
                                                 }

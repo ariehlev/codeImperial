@@ -122,7 +122,7 @@ public class ServerComm {
         System.out.println(inputLine);
     }
 
-    protected static String makeUploadImagePOSTRequest(File file) throws IOException {
+    protected static String makeUploadImagePOSTRequest(File file, String name) throws IOException {
         //final String UPLOAD_URL = "http://localhost:8080/LocalServlet/uploadimage";
         final String UPLOAD_URL = "https://hlabsmedimagedatabase.herokuapp.com/uploadimage";
         final int BUFFER_SIZE = 4096;
@@ -130,7 +130,7 @@ public class ServerComm {
         // takes file path from first program's argument
         //String filePath = "/Users/lilmaga/Desktop/test.dcm";
         //File uploadFile = new File(filePath);
-        System.out.println("File to upload: " + file.getPath());
+        System.out.println("File to upload: " + name);
 
         // creates a HTTP connection
         URL url = new URL(UPLOAD_URL);
@@ -139,7 +139,7 @@ public class ServerComm {
         httpConn.setDoOutput(true);
         httpConn.setRequestMethod("POST");
         // sets file name as a HTTP header
-        httpConn.setRequestProperty("fileName", file.getName());
+        httpConn.setRequestProperty("fileName", name);
 
         // opens output stream of the HTTP connection for writing data
         OutputStream outputStream = httpConn.getOutputStream();
@@ -168,7 +168,8 @@ public class ServerComm {
                     httpConn.getInputStream()));
             String response = reader.readLine();
             System.out.println("Server's response: " + response);
-            if (response == "Duplicate file") {
+            if (response.equals("Duplicate file")) {
+                System.out.println("Exception throw");
                 throw new InvalidObjectException("Another file on the database already has that name, please choose a unique name");
             }
             else return response;

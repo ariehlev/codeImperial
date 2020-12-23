@@ -75,6 +75,7 @@ public class Search extends Interface implements ActionListener {
             libr = ServerComm.makeSearchRequest(pars);
         }catch (InvalidObjectException o){
             JOptionPane.showMessageDialog(null, o.getMessage());
+
         }
         catch (IOException ioException) {
             ioException.printStackTrace();
