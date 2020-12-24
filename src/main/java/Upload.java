@@ -206,6 +206,7 @@ public class Upload implements ActionListener {
                     String date_input = date_field.getText();
                     String id_input = id_field.getText();
                     if (name_input.equals("") || modality_input.equals("") || body_part_input.equals("") || date_input.equals("") || id_input.equals("")){
+                        Toolkit.getDefaultToolkit().beep();
                         JOptionPane.showMessageDialog(null, "Please input something in all fields");
                         return;
                     }
@@ -226,12 +227,13 @@ public class Upload implements ActionListener {
                             Files.deleteIfExists(finalFile.toPath());
                             System.out.println("jpg deleted from computer");
                         }
-                        Toolkit.getDefaultToolkit().beep();
+                        //Toolkit.getDefaultToolkit().beep();
                         JOptionPane.showMessageDialog(null, "The upload was successful");
                         new_frame.dispose();
                     }
                     catch (InvalidObjectException | ConnectException o){
                         o.printStackTrace();
+                        Toolkit.getDefaultToolkit().beep();
                         JOptionPane.showMessageDialog(null, o.getMessage());
                     } catch (IOException ioException) {
                         ioException.printStackTrace();

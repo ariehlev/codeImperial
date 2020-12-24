@@ -1,4 +1,3 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -77,6 +76,7 @@ public class Search extends Interface implements ActionListener {
         try {
             libr = ServerComm.makeSearchRequest(pars);
         }catch (InvalidObjectException o){
+            Toolkit.getDefaultToolkit().beep();
             JOptionPane.showMessageDialog(null, o.getMessage());
 
         }
@@ -194,7 +194,6 @@ public class Search extends Interface implements ActionListener {
         images.add(big_result[k]);
         frame.getContentPane().validate();
         frame.getContentPane().repaint();
-        Toolkit.getDefaultToolkit().beep();
 
         //making thumbnails and outputting them
 
