@@ -26,13 +26,13 @@ public class Download_img implements ActionListener {
                 String path=home+"/Downloads/"+file_name.getName();
                 File file = new File(path);
                 if(file.exists() && !file.isDirectory()) {
-                    JOptionPane.showMessageDialog(null, "The Image already exists at: "+path);
                     Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "The Image already exists at: "+path);
                 }
                 else{
                     Files.copy(in, Paths.get(path));
-                    JOptionPane.showMessageDialog(null, "The Image has been downloaded to: "+path);
                     Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(null, "The Image has been downloaded to: "+path);
                 }
 
             } catch (IOException ioException) {

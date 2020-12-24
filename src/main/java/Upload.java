@@ -112,13 +112,25 @@ public class Upload implements ActionListener {
             int image_height = image2.getIconHeight();
             int image_width = image2.getIconWidth();
 
+            if(image_height>1900){
+                image_height=(int)(image_height/2.4);
+                image_width=(int)(image_width/2.4);
+            }
             if(image_height>1500){
+                image_height=(int)(image_height/2.2);
+                image_width=(int)(image_width/2.2);
+            }
+            if(image_height>1300){
+                image_height=(int)(image_height/1.8);
+                image_width=(int)(image_width/1.8);
+            }
+            if(image_height>1100){
                 image_height=(int)(image_height/1.5);
                 image_width=(int)(image_width/1.5);
             }
-            if(image_height>1100){
-                image_height=(int)(image_height/1.1);
-                image_width=(int)(image_width/1.1);
+            if(image_height>1000){
+                image_height=(int)(image_height/1.3);
+                image_width=(int)(image_width/1.3);
             }
 
             JPanel big_pic = new JPanel();
@@ -214,8 +226,8 @@ public class Upload implements ActionListener {
                             Files.deleteIfExists(finalFile.toPath());
                             System.out.println("jpg deleted from computer");
                         }
-                        JOptionPane.showMessageDialog(null, "The upload was successful");
                         Toolkit.getDefaultToolkit().beep();
+                        JOptionPane.showMessageDialog(null, "The upload was successful");
                         new_frame.dispose();
                     }
                     catch (InvalidObjectException | ConnectException o){
@@ -223,8 +235,8 @@ public class Upload implements ActionListener {
                         JOptionPane.showMessageDialog(null, o.getMessage());
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "The upload was unsuccessful");
                         Toolkit.getDefaultToolkit().beep();
+                        JOptionPane.showMessageDialog(null, "The upload was unsuccessful");
                     }
                 }
             });

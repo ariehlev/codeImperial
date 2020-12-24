@@ -62,13 +62,25 @@ public class PicActionListener implements ActionListener {
         int image_width = image.getWidth();
         delete_button.addActionListener(new Delete_img(img, new_frame));
 
+        if(image_height>1900){
+            image_height=(int)(image_height/2.4);
+            image_width=(int)(image_width/2.4);
+        }
         if(image_height>1500){
+            image_height=(int)(image_height/2.2);
+            image_width=(int)(image_width/2.2);
+        }
+        if(image_height>1300){
+            image_height=(int)(image_height/1.8);
+            image_width=(int)(image_width/1.8);
+        }
+        if(image_height>1100){
             image_height=(int)(image_height/1.5);
             image_width=(int)(image_width/1.5);
         }
-        if(image_height>1100){
-            image_height=(int)(image_height/1.1);
-            image_width=(int)(image_width/1.1);
+        if(image_height>1000){
+            image_height=(int)(image_height/1.3);
+            image_width=(int)(image_width/1.3);
         }
         big_pic.setSize(image_width,image_height);
         pic.setSize(image_width,image_height);
