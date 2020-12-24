@@ -1,5 +1,6 @@
 import com.google.gson.Gson;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -23,6 +24,7 @@ public class Delete_img implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         int dialogButton = JOptionPane.YES_NO_OPTION;
+        Toolkit.getDefaultToolkit().beep();
         if (JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this Image from the Database?", "WARNING",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             try {

@@ -215,6 +215,7 @@ public class Upload implements ActionListener {
                             System.out.println("jpg deleted from computer");
                         }
                         JOptionPane.showMessageDialog(null, "The upload was successful");
+                        Toolkit.getDefaultToolkit().beep();
                         new_frame.dispose();
                     }
                     catch (InvalidObjectException | ConnectException o){
@@ -223,6 +224,7 @@ public class Upload implements ActionListener {
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                         JOptionPane.showMessageDialog(null, "The upload was unsuccessful");
+                        Toolkit.getDefaultToolkit().beep();
                     }
                 }
             });

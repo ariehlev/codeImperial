@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -26,10 +27,12 @@ public class Download_img implements ActionListener {
                 File file = new File(path);
                 if(file.exists() && !file.isDirectory()) {
                     JOptionPane.showMessageDialog(null, "The Image already exists at: "+path);
+                    Toolkit.getDefaultToolkit().beep();
                 }
                 else{
                     Files.copy(in, Paths.get(path));
                     JOptionPane.showMessageDialog(null, "The Image has been downloaded to: "+path);
+                    Toolkit.getDefaultToolkit().beep();
                 }
 
             } catch (IOException ioException) {

@@ -194,6 +194,7 @@ public class Search extends Interface implements ActionListener {
         images.add(big_result[k]);
         frame.getContentPane().validate();
         frame.getContentPane().repaint();
+        Toolkit.getDefaultToolkit().beep();
 
         //making thumbnails and outputting them
 
