@@ -13,6 +13,7 @@ public class Interface{
     protected static JFrame frame;
     protected static JCheckBox checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6,checkBox7,checkBox8,checkBox9,checkBox10;
     protected static JTextField start_date,end_date,patient_id_window, other_scan_field, other_body_field;
+    protected static JProgressBar progress_bar;
 
     public static void inter() {
         frame = new JFrame("Image Database");
@@ -72,6 +73,10 @@ public class Interface{
         JLabel logo = new JLabel();
         JLabel scan = new JLabel("Scan Type");
         JLabel body = new JLabel("Body Part");
+
+        progress_bar = new JProgressBar();
+        progress_bar.setVisible(false);
+
 
         Image image1 = null;
         try {
@@ -182,6 +187,7 @@ public class Interface{
 
                         )
                         .addComponent(search)
+                        .addComponent(progress_bar)
                 )
 
 
@@ -241,6 +247,7 @@ public class Interface{
                                 )
                         )
                         .addComponent(search)
+                        .addComponent(progress_bar)
                 )
 
 

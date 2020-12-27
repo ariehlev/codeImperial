@@ -10,13 +10,42 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class Search extends Interface implements ActionListener {
+    private Load load;
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        searchaction();
+        load = new Load();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                load.execute();
+
+            }
+        });
+
+
+    }
+    class Load extends SwingWorker<String, Void>{
+        @Override
+        public String doInBackground(){
+            frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            progress_bar.setVisible(true);
+            progress_bar.setIndeterminate(true);
+            searchaction();
+            return "done";
+        }
+
+        @Override
+        public void done() {
+            progress_bar.setVisible(false);
+            progress_bar.setIndeterminate(false);
+            frame.setCursor(null);
+        }
+
     }
 
     public static void searchaction(){
+        Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
         ArrayList<String> filter_body_select = new ArrayList<>();
         ArrayList<String> filter_modality_select = new ArrayList<>();
         ArrayList<String> filter_dates_select = new ArrayList<>();
@@ -194,7 +223,9 @@ public class Search extends Interface implements ActionListener {
         images.add(big_result[k]);
         frame.getContentPane().validate();
         frame.getContentPane().repaint();
-        Toolkit.getDefaultToolkit().beep();
+
+
+
 
         //making thumbnails and outputting them
 
