@@ -9,9 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class Search extends Interface implements ActionListener {
-
     private Load load;
-
     @Override
     public void actionPerformed(ActionEvent e) {
         load = new Load();
@@ -21,15 +19,11 @@ public class Search extends Interface implements ActionListener {
                 load.execute();
             }
         });
-
-
     }
     class Load extends SwingWorker<String, Void>{
         @Override
         public String doInBackground(){
-            frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            progress_bar.setVisible(true);
-            progress_bar.setIndeterminate(true);
+            load_bar();
             searchaction();
             return "done";
         }
@@ -140,7 +134,6 @@ public class Search extends Interface implements ActionListener {
         big_result[k]= new JPanel();
         big_result[k].setPreferredSize(new Dimension(1100,360));
         for(int i=0; i< file_location.size();i++){
-            Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
             JPanel img_panel = new JPanel();
             img_panel.setPreferredSize(new Dimension(250,200));
 
@@ -229,7 +222,12 @@ public class Search extends Interface implements ActionListener {
         //making thumbnails and outputting them
 
     }
-
+    public static void load_bar() {
+        Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
+        frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        progress_bar.setVisible(true);
+        progress_bar.setIndeterminate(true);
+    }
 
 }
 
