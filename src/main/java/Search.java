@@ -1,4 +1,3 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class Search extends Interface implements ActionListener {
+
     private Load load;
 
     @Override
@@ -19,7 +19,6 @@ public class Search extends Interface implements ActionListener {
             @Override
             public void run() {
                 load.execute();
-
             }
         });
 
@@ -43,6 +42,7 @@ public class Search extends Interface implements ActionListener {
         }
 
     }
+
 
     public static void searchaction(){
         Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
@@ -106,6 +106,7 @@ public class Search extends Interface implements ActionListener {
         try {
             libr = ServerComm.makeSearchRequest(pars);
         }catch (InvalidObjectException o){
+            Toolkit.getDefaultToolkit().beep();
             JOptionPane.showMessageDialog(null, o.getMessage());
 
         }
@@ -139,7 +140,7 @@ public class Search extends Interface implements ActionListener {
         big_result[k]= new JPanel();
         big_result[k].setPreferredSize(new Dimension(1100,360));
         for(int i=0; i< file_location.size();i++){
-
+            Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
             JPanel img_panel = new JPanel();
             img_panel.setPreferredSize(new Dimension(250,200));
 
@@ -220,12 +221,10 @@ public class Search extends Interface implements ActionListener {
 
 
         }
+
         images.add(big_result[k]);
         frame.getContentPane().validate();
         frame.getContentPane().repaint();
-
-
-
 
         //making thumbnails and outputting them
 
