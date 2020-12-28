@@ -1,3 +1,5 @@
+package ImageUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,11 +12,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Download_img implements ActionListener {
-    private String location,name;
+    private String location;
 
-    public Download_img(String Location, String Name){
+    public Download_img(String Location){
         this.location=Location;
-        this.name=Name;
     }
 
     @Override
@@ -31,7 +32,6 @@ public class Download_img implements ActionListener {
                 }
                 else{
                     Files.copy(in, Paths.get(path));
-                    Toolkit.getDefaultToolkit().beep();
                     JOptionPane.showMessageDialog(null, "The Image has been downloaded to: "+path);
                 }
 

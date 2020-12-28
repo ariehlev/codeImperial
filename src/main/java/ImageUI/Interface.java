@@ -1,3 +1,5 @@
+package ImageUI;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -6,7 +8,7 @@ import javax.swing.*;
 
 
 public class Interface{
-    //public Interface(JPanel images,JFrame frame,JCheckBox ch1,JCheckBox ch2,JCheckBox ch3,JCheckBox ch4,JCheckBox ch5,JCheckBox ch6,JCheckBox ch7,JCheckBox ch8,JCheckBox ch9,JCheckBox ch10,JTextField start, JTextField end,JTextField id) {
+    //public ImageUI.Interface(JPanel images,JFrame frame,JCheckBox ch1,JCheckBox ch2,JCheckBox ch3,JCheckBox ch4,JCheckBox ch5,JCheckBox ch6,JCheckBox ch7,JCheckBox ch8,JCheckBox ch9,JCheckBox ch10,JTextField start, JTextField end,JTextField id) {
     //    super(images,frame,ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch8,ch9,ch10,start,end,id);
     //}
     protected static JPanel images;
@@ -100,7 +102,7 @@ public class Interface{
         patient_id_window = new JTextField();
         patient_id_window.setSize(100, 15);
 
-        //search.addActionListener(new Search(images,frame,checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6,checkBox7,checkBox8,checkBox9,checkBox10,start_date,end_date,patient_id_window));
+        //search.addActionListener(new ImageUI.Search(images,frame,checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6,checkBox7,checkBox8,checkBox9,checkBox10,start_date,end_date,patient_id_window));
         search.addActionListener(new Search());
 
         top_bar1.add(logo);

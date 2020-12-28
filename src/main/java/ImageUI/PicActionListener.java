@@ -1,27 +1,29 @@
+package ImageUI;
+
+import Entities.*;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 public class PicActionListener implements ActionListener {
-    private String location,name,desc, body_part, date, file_name;
+    private String location,patient,modality, body_part, date, file_name;
     private Img img;
 
-    public PicActionListener(String Location, String Name, String Description, String Body_Part, String Date, String File, Img img){
-        this.location=Location;
-        this.name=Name;
-        this.desc=Description;
-        this.body_part=Body_Part;
-        this.date=Date;
-        this.file_name = File;
+    public PicActionListener(Img img){
         this.img = img;
-
+        this.location = img.getImageURL();
+        this.patient = img.getFileName();
+        this.modality = img.getModality();
+        this.body_part = img.getBodyPart();
+        this.date = img.getDate();
+        this.file_name = img.getFileName();
     }
 
     @Override
@@ -37,9 +39,9 @@ public class PicActionListener implements ActionListener {
         ImageIcon image2 = new ImageIcon(url);
 
         JLabel pic = new JLabel();
-        JLabel nam = new JLabel(" Patient: " + name);
+        JLabel nam = new JLabel(" Patient: " + patient);
         nam.setFont(nam.getFont().deriveFont(20.0f));
-        JLabel descr = new JLabel(" Modality: " + desc);
+        JLabel descr = new JLabel(" Modality: " + modality);
         descr.setFont(descr.getFont().deriveFont(20.0f));
         JLabel body = new JLabel(" Body Part: " + body_part);
         body.setFont(body.getFont().deriveFont(20.0f));
@@ -50,7 +52,7 @@ public class PicActionListener implements ActionListener {
         JPanel big_pic = new JPanel();
         JPanel text = new JPanel();
         JButton download = new JButton("Download Image");
-        download.addActionListener(new Download_img(location,name));
+        download.addActionListener(new Download_img(location));
         JButton delete_button = new JButton("Delete Image");
         BufferedImage image = null;
         try {

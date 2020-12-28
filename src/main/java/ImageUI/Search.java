@@ -1,3 +1,7 @@
+package ImageUI;
+
+import Entities.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,11 +24,12 @@ public class Search extends Interface implements ActionListener {
             }
         });
     }
+
     class Load extends SwingWorker<String, Void>{
         @Override
         public String doInBackground(){
             load_bar();
-            searchaction();
+            searchAction();
             return "done";
         }
 
@@ -38,7 +43,7 @@ public class Search extends Interface implements ActionListener {
     }
 
 
-    public static void searchaction(){
+    public static void searchAction(){
         Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
         ArrayList<String> filter_body_select = new ArrayList<>();
         ArrayList<String> filter_modality_select = new ArrayList<>();
@@ -185,7 +190,7 @@ public class Search extends Interface implements ActionListener {
             button.setIcon(new ImageIcon(image1.getImage().getScaledInstance(250, 200, Image.SCALE_DEFAULT)));
 
             button.setVisible(true);
-            button.addActionListener(new PicActionListener(file_location.get(i),file_PatientID.get(i),file_Modalities.get(i), file_body_part.get(i), file_dates.get(i), file_name.get(i), libr.getimg(i)));
+            button.addActionListener(new PicActionListener(libr.getImg(i)));
 
             img_panel.add(button);
             info_panel.add(name);

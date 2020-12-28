@@ -1,4 +1,8 @@
+package ImageUI;
+
 import com.google.gson.Gson;
+
+import Entities.*;
 
 import java.io.*;
 import java.net.*;
@@ -57,7 +61,7 @@ public class ServerComm {
         inputLine = bufferedReader.readLine();
         bufferedReader.close();
         Gson gson2 = new Gson();
-        Img_lib libr = gson2.fromJson(inputLine,Img_lib.class);
+        Img_lib libr = gson2.fromJson(inputLine, Img_lib.class);
         System.out.println(inputLine);
         //libr.Details();
         if (libr.isEmpty()){

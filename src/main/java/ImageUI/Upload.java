@@ -1,3 +1,6 @@
+package ImageUI;
+
+import Entities.Img;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.swing.*;
@@ -41,7 +44,7 @@ public class Upload implements ActionListener {
 
             if("dcm".equalsIgnoreCase(file_type) || "dicom".equalsIgnoreCase(file_type)){
                 Dicomchecker = true;
-                //DicomConvert conv = new DicomConvert();
+                //ImageUI.DicomConvert conv = new ImageUI.DicomConvert();
                 img = DicomConvert.getTagByFile(file.getPath());
                 StringBuilder date_dashes = new StringBuilder(img.getDate());
                 date_dashes.insert(4,'-');
@@ -268,8 +271,4 @@ public class Upload implements ActionListener {
         }
     }
 
-    //@Override
-    //public void windowClosing(WindowEvent e) {
-//
-   // }
 }
