@@ -127,6 +127,7 @@ public class ServerComm {
         System.out.println(inputLine);
     }
 
+    /* Reference X - taken from https://www.codejava.net/java-ee/servlet/upload-file-to-servlet-without-using-html-form */
     protected static String makeUploadImagePOSTRequest(File file, String name) throws IOException {
         //final String UPLOAD_URL = "http://localhost:8080/LocalServlet/uploadimage";
         final String UPLOAD_URL = "https://hlabsmedimagedatabase.herokuapp.com/uploadimage";
@@ -184,6 +185,7 @@ public class ServerComm {
         }
 
     }
+    //End of Reference X
 
     protected static void makeUploadPostRequest(Img newImage) throws IOException {
         // Set up the body data

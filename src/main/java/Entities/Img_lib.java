@@ -5,12 +5,6 @@ import java.util.ArrayList;
 public class Img_lib {
     protected ArrayList<Img> Library = new ArrayList<>();
 
-    public void Details(){
-        for (Img img : Library) {
-            System.out.println(img.getPatientID());
-        }
-    }
-
     public boolean isEmpty(){
         return Library.isEmpty();
     }

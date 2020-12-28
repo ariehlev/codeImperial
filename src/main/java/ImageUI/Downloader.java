@@ -11,10 +11,10 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class Download_img implements ActionListener {
+public class Downloader implements ActionListener {
     private String location;
 
-    public Download_img(String Location){
+    public Downloader(String Location){
         this.location=Location;
     }
 

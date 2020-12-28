@@ -8,11 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-public class Delete_img implements ActionListener {
+public class Deleter implements ActionListener {
     private Img img;
     public JFrame new_frame;
 
-    public Delete_img(Img img, JFrame new_frame){
+    public Deleter(Img img, JFrame new_frame){
         this.img=img;
         this.new_frame = new_frame;
     }
@@ -26,7 +26,7 @@ public class Delete_img implements ActionListener {
             try {
                 ServerComm.makeDeleteRequest(img);
                 JOptionPane.showMessageDialog(null, "The image was deleted successfully!");
-                Search.searchAction();
+                Searcher.searchAction();
                 new_frame.dispose();
             } catch (IOException ioException) {
                 ioException.printStackTrace();

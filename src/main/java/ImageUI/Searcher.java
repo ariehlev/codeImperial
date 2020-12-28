@@ -12,7 +12,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class Search extends Interface implements ActionListener {
+public class Searcher extends Interface implements ActionListener {
     private Load load;
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -112,7 +112,6 @@ public class Search extends Interface implements ActionListener {
         catch (IOException ioException) {
             ioException.printStackTrace();
         }
-        libr.Details();
 
         ArrayList<String> file_location;
         file_location = libr.getURLs();
@@ -190,7 +189,7 @@ public class Search extends Interface implements ActionListener {
             button.setIcon(new ImageIcon(image1.getImage().getScaledInstance(250, 200, Image.SCALE_DEFAULT)));
 
             button.setVisible(true);
-            button.addActionListener(new PicActionListener(libr.getImg(i)));
+            button.addActionListener(new ImageEnlarger(libr.getImg(i)));
 
             img_panel.add(button);
             info_panel.add(name);

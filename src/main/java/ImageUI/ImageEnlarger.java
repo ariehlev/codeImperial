@@ -12,11 +12,11 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class PicActionListener implements ActionListener {
+public class ImageEnlarger implements ActionListener {
     private String location,patient,modality, body_part, date, file_name;
     private Img img;
 
-    public PicActionListener(Img img){
+    public ImageEnlarger(Img img){
         this.img = img;
         this.location = img.getImageURL();
         this.patient = img.getFileName();
@@ -52,7 +52,7 @@ public class PicActionListener implements ActionListener {
         JPanel big_pic = new JPanel();
         JPanel text = new JPanel();
         JButton download = new JButton("Download Image");
-        download.addActionListener(new Download_img(location));
+        download.addActionListener(new Downloader(location));
         JButton delete_button = new JButton("Delete Image");
         BufferedImage image = null;
         try {
@@ -62,7 +62,7 @@ public class PicActionListener implements ActionListener {
         }
         int image_height = image.getHeight();
         int image_width = image.getWidth();
-        delete_button.addActionListener(new Delete_img(img, new_frame));
+        delete_button.addActionListener(new Deleter(img, new_frame));
 
         if(image_height>1900){
             image_height=(int)(image_height/2.4);

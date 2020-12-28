@@ -19,7 +19,7 @@ import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class Upload implements ActionListener {
+public class Uploader implements ActionListener {
 
     boolean Dicomchecker = false;
 

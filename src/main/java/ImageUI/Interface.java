@@ -8,9 +8,7 @@ import javax.swing.*;
 
 
 public class Interface{
-    //public ImageUI.Interface(JPanel images,JFrame frame,JCheckBox ch1,JCheckBox ch2,JCheckBox ch3,JCheckBox ch4,JCheckBox ch5,JCheckBox ch6,JCheckBox ch7,JCheckBox ch8,JCheckBox ch9,JCheckBox ch10,JTextField start, JTextField end,JTextField id) {
-    //    super(images,frame,ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch8,ch9,ch10,start,end,id);
-    //}
+
     protected static JPanel images;
     protected static JFrame frame;
     protected static JCheckBox checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6,checkBox7,checkBox8,checkBox9,checkBox10;
@@ -62,6 +60,7 @@ public class Interface{
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(250, 60, 1150, 740);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
         top_bar1.setBounds(0, 0, 250, 60);
         top_bar2.setBounds(250, 0, 900, 60);
@@ -94,7 +93,7 @@ public class Interface{
         JLabel title = new JLabel("Medical Image Database");
         title.setAlignmentY(JLabel.CENTER_ALIGNMENT);
         JButton upload = new JButton("Upload");
-        upload.addActionListener(new Upload());
+        upload.addActionListener(new Uploader());
         upload.setAlignmentY(JLabel.CENTER_ALIGNMENT);
         upload.setPreferredSize(new Dimension(125,45));
         upload.setFont(scan.getFont().deriveFont(20.0f));
@@ -103,7 +102,7 @@ public class Interface{
         patient_id_window.setSize(100, 15);
 
         //search.addActionListener(new ImageUI.Search(images,frame,checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6,checkBox7,checkBox8,checkBox9,checkBox10,start_date,end_date,patient_id_window));
-        search.addActionListener(new Search());
+        search.addActionListener(new Searcher());
 
         top_bar1.add(logo);
         top_bar2.add(title);
