@@ -36,20 +36,20 @@ public class ImageEnlarger implements ActionListener {
         } catch (MalformedURLException malformedURLException) {
             malformedURLException.printStackTrace();
         }
-        ImageIcon image2 = new ImageIcon(url);
+        ImageIcon full_screen_image = new ImageIcon(url);
 
-        JLabel pic = new JLabel();
-        JLabel nam = new JLabel(" Patient: " + patient);
-        nam.setFont(nam.getFont().deriveFont(20.0f));
-        JLabel descr = new JLabel(" Modality: " + modality);
-        descr.setFont(descr.getFont().deriveFont(20.0f));
+        JLabel picture_label = new JLabel();
+        JLabel name_label = new JLabel(" Patient: " + patient);
+        name_label.setFont(name_label.getFont().deriveFont(20.0f));
+        JLabel description_label = new JLabel(" Modality: " + modality);
+        description_label.setFont(description_label.getFont().deriveFont(20.0f));
         JLabel body = new JLabel(" Body Part: " + body_part);
         body.setFont(body.getFont().deriveFont(20.0f));
         JLabel date_label = new JLabel(" Date: " + date);
         date_label.setFont(date_label.getFont().deriveFont(20.0f));
         JLabel file_name_label = new JLabel(" File Name: " + file_name);
         file_name_label.setFont(date_label.getFont().deriveFont(20.0f));
-        JPanel big_pic = new JPanel();
+        JPanel picture_panel = new JPanel();
         JPanel text = new JPanel();
         JButton download = new JButton("Download Image");
         download.addActionListener(new Downloader(location));
@@ -84,13 +84,13 @@ public class ImageEnlarger implements ActionListener {
             image_height=(int)(image_height/1.3);
             image_width=(int)(image_width/1.3);
         }
-        big_pic.setSize(image_width,image_height);
-        pic.setSize(image_width,image_height);
+        picture_panel.setSize(image_width,image_height);
+        picture_label.setSize(image_width,image_height);
 
-        pic.setIcon(new ImageIcon(image2.getImage().getScaledInstance(image_width, image_height, Image.SCALE_DEFAULT)));
-        big_pic.add(pic);
-        text.add(nam);
-        text.add(descr);
+        picture_label.setIcon(new ImageIcon(full_screen_image.getImage().getScaledInstance(image_width, image_height, Image.SCALE_DEFAULT)));
+        picture_panel.add(picture_label);
+        text.add(name_label);
+        text.add(description_label);
         text.add(body);
         text.add(date_label);
         text.add(file_name_label);
@@ -98,22 +98,20 @@ public class ImageEnlarger implements ActionListener {
         text.add(delete_button);
         text.setLayout(new BoxLayout(text, BoxLayout.Y_AXIS));
 
-        nam.setAlignmentX(Component.LEFT_ALIGNMENT);
-        descr.setAlignmentX(Component.LEFT_ALIGNMENT);
+        name_label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        description_label.setAlignmentX(Component.LEFT_ALIGNMENT);
         text.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 
         text.setBounds(image_width,0,400,600);
 
 
-        new_frame.add(big_pic);
+        new_frame.add(picture_panel);
         new_frame.add(text);
         new_frame.setSize(image_width+400,image_height+50);
         new_frame.setLayout(null);
         new_frame.setVisible(true);
         new_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-
 
     }
 }

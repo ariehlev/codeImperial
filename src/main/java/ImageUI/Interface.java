@@ -36,11 +36,16 @@ public class Interface{
 
 
         JPanel filter = new JPanel();
-        JPanel top_bar1 = new JPanel();
-        JPanel top_bar2 = new JPanel();
-        JPanel top_bar3 = new JPanel();
+        JPanel top_bar_logo = new JPanel();
+        JPanel top_bar_title = new JPanel();
+        JPanel top_bar_upload_button = new JPanel();
         images = new JPanel();
 
+        JLabel logo = new JLabel();
+        JLabel title = new JLabel("Medical Image Database");
+        title.setAlignmentY(JLabel.CENTER_ALIGNMENT);
+        JLabel scan = new JLabel("Scan Type");
+        JLabel body = new JLabel("Body Part");
         JLabel date = new JLabel("Date");
         start_date = new JTextField();
         end_date = new JTextField();
@@ -48,10 +53,17 @@ public class Interface{
         JLabel date_format_label =new JLabel("Date Format:");
         JLabel start =new JLabel("Start Date:");
         JLabel end =new JLabel("End Date:");
-
         JLabel patient_id = new JLabel("Patient ID");
         JLabel patient_id_format = new JLabel("Search for Individual Patient ID");
         JLabel patient_id_format_example = new JLabel("Example: 12345");
+        JButton upload = new JButton("Upload");
+        upload.addActionListener(new Uploader());
+        upload.setAlignmentY(JLabel.CENTER_ALIGNMENT);
+        upload.setPreferredSize(new Dimension(125,45));
+        upload.setFont(scan.getFont().deriveFont(20.0f));
+        JButton search = new JButton("Search");
+        patient_id_window = new JTextField();
+        patient_id_window.setSize(100, 15);
 
         images.setAutoscrolls(true);
         images.setLayout(new BoxLayout(images, BoxLayout.Y_AXIS));
@@ -62,51 +74,35 @@ public class Interface{
         scrollPane.setBounds(250, 60, 1150, 740);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
-        top_bar1.setBounds(0, 0, 250, 60);
-        top_bar2.setBounds(250, 0, 900, 60);
-        top_bar3.setBounds(1150, 0, 250, 60);
+        top_bar_logo.setBounds(0, 0, 250, 60);
+        top_bar_title.setBounds(250, 0, 900, 60);
+        top_bar_upload_button.setBounds(1150, 0, 250, 60);
 
-        top_bar1.setBorder(BorderFactory.createLineBorder(Color.black));
-        top_bar2.setBorder(BorderFactory.createLineBorder(Color.black));
-        top_bar3.setBorder(BorderFactory.createLineBorder(Color.black));
+        top_bar_logo.setBorder(BorderFactory.createLineBorder(Color.black));
+        top_bar_title.setBorder(BorderFactory.createLineBorder(Color.black));
+        top_bar_upload_button.setBorder(BorderFactory.createLineBorder(Color.black));
         filter.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-        JLabel logo = new JLabel();
-        JLabel scan = new JLabel("Scan Type");
-        JLabel body = new JLabel("Body Part");
 
         progress_bar = new JProgressBar();
         progress_bar.setVisible(false);
 
-
-        Image image1 = null;
+        Image image = null;
         try {
-            image1= ImageIO.read(new File("../codeimperial/holloway_lab_logo.jpg"));
+            image= ImageIO.read(new File("../codeimperial/holloway_lab_logo.jpg"));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
         logo.setVerticalAlignment(JLabel.CENTER);
         logo.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         logo.setAlignmentY(JLabel.CENTER_ALIGNMENT);
-        logo.setIcon(new ImageIcon(new ImageIcon(image1).getImage().getScaledInstance(240, 45, Image.SCALE_SMOOTH)));
-
-        JLabel title = new JLabel("Medical Image Database");
-        title.setAlignmentY(JLabel.CENTER_ALIGNMENT);
-        JButton upload = new JButton("Upload");
-        upload.addActionListener(new Uploader());
-        upload.setAlignmentY(JLabel.CENTER_ALIGNMENT);
-        upload.setPreferredSize(new Dimension(125,45));
-        upload.setFont(scan.getFont().deriveFont(20.0f));
-        JButton search = new JButton("Search");
-        patient_id_window = new JTextField();
-        patient_id_window.setSize(100, 15);
+        logo.setIcon(new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(240, 45, Image.SCALE_SMOOTH)));
 
         //search.addActionListener(new ImageUI.Search(images,frame,checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6,checkBox7,checkBox8,checkBox9,checkBox10,start_date,end_date,patient_id_window));
         search.addActionListener(new Searcher());
 
-        top_bar1.add(logo);
-        top_bar2.add(title);
-        top_bar3.add(upload);
+        top_bar_logo.add(logo);
+        top_bar_title.add(title);
+        top_bar_upload_button.add(upload);
         scan.setFont(scan.getFont().deriveFont(18.0f));
         body.setFont(body.getFont().deriveFont(18.0f));
         date.setFont(body.getFont().deriveFont(18.0f));
@@ -256,9 +252,9 @@ public class Interface{
 
         filter.setBounds(0,60,250,740);
         frame.add(filter);
-        frame.add(top_bar1);
-        frame.add(top_bar2);
-        frame.add(top_bar3);
+        frame.add(top_bar_logo);
+        frame.add(top_bar_title);
+        frame.add(top_bar_upload_button);
         frame.add(scrollPane);
         frame.setSize(1415,810);
         frame.setLayout(null);

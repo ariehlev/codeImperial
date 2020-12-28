@@ -133,10 +133,10 @@ public class Searcher extends Interface implements ActionListener {
 
         images.removeAll();
         int n_of_rows = ((int) Math.ceil((file_location.size())/4.0))+4;
-        JPanel[] big_result = new JPanel[n_of_rows];
+        JPanel[] result_panel = new JPanel[n_of_rows];
         int k=0;
-        big_result[k]= new JPanel();
-        big_result[k].setPreferredSize(new Dimension(1100,360));
+        result_panel[k]= new JPanel();
+        result_panel[k].setPreferredSize(new Dimension(1100,360));
         for(int i=0; i< file_location.size();i++){
             JPanel img_panel = new JPanel();
             img_panel.setPreferredSize(new Dimension(250,200));
@@ -179,14 +179,14 @@ public class Searcher extends Interface implements ActionListener {
             } catch (MalformedURLException malformedURLException) {
                 malformedURLException.printStackTrace();
             }
-            ImageIcon image1 = new ImageIcon(url);
+            ImageIcon image = new ImageIcon(url);
 
             JButton button = new JButton();
             button.setHorizontalTextPosition(JButton.CENTER);
             button.setVerticalTextPosition(JButton.CENTER);
             button.setMargin(new Insets(0,0,0,0));
             button.setPreferredSize(new Dimension(250,200));
-            button.setIcon(new ImageIcon(image1.getImage().getScaledInstance(250, 200, Image.SCALE_DEFAULT)));
+            button.setIcon(new ImageIcon(image.getImage().getScaledInstance(250, 200, Image.SCALE_DEFAULT)));
 
             button.setVisible(true);
             button.addActionListener(new ImageEnlarger(libr.getImg(i)));
@@ -207,19 +207,19 @@ public class Searcher extends Interface implements ActionListener {
             result.add(info_panel);
 
 
-            big_result[k].add(result);
+            result_panel[k].add(result);
             if((i+1)%4==0){
-                images.add(big_result[k]);
+                images.add(result_panel[k]);
                 frame.getContentPane().validate();
                 frame.getContentPane().repaint();
                 k++;
-                big_result[k]= new JPanel();
+                result_panel[k]= new JPanel();
             }
 
 
         }
 
-        images.add(big_result[k]);
+        images.add(result_panel[k]);
         frame.getContentPane().validate();
         frame.getContentPane().repaint();
 

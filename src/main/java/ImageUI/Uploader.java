@@ -67,7 +67,7 @@ public class Uploader implements ActionListener {
             img.setFileName(file.getName());
             //if("jpg".equalsIgnoreCase(file_type)){
             JFrame new_frame = new JFrame("Enlarged Picture");
-            ImageIcon image2 = new ImageIcon(file.getPath());
+            ImageIcon image = new ImageIcon(file.getPath());
 
             JLabel pic = new JLabel();
 
@@ -112,8 +112,8 @@ public class Uploader implements ActionListener {
             else date_field.setText(img.getDate());
             id_field.setText(img.getPatientID());
 
-            int image_height = image2.getIconHeight();
-            int image_width = image2.getIconWidth();
+            int image_height = image.getIconHeight();
+            int image_width = image.getIconWidth();
 
             if(image_height>1900){
                 image_height=(int)(image_height/2.4);
@@ -145,7 +145,7 @@ public class Uploader implements ActionListener {
             big_pic.setSize(image_width, image_height);
             pic.setSize(image_width, image_height);
 
-            pic.setIcon(new ImageIcon(image2.getImage().getScaledInstance(image_width, image_height, Image.SCALE_DEFAULT)));
+            pic.setIcon(new ImageIcon(image.getImage().getScaledInstance(image_width, image_height, Image.SCALE_DEFAULT)));
             big_pic.add(pic);
 
             GroupLayout layout = new GroupLayout(text);
@@ -270,5 +270,4 @@ public class Uploader implements ActionListener {
             new_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
     }
-
 }

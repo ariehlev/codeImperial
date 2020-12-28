@@ -24,7 +24,7 @@ public class Downloader implements ActionListener {
             try(InputStream in = new URL(location).openStream()){
                 String home = System.getProperty("user.home");
                 File file_name = new File(location);
-                String path=home+"/Downloads/"+file_name.getName();
+                String path = home + "/Downloads/" + file_name.getName();
                 File file = new File(path);
                 if(file.exists() && !file.isDirectory()) {
                     Toolkit.getDefaultToolkit().beep();
