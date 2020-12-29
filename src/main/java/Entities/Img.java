@@ -1,6 +1,6 @@
-import java.io.Serializable;
+package Entities;
 
-public class Img implements Serializable {
+public class Img {
     protected int ID;
     protected String FileName;
     protected String PatientID;
@@ -8,10 +8,6 @@ public class Img implements Serializable {
     protected String BodyPart;
     protected String Date;
     protected String ImageURL;
-
-    public int getID() { return ID; }
-
-    public void setID(int ID) { this.ID = ID; }
 
     public String getFileName() { return FileName; }
 

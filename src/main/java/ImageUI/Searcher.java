@@ -1,3 +1,7 @@
+package ImageUI;
+
+import Entities.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,28 +12,29 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class Search extends Interface implements ActionListener {
+public class Searcher extends Interface implements ActionListener {
     private Load load;
     @Override
     public void actionPerformed(ActionEvent e) {
         load = new Load();
-        SwingUtilities.invokeLater(new Runnable() { //creates parallel working threads, so that the loading bar and filtering can work simultaneously
+        SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 load.execute();
             }
         });
     }
+
     class Load extends SwingWorker<String, Void>{
         @Override
-        public String doInBackground(){ //does two things simultaneously - search and load bar
+        public String doInBackground(){
             load_bar();
-            searchaction();
+            searchAction();
             return "done";
         }
 
         @Override
-        public void done() { //makes the loading bar disappear once the search was completed
+        public void done() {
             progress_bar.setVisible(false);
             progress_bar.setIndeterminate(false);
             frame.setCursor(null);
@@ -38,13 +43,13 @@ public class Search extends Interface implements ActionListener {
     }
 
 
-    public static void searchaction(){
-        Thread.currentThread().setPriority(Thread.MAX_PRIORITY); //gives the searching thread more priority
-        ArrayList<String> filter_body_select = new ArrayList<>(); //creates ArrayLists that store the selected filter parameters
+    public static void searchAction(){
+        Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+        ArrayList<String> filter_body_select = new ArrayList<>();
         ArrayList<String> filter_modality_select = new ArrayList<>();
         ArrayList<String> filter_dates_select = new ArrayList<>();
 
-        if(checkBox1.isSelected()){ //checks which checkboxes were selected and adds the options to the ArrayLists
+        if(checkBox1.isSelected()){
             filter_modality_select.add("MRI");
         }
         if(checkBox2.isSelected()){
@@ -74,7 +79,7 @@ public class Search extends Interface implements ActionListener {
         if(checkBox10.isSelected()){
             filter_body_select.add("Heart");
         }
-        if(filter_modality_select.isEmpty() && other_scan_field.getText().isEmpty()) { //if there are no options selected, adds black space to the ArrayList
+        if(filter_modality_select.isEmpty() && other_scan_field.getText().isEmpty()) {
             filter_modality_select.add("");
         }
         if(filter_body_select.isEmpty() && other_body_field.getText().isEmpty()){
@@ -107,7 +112,6 @@ public class Search extends Interface implements ActionListener {
         catch (IOException ioException) {
             ioException.printStackTrace();
         }
-        libr.Details();
 
         ArrayList<String> file_location;
         file_location = libr.getURLs();
@@ -129,10 +133,10 @@ public class Search extends Interface implements ActionListener {
 
         images.removeAll();
         int n_of_rows = ((int) Math.ceil((file_location.size())/4.0))+4;
-        JPanel[] big_result = new JPanel[n_of_rows];
+        JPanel[] result_panel = new JPanel[n_of_rows];
         int k=0;
-        big_result[k]= new JPanel();
-        big_result[k].setPreferredSize(new Dimension(1100,360));
+        result_panel[k]= new JPanel();
+        result_panel[k].setPreferredSize(new Dimension(1100,360));
         for(int i=0; i< file_location.size();i++){
             JPanel img_panel = new JPanel();
             img_panel.setPreferredSize(new Dimension(250,200));
@@ -175,17 +179,17 @@ public class Search extends Interface implements ActionListener {
             } catch (MalformedURLException malformedURLException) {
                 malformedURLException.printStackTrace();
             }
-            ImageIcon image1 = new ImageIcon(url);
+            ImageIcon image = new ImageIcon(url);
 
             JButton button = new JButton();
             button.setHorizontalTextPosition(JButton.CENTER);
             button.setVerticalTextPosition(JButton.CENTER);
             button.setMargin(new Insets(0,0,0,0));
             button.setPreferredSize(new Dimension(250,200));
-            button.setIcon(new ImageIcon(image1.getImage().getScaledInstance(250, 200, Image.SCALE_DEFAULT)));
+            button.setIcon(new ImageIcon(image.getImage().getScaledInstance(250, 200, Image.SCALE_DEFAULT)));
 
             button.setVisible(true);
-            button.addActionListener(new PicActionListener(file_location.get(i),file_PatientID.get(i),file_Modalities.get(i), file_body_part.get(i), file_dates.get(i), file_name.get(i), libr.getimg(i)));
+            button.addActionListener(new ImageEnlarger(libr.getImg(i)));
 
             img_panel.add(button);
             info_panel.add(name);
@@ -203,26 +207,26 @@ public class Search extends Interface implements ActionListener {
             result.add(info_panel);
 
 
-            big_result[k].add(result);
+            result_panel[k].add(result);
             if((i+1)%4==0){
-                images.add(big_result[k]);
+                images.add(result_panel[k]);
                 frame.getContentPane().validate();
                 frame.getContentPane().repaint();
                 k++;
-                big_result[k]= new JPanel();
+                result_panel[k]= new JPanel();
             }
 
 
         }
 
-        images.add(big_result[k]);
+        images.add(result_panel[k]);
         frame.getContentPane().validate();
         frame.getContentPane().repaint();
 
-        //making thumbnails and outputting them - puts 4 images in a row, attaching ActionListeners to each, so if they are pressed, creates a larger view of an image with more detailed description
+        //making thumbnails and outputting them
 
     }
-    public static void load_bar() { //makes the load bar of lower priority so that it doesn't abstract the searching thread
+    public static void load_bar() {
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
         frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         progress_bar.setVisible(true);

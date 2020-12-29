@@ -1,3 +1,7 @@
+package ImageUI;
+
+import Entities.*;
+
 import ij.plugin.DICOM;
 import org.dcm4che3.data.Attributes;
 import org.dcm4che3.data.Tag;
@@ -71,14 +75,5 @@ public class DicomConvert {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        //File src = new File("C:\\Programming3\\test2.dcm"); //Dicom original file with compression protocol
-        //File dest = new File("C:\\Programming3\\temporaryfile.dcm"); //Decompress into an uncompressed dicom target file
-        String filePath = "C:\\Programming3\\Dicom\\us heart 1.dcm";
-        jpgconvert(filePath);
-        Img img = new Img();
-        img = getTagByFile(filePath);
-        System.out.println(img.getDate());
-    }
 }
 

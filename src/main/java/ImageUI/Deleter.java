@@ -1,22 +1,18 @@
-import com.google.gson.Gson;
+package ImageUI;
+
+import Entities.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
-public class Delete_img implements ActionListener {
+public class Deleter implements ActionListener {
     private Img img;
     public JFrame new_frame;
 
-    public Delete_img(Img img, JFrame new_frame){
+    public Deleter(Img img, JFrame new_frame){
         this.img=img;
         this.new_frame = new_frame;
     }
@@ -30,7 +26,7 @@ public class Delete_img implements ActionListener {
             try {
                 ServerComm.makeDeleteRequest(img);
                 JOptionPane.showMessageDialog(null, "The image was deleted successfully!");
-                Search.searchaction();
+                Searcher.searchAction();
                 new_frame.dispose();
             } catch (IOException ioException) {
                 ioException.printStackTrace();

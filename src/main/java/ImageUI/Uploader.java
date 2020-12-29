@@ -1,3 +1,6 @@
+package ImageUI;
+
+import Entities.Img;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.swing.*;
@@ -16,7 +19,7 @@ import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class Upload implements ActionListener {
+public class Uploader implements ActionListener {
 
     boolean Dicomchecker = false;
 
@@ -41,7 +44,7 @@ public class Upload implements ActionListener {
 
             if("dcm".equalsIgnoreCase(file_type) || "dicom".equalsIgnoreCase(file_type)){ //checks the file format to be uploaded
                 Dicomchecker = true;
-                //DicomConvert conv = new DicomConvert();
+                //ImageUI.DicomConvert conv = new ImageUI.DicomConvert();
                 img = DicomConvert.getTagByFile(file.getPath());
                 StringBuilder date_dashes = new StringBuilder(img.getDate());
                 date_dashes.insert(4,'-');
@@ -64,7 +67,7 @@ public class Upload implements ActionListener {
             img.setFileName(file.getName());
             //if("jpg".equalsIgnoreCase(file_type)){
             JFrame new_frame = new JFrame("Enlarged Picture");
-            ImageIcon image2 = new ImageIcon(file.getPath());
+            ImageIcon image = new ImageIcon(file.getPath());
 
             JLabel pic = new JLabel();
 
@@ -109,8 +112,8 @@ public class Upload implements ActionListener {
             else date_field.setText(img.getDate());
             id_field.setText(img.getPatientID());
 
-            int image_height = image2.getIconHeight();
-            int image_width = image2.getIconWidth();
+            int image_height = image.getIconHeight();
+            int image_width = image.getIconWidth();
 
             if(image_height>1900){ //checks if the original image on the server is larger than the screen. If it is - resizes it to be able to see it better
                 image_height=(int)(image_height/2.4);
@@ -142,7 +145,7 @@ public class Upload implements ActionListener {
             big_pic.setSize(image_width, image_height);
             pic.setSize(image_width, image_height);
 
-            pic.setIcon(new ImageIcon(image2.getImage().getScaledInstance(image_width, image_height, Image.SCALE_DEFAULT)));
+            pic.setIcon(new ImageIcon(image.getImage().getScaledInstance(image_width, image_height, Image.SCALE_DEFAULT)));
             big_pic.add(pic);
 
             GroupLayout layout = new GroupLayout(text);
@@ -267,9 +270,4 @@ public class Upload implements ActionListener {
             new_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
     }
-
-    //@Override
-    //public void windowClosing(WindowEvent e) {
-//
-   // }
 }

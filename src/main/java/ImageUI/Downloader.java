@@ -1,3 +1,5 @@
+package ImageUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,12 +11,11 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class Download_img implements ActionListener {
-    private String location,name;
+public class Downloader implements ActionListener {
+    private String location;
 
-    public Download_img(String Location, String Name){
+    public Downloader(String Location){
         this.location=Location;
-        this.name=Name;
     }
 
     @Override
@@ -23,7 +24,7 @@ public class Download_img implements ActionListener {
             try(InputStream in = new URL(location).openStream()){
                 String home = System.getProperty("user.home");
                 File file_name = new File(location);
-                String path=home+"/Downloads/"+file_name.getName();
+                String path = home + "/Downloads/" + file_name.getName();
                 File file = new File(path);
                 if(file.exists() && !file.isDirectory()) {
                     Toolkit.getDefaultToolkit().beep();
@@ -31,7 +32,6 @@ public class Download_img implements ActionListener {
                 }
                 else{
                     Files.copy(in, Paths.get(path));
-                    Toolkit.getDefaultToolkit().beep();
                     JOptionPane.showMessageDialog(null, "The Image has been downloaded to: "+path);
                 }
 
