@@ -19,7 +19,7 @@ public class Downloader implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {//downloads the image from the url of the selected image to the default download folder of the computer system
 
             try(InputStream in = new URL(location).openStream()){
                 String home = System.getProperty("user.home");

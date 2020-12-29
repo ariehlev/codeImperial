@@ -18,7 +18,7 @@ public class Deleter implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { //deletes the image from the url of the selected image from the database
         int dialogButton = JOptionPane.YES_NO_OPTION;
         Toolkit.getDefaultToolkit().beep();
         if (JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this Image from the Database?", "WARNING",

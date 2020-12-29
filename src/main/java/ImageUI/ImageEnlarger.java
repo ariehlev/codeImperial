@@ -51,7 +51,7 @@ public class ImageEnlarger implements ActionListener {
         file_name_label.setFont(date_label.getFont().deriveFont(20.0f));
         JPanel picture_panel = new JPanel();
         JPanel text = new JPanel();
-        JButton download = new JButton("Download Image");
+        JButton download = new JButton("Download Image"); //adds two actionlisteners - to download and delete the selected image
         download.addActionListener(new Downloader(location));
         JButton delete_button = new JButton("Delete Image");
         BufferedImage image = null;

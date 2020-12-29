@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Searcher extends Interface implements ActionListener {
     private Load load;
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { //creates two parallel running threads - the load bar and the searching method
         load = new Load();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -43,13 +43,13 @@ public class Searcher extends Interface implements ActionListener {
     }
 
 
-    public static void searchAction(){
-        Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+    public static void searchAction(){ //sends the filter parameters to the server and receives images. It then outputs then into the JPanel
+        Thread.currentThread().setPriority(Thread.MAX_PRIORITY); //gives the search method the maximum priority between the load barand itself
         ArrayList<String> filter_body_select = new ArrayList<>();
         ArrayList<String> filter_modality_select = new ArrayList<>();
         ArrayList<String> filter_dates_select = new ArrayList<>();
 
-        if(checkBox1.isSelected()){
+        if(checkBox1.isSelected()){//checks which checkboxes with filter options were selected
             filter_modality_select.add("MRI");
         }
         if(checkBox2.isSelected()){
@@ -101,7 +101,7 @@ public class Searcher extends Interface implements ActionListener {
         pars.setDate(filter_dates_select.toArray(new String [0]));
         pars.setPatientID(patient_id);
 
-        Img_lib libr = new Img_lib();
+        Img_lib libr = new Img_lib();//makes the request to the server and receives back the needed images
         try {
             libr = ServerComm.makeSearchRequest(pars);
         }catch (InvalidObjectException o){
@@ -131,8 +131,8 @@ public class Searcher extends Interface implements ActionListener {
         ArrayList<String> file_dates;
         file_dates = libr.getDates();
 
-        images.removeAll();
-        int n_of_rows = ((int) Math.ceil((file_location.size())/4.0))+4;
+        images.removeAll(); //outputs the images into JPanels and attaches an actionlistener to them, the one that allows to enlarge the image
+        int n_of_rows = ((int) Math.ceil((file_location.size())/4.0))+4; // also outputs the necessary information about the files - names, modality, body part and date
         JPanel[] result_panel = new JPanel[n_of_rows];
         int k=0;
         result_panel[k]= new JPanel();
@@ -226,7 +226,7 @@ public class Searcher extends Interface implements ActionListener {
         //making thumbnails and outputting them
 
     }
-    public static void load_bar() {
+    public static void load_bar() {//method for the load bar - creates and keeps it running until the search is over
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
         frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         progress_bar.setVisible(true);

@@ -15,9 +15,9 @@ public class Interface{
     protected static JTextField start_date,end_date,patient_id_window, other_scan_field, other_body_field;
     protected static JProgressBar progress_bar;
 
-    public static void inter() {
+    public static void inter() { //creates the main interface of the program as well as the filter parameters
         frame = new JFrame("Image Database");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //checkboxes provide filter parameters
         checkBox1 = new JCheckBox("MRI");
         checkBox2 = new JCheckBox("CT");
         checkBox3 = new JCheckBox("ECG");
@@ -41,7 +41,7 @@ public class Interface{
         JPanel top_bar_upload_button = new JPanel();
         images = new JPanel();
 
-        JLabel logo = new JLabel();
+        JLabel logo = new JLabel();//multiple JLabels for adding logos, names of search parameters and examples
         JLabel title = new JLabel("Medical Image Database");
         title.setAlignmentY(JLabel.CENTER_ALIGNMENT);
         JLabel scan = new JLabel("Scan Type");
@@ -68,7 +68,7 @@ public class Interface{
         images.setAutoscrolls(true);
         images.setLayout(new BoxLayout(images, BoxLayout.Y_AXIS));
 
-        JScrollPane scrollPane = new JScrollPane(images);
+        JScrollPane scrollPane = new JScrollPane(images);//adds the option of scrolling
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(250, 60, 1150, 740);
@@ -86,7 +86,7 @@ public class Interface{
         progress_bar = new JProgressBar();
         progress_bar.setVisible(false);
 
-        Image image = null;
+        Image image = null; //loads the logo of Holloway Labs
         try {
             image= ImageIO.read(new File("../codeimperial/holloway_lab_logo.jpg"));
         } catch (IOException ioException) {

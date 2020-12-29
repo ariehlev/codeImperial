@@ -24,7 +24,7 @@ public class Uploader implements ActionListener {
     boolean Dicomchecker = false;
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { //the following code asks the user to select the image or dicom file to upload to the database. After that, the user can input the necessary details about image - patient id, date, modality and etc.
         Dicomchecker = false;
         JFileChooser file_select = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         file_select.setDialogTitle("Choose a file to upload: "); //promts a user to select an image to upload.
@@ -40,11 +40,9 @@ public class Uploader implements ActionListener {
 
             Img img = new Img();
 
-            //JTextField id_field = new JTextField();
 
             if("dcm".equalsIgnoreCase(file_type) || "dicom".equalsIgnoreCase(file_type)){ //checks the file format to be uploaded
                 Dicomchecker = true;
-                //ImageUI.DicomConvert conv = new ImageUI.DicomConvert();
                 img = DicomConvert.getTagByFile(file.getPath());
                 StringBuilder date_dashes = new StringBuilder(img.getDate());
                 date_dashes.insert(4,'-');
@@ -65,12 +63,11 @@ public class Uploader implements ActionListener {
 
             }
             img.setFileName(file.getName());
-            //if("jpg".equalsIgnoreCase(file_type)){
             JFrame new_frame = new JFrame("Enlarged Picture");
             ImageIcon image = new ImageIcon(file.getPath());
 
             JLabel pic = new JLabel();
-
+            //lists the input parameters
             JLabel name_label = new JLabel("File Name: ");
             JLabel modality_label = new JLabel("Modality: ");
             JLabel body_label = new JLabel("Body Part: ");
@@ -197,7 +194,6 @@ public class Uploader implements ActionListener {
                     .addComponent(upload)
             );
             File finalFile = file;
-
             String finalFile_type = file_type;
             upload.addActionListener(new ActionListener() {
                 @Override
@@ -214,8 +210,6 @@ public class Uploader implements ActionListener {
                         return;
                     }
 
-                    //ArrayList<String> data_upload = new ArrayList<String>();
-
                     img.setFileName(name_input + "." + finalFile_type);
                     img.setModality(modality_input);
                     img.setBodyPart(body_part_input);
@@ -225,12 +219,12 @@ public class Uploader implements ActionListener {
                     try {
                         img.setImageURL(ServerComm.makeUploadImagePOSTRequest(finalFile, img.getFileName()));
                         ServerComm.makeUploadPostRequest(img);
-                        //img.setImageURL();
+
                         if (Dicomchecker){
                             Files.deleteIfExists(finalFile.toPath());
                             System.out.println("jpg deleted from computer");
                         }
-                        //Toolkit.getDefaultToolkit().beep();
+
                         JOptionPane.showMessageDialog(null, "The upload was successful");
                         new_frame.dispose();
                     }
@@ -246,9 +240,7 @@ public class Uploader implements ActionListener {
                 }
             });
 
-
             text.setBounds(image_width, 0, 400, 600);
-
             new_frame.add(big_pic);
             new_frame.add(text);
             new_frame.setSize(image_width+420, image_height+50);
