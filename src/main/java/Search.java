@@ -13,7 +13,7 @@ public class Search extends Interface implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         load = new Load();
-        SwingUtilities.invokeLater(new Runnable() {
+        SwingUtilities.invokeLater(new Runnable() { //creates parallel working threads, so that the loading bar and filtering can work simultaneously
             @Override
             public void run() {
                 load.execute();
@@ -22,14 +22,14 @@ public class Search extends Interface implements ActionListener {
     }
     class Load extends SwingWorker<String, Void>{
         @Override
-        public String doInBackground(){
+        public String doInBackground(){ //does two things simultaneously - search and load bar
             load_bar();
             searchaction();
             return "done";
         }
 
         @Override
-        public void done() {
+        public void done() { //makes the loading bar disappear once the search was completed
             progress_bar.setVisible(false);
             progress_bar.setIndeterminate(false);
             frame.setCursor(null);
@@ -39,12 +39,12 @@ public class Search extends Interface implements ActionListener {
 
 
     public static void searchaction(){
-        Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
-        ArrayList<String> filter_body_select = new ArrayList<>();
+        Thread.currentThread().setPriority(Thread.MAX_PRIORITY); //gives the searching thread more priority
+        ArrayList<String> filter_body_select = new ArrayList<>(); //creates ArrayLists that store the selected filter parameters
         ArrayList<String> filter_modality_select = new ArrayList<>();
         ArrayList<String> filter_dates_select = new ArrayList<>();
 
-        if(checkBox1.isSelected()){
+        if(checkBox1.isSelected()){ //checks which checkboxes were selected and adds the options to the ArrayLists
             filter_modality_select.add("MRI");
         }
         if(checkBox2.isSelected()){
@@ -74,7 +74,7 @@ public class Search extends Interface implements ActionListener {
         if(checkBox10.isSelected()){
             filter_body_select.add("Heart");
         }
-        if(filter_modality_select.isEmpty() && other_scan_field.getText().isEmpty()) {
+        if(filter_modality_select.isEmpty() && other_scan_field.getText().isEmpty()) { //if there are no options selected, adds black space to the ArrayList
             filter_modality_select.add("");
         }
         if(filter_body_select.isEmpty() && other_body_field.getText().isEmpty()){
@@ -219,10 +219,10 @@ public class Search extends Interface implements ActionListener {
         frame.getContentPane().validate();
         frame.getContentPane().repaint();
 
-        //making thumbnails and outputting them
+        //making thumbnails and outputting them - puts 4 images in a row, attaching ActionListeners to each, so if they are pressed, creates a larger view of an image with more detailed description
 
     }
-    public static void load_bar() {
+    public static void load_bar() { //makes the load bar of lower priority so that it doesn't abstract the searching thread
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
         frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         progress_bar.setVisible(true);

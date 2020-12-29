@@ -25,7 +25,7 @@ public class PicActionListener implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { //creates a frame with larger image view and with more details listed
         JFrame new_frame = new JFrame("Enlarged Picture");
 
         URL url = null;
@@ -62,7 +62,7 @@ public class PicActionListener implements ActionListener {
         int image_width = image.getWidth();
         delete_button.addActionListener(new Delete_img(img, new_frame));
 
-        if(image_height>1900){
+        if(image_height>1900){ //checks if the original image on the server is larger than the screen. If it is - resizes it to be able to see it better
             image_height=(int)(image_height/2.4);
             image_width=(int)(image_width/2.4);
         }

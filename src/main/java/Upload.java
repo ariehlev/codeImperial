@@ -24,7 +24,7 @@ public class Upload implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Dicomchecker = false;
         JFileChooser file_select = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        file_select.setDialogTitle("Choose a file to upload: ");
+        file_select.setDialogTitle("Choose a file to upload: "); //promts a user to select an image to upload.
         file_select.setFileSelectionMode(JFileChooser.FILES_ONLY);
         file_select.setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("DICOM, JPG, PNG, JFIF, GIF Files","dcm","dicom","jpg","png","jfif","gif");
@@ -39,7 +39,7 @@ public class Upload implements ActionListener {
 
             //JTextField id_field = new JTextField();
 
-            if("dcm".equalsIgnoreCase(file_type) || "dicom".equalsIgnoreCase(file_type)){
+            if("dcm".equalsIgnoreCase(file_type) || "dicom".equalsIgnoreCase(file_type)){ //checks the file format to be uploaded
                 Dicomchecker = true;
                 //DicomConvert conv = new DicomConvert();
                 img = DicomConvert.getTagByFile(file.getPath());
@@ -112,7 +112,7 @@ public class Upload implements ActionListener {
             int image_height = image2.getIconHeight();
             int image_width = image2.getIconWidth();
 
-            if(image_height>1900){
+            if(image_height>1900){ //checks if the original image on the server is larger than the screen. If it is - resizes it to be able to see it better
                 image_height=(int)(image_height/2.4);
                 image_width=(int)(image_width/2.4);
             }

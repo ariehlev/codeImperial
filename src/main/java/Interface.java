@@ -16,7 +16,7 @@ public class Interface{
     protected static JProgressBar progress_bar;
 
     public static void inter() {
-        frame = new JFrame("Image Database");
+        frame = new JFrame("Image Database"); //creation of checkboxes, a frame and JPanels to store different elements of the app in them
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         checkBox1 = new JCheckBox("MRI");
         checkBox2 = new JCheckBox("CT");
@@ -41,7 +41,7 @@ public class Interface{
         JPanel top_bar3 = new JPanel();
         images = new JPanel();
 
-        JLabel date = new JLabel("Date");
+        JLabel date = new JLabel("Date"); //creation of JLabels, which make filter sections and app layout clearer
         start_date = new JTextField();
         end_date = new JTextField();
         JLabel date_format_label_YYYY = new JLabel("YYYY-MM-DD");
@@ -56,7 +56,7 @@ public class Interface{
         images.setAutoscrolls(true);
         images.setLayout(new BoxLayout(images, BoxLayout.Y_AXIS));
 
-        JScrollPane scrollPane = new JScrollPane(images);
+        JScrollPane scrollPane = new JScrollPane(images); //creation of scolling
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBounds(250, 60, 1150, 740);
@@ -74,7 +74,7 @@ public class Interface{
         JLabel scan = new JLabel("Scan Type");
         JLabel body = new JLabel("Body Part");
 
-        progress_bar = new JProgressBar();
+        progress_bar = new JProgressBar(); //creation of progress bar that will show up during searching
         progress_bar.setVisible(false);
 
 
@@ -83,7 +83,7 @@ public class Interface{
             image1= ImageIO.read(new File("../codeimperial/holloway_lab_logo.jpg"));
         } catch (IOException ioException) {
             ioException.printStackTrace();
-        }
+        } //getting the image for the logo of the 'Holloway Labs'
         logo.setVerticalAlignment(JLabel.CENTER);
         logo.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         logo.setAlignmentY(JLabel.CENTER_ALIGNMENT);
@@ -101,18 +101,18 @@ public class Interface{
         patient_id_window.setSize(100, 15);
 
         //search.addActionListener(new Search(images,frame,checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6,checkBox7,checkBox8,checkBox9,checkBox10,start_date,end_date,patient_id_window));
-        search.addActionListener(new Search());
+        search.addActionListener(new Search()); //adds an action listener to the 'Search' button, that would start filtering and sending request to the server once it's pressed
 
         top_bar1.add(logo);
         top_bar2.add(title);
         top_bar3.add(upload);
-        scan.setFont(scan.getFont().deriveFont(18.0f));
+        scan.setFont(scan.getFont().deriveFont(18.0f)); //changing the fonts of the writings
         body.setFont(body.getFont().deriveFont(18.0f));
         date.setFont(body.getFont().deriveFont(18.0f));
         patient_id.setFont(body.getFont().deriveFont(18.0f));
         title.setFont(body.getFont().deriveFont(35.0f));
 
-        GroupLayout layout = new GroupLayout(filter);
+        GroupLayout layout = new GroupLayout(filter); //using GroupLayout to arrange elements in a nicer format
         filter.setLayout(layout);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
