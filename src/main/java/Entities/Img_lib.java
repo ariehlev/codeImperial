@@ -61,4 +61,12 @@ public class Img_lib {
         }
         return array;
     }
+
+    public ArrayList<Img> getLibrary() {
+        return Library;
+    }
+
+    public void setLibrary(ArrayList<Img> library) {
+        Library = library;
+    }
 }

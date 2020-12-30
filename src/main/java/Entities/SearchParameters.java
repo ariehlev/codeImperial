@@ -7,21 +7,37 @@ public class SearchParameters {
     protected String[] BodyPart;
     protected String[] Date;
 
-    //methods for setting searchParameter data
+    //Getters and setters for searchParameter data
     public void setPatientID(String patientID) {
         PatientID = patientID;
+    }
+
+    public String getPatientID() {
+        return PatientID;
     }
 
     public void setModality(String[] modality) {
         Modality = modality;
     }
 
+    public String[] getModality() {
+        return Modality;
+    }
+
     public void setBodyPart(String[] bodyPart) {
         BodyPart = bodyPart;
     }
 
+    public String[] getBodyPart() {
+        return BodyPart;
+    }
+
     public void setDate(String[] date) {
         Date = date;
+    }
+
+    public String[] getDate() {
+        return Date;
     }
 
 }

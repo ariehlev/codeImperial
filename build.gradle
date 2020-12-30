@@ -25,9 +25,7 @@ dependencies {
     compile group: 'org.dcm4che.tool', name: 'dcm4che-tool-dcm2jpg', version: '5.12.0'
     compile group: 'net.imagej', name: 'ij', version: '1.52o'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.9'
-    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.12' //for unit test
-    // https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
 
 

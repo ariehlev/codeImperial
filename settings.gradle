@@ -1,3 +1,4 @@
 rootProject.name = 'Programming_project'
 include 'test'
+include 'test'
 
