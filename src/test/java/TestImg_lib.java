@@ -53,7 +53,7 @@ public class TestImg_lib {
         //Test Img_lib getPatientIds() method
         ArrayList<String> testarray4 =new ArrayList<String>();
         testarray4.add("1"); testarray4.add("1"); testarray4.add("1");
-        Assert.assertEquals(testlibrary.getPatientIds(),testarray4);
+        Assert.assertEquals(testlibrary.getPatientIDs(),testarray4);
         //Test Img_lib getModalities() method
         ArrayList<String> testarray5 =new ArrayList<String>();
         testarray5.add("ct"); testarray5.add("mri"); testarray5.add("ct");
