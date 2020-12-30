@@ -224,8 +224,8 @@ public class Uploader implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Please input something in all fields");
                         return;
                     }
-
-                    img.setFileName(name_input + "." + finalFile_type);
+                    //Saves data into an image object to be sent to server
+                    img.setFileName(name_input + "." + finalFile_type); //Adds respective ending to file name (i.e. .jpg)
                     img.setModality(modality_input);
                     img.setBodyPart(body_part_input);
                     img.setDate(date_input);
@@ -395,7 +395,7 @@ public class Uploader implements ActionListener {
     }
     //End of Reference 4
 
-    protected static void makeUploadPostRequest(Img newImage) throws IOException {
+    protected static void makeUploadPostRequest(Img newImage) throws IOException {//Sends image data of image to be uploaded including url
         System.out.println("Adding image to database");
         // Set up the body data
         // Sends image data to be uploaded to database by converting an Img object to json

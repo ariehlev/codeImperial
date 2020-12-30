@@ -15,7 +15,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class Deleter implements ActionListener {
-    private Img img;
+    protected Img img;
     public JFrame new_frame;
 
     public Deleter(Img img, JFrame new_frame){
