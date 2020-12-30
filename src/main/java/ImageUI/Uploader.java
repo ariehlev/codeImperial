@@ -245,6 +245,7 @@ public class Uploader implements ActionListener {
                     catch (InvalidObjectException | ConnectException o){
                         o.printStackTrace();
                         Toolkit.getDefaultToolkit().beep();
+                        System.out.println(o.getMessage());
                         JOptionPane.showMessageDialog(null, o.getMessage());
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
