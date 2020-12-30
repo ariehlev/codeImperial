@@ -1,7 +1,7 @@
 package Entities;
 
 //Class containing individual image data received from the server
-public class Img {
+public class MedImage {
     protected int ID;
     protected String FileName;
     protected String PatientID;

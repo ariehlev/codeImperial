@@ -103,7 +103,7 @@ public class Searcher extends Interface implements ActionListener {
         pars.setDate(filter_dates_select.toArray(new String [0]));
         pars.setPatientID(patient_id);
 
-        Img_lib libr = new Img_lib();//makes the request to the server and receives back the needed images
+        MedicalImageLibrary libr = new MedicalImageLibrary();//makes the request to the server and receives back the needed images
         try {
             libr = makeSearchRequest(pars);
         }catch (InvalidObjectException o){ //Exception for no images found in database
@@ -241,7 +241,7 @@ public class Searcher extends Interface implements ActionListener {
     }
 
 
-    public static Img_lib makeSearchRequest(SearchParameters pars) throws IOException {
+    public static MedicalImageLibrary makeSearchRequest(SearchParameters pars) throws IOException {
         // Set up the body data
         System.out.println("Sending search to servlet");
         //Convert search parameters to json and send as body of request
@@ -252,7 +252,7 @@ public class Searcher extends Interface implements ActionListener {
 
         URL myURL = null;
         try {
-            myURL = new URL("https://hlabsmedimagedatabase.herokuapp.com/main");
+            myURL = new URL("https://hlabsmedimagedatabase.herokuapp.com/search");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -294,7 +294,7 @@ public class Searcher extends Interface implements ActionListener {
         inputLine = bufferedReader.readLine();
         bufferedReader.close();
         Gson gson2 = new Gson();
-        Img_lib libr = gson2.fromJson(inputLine, Img_lib.class);
+        MedicalImageLibrary libr = gson2.fromJson(inputLine, MedicalImageLibrary.class);
         if (libr.isEmpty()){
             throw new InvalidObjectException("No images found in database");
         }

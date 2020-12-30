@@ -14,9 +14,9 @@ import java.net.URL;
 
 public class ImageEnlarger implements ActionListener {
     protected String location,patient,modality, body_part, date, file_name;
-    protected Img img;
+    protected MedImage img;
 
-    public ImageEnlarger(Img img){
+    public ImageEnlarger(MedImage img){
         this.img = img;
         this.location = img.getImageURL();
         this.patient = img.getFileName();

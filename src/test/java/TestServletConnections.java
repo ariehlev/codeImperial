@@ -33,7 +33,7 @@ public class TestServletConnections {
                 httpResponse.getStatusLine().getStatusCode(),
                 equalTo(HttpStatus.SC_OK));
         //Search Servlet connection
-        HttpUriRequest request3 = new HttpPost( "https://hlabsmedimagedatabase.herokuapp.com/main");
+        HttpUriRequest request3 = new HttpPost( "https://hlabsmedimagedatabase.herokuapp.com/search");
         CloseableHttpResponse httpResponse3 = HttpClientBuilder.create().build().execute( request3 );
         assertThat(
                 httpResponse.getStatusLine().getStatusCode(),

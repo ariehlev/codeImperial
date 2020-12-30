@@ -7,11 +7,11 @@ public class TestImg_lib {
     @Test
     public void testAllMethods(){
         //Create a simple 3 image library and set all fields
-        Img image1=new Img();
-        Img image2=new Img();
-        Img image3=new Img();
-        Img_lib testlibrary=new Img_lib();
-        ArrayList<Img> library=new ArrayList<Img>();
+        MedImage image1=new MedImage();
+        MedImage image2=new MedImage();
+        MedImage image3=new MedImage();
+        MedicalImageLibrary testlibrary=new MedicalImageLibrary();
+        ArrayList<MedImage> library=new ArrayList<MedImage>();
         image1.setPatientID("1");
         image1.setBodyPart("leg");
         image1.setFileName("legFile");

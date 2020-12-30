@@ -15,10 +15,10 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class Deleter implements ActionListener {
-    protected Img img;
+    protected MedImage img;
     public JFrame new_frame;
 
-    public Deleter(Img img, JFrame new_frame){
+    public Deleter(MedImage img, JFrame new_frame){
         this.img=img;
         this.new_frame = new_frame;
     }
@@ -43,10 +43,10 @@ public class Deleter implements ActionListener {
         }
     }
 
-    protected static void makeDeleteRequest(Img deleteImage) throws IOException {
+    protected static void makeDeleteRequest(MedImage deleteImage) throws IOException {
         // Set up the body data
         System.out.println("Sending delete request to server");
-        // Sends image data to be deleted from database by converting the Img object of said image to json
+        // Sends image data to be deleted from database by converting the MedImage object of said image to json
         Gson gson = new Gson();
         String jsonString = gson.toJson(deleteImage);
         byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);

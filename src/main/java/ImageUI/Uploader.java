@@ -1,6 +1,6 @@
 package ImageUI;
 
-import Entities.Img;
+import Entities.*;
 import com.google.gson.Gson;
 import ij.plugin.DICOM;
 import org.apache.commons.io.FilenameUtils;
@@ -47,12 +47,12 @@ public class Uploader implements ActionListener {
             File file = file_select.getSelectedFile();
             String file_type = (FilenameUtils.getExtension(file.toString()));
 
-            Img img = new Img();
+            MedImage img = new MedImage();
 
             if("dcm".equalsIgnoreCase(file_type) || "dicom".equalsIgnoreCase(file_type)){ //checks if file to upload is Dicom as more processing required
                 Dicomchecker = true;
                 try {
-                    img = getTagByFile(file.getPath());//Gets image metadata and stores them in an img object
+                    img = getTagByFile(file.getPath());//Gets image metadata and stores them in a MedImage object
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Dicom file not supported");
@@ -211,8 +211,8 @@ public class Uploader implements ActionListener {
             String finalFile_type = file_type;
             upload.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) { //Action listener for the upload button, saves input fields in an img object and sends image for upload
-                    Img img = new Img();
+                public void actionPerformed(ActionEvent e) { //Action listener for the upload button, saves input fields in a MedImage object and sends image for upload
+                    MedImage img = new MedImage();
                     String name_input = name_field.getText();
                     String modality_input = modality_field.getText();
                     String body_part_input = body_field.getText();
@@ -231,7 +231,7 @@ public class Uploader implements ActionListener {
                     img.setDate(date_input);
                     img.setPatientID(id_input);
                     try {
-                        img.setImageURL(makeUploadImagePOSTRequest(finalFile, img.getFileName()));//Sends image to server for uploading to s3, receives the url where it's stored which is saved in img object
+                        img.setImageURL(makeUploadImagePOSTRequest(finalFile, img.getFileName()));//Sends image to server for uploading to s3, receives the url where it's stored which is saved in MedImage object
                         makeUploadPostRequest(img);//sends image object with all information to the server to be uploaded to postgresSQL database
 
                         if (Dicomchecker){ //Deletes temporary Dicom converted jpg file in temporary folder
@@ -318,9 +318,9 @@ public class Uploader implements ActionListener {
     }
 
     //Reference 3 - taken from https://www.programmersought.com/article/73222342075/
-    public static Img getTagByFile(String pathFile) throws IOException { //Retrieves metadata from Dicom and stores it into an img object
+    public static MedImage getTagByFile(String pathFile) throws IOException { //Retrieves metadata from Dicom and stores it into a MedImage object
         System.out.println("Retrieving image data");
-        Img img = new Img();
+        MedImage img = new MedImage();
         File file = new File(pathFile);
         DicomInputStream dis = new DicomInputStream(file);
         dis.readFileMetaInformation();
@@ -395,10 +395,10 @@ public class Uploader implements ActionListener {
     }
     //End of Reference 4
 
-    protected static void makeUploadPostRequest(Img newImage) throws IOException {//Sends image data of image to be uploaded including url
+    protected static void makeUploadPostRequest(MedImage newImage) throws IOException {//Sends image data of image to be uploaded including url
         System.out.println("Adding image to database");
         // Set up the body data
-        // Sends image data to be uploaded to database by converting an Img object to json
+        // Sends image data to be uploaded to database by converting a MedImage object to json
         Gson gson = new Gson();
         String jsonString = gson.toJson(newImage);
         byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);
