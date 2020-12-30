@@ -127,7 +127,7 @@ public class Searcher extends Interface implements ActionListener {
         file_name = libr.getNames();
 
         ArrayList<String> file_PatientID;
-        file_PatientID = libr.getPatientIds();
+        file_PatientID = libr.getPatientIDs();
 
         ArrayList<String> file_Modalities;
         file_Modalities = libr.getModalities();

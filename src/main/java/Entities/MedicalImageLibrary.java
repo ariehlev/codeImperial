@@ -38,7 +38,7 @@ public class MedicalImageLibrary {
         return array;
     }
 
-    public ArrayList<String> getPatientIds (){
+    public ArrayList<String> getPatientIDs (){
         ArrayList<String> array = new ArrayList<>();
         for (MedImage img : Library) {
             array.add(img.getPatientID());
