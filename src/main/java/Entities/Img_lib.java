@@ -2,9 +2,11 @@ package Entities;
 
 import java.util.ArrayList;
 
+//Class storing all images received from server in an array list
 public class Img_lib {
     protected ArrayList<Img> Library = new ArrayList<>();
 
+    //Methods to retrieve information from image library
     public boolean isEmpty(){
         return Library.isEmpty();
     }
@@ -33,7 +35,6 @@ public class Img_lib {
         for (Img img : Library) {
             array.add(img.getBodyPart());
         }
-
         return array;
     }
 

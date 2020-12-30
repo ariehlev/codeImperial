@@ -1,5 +1,6 @@
 package Entities;
 
+//Class containing individual image data received from the server
 public class Img {
     protected int ID;
     protected String FileName;
@@ -9,6 +10,7 @@ public class Img {
     protected String Date;
     protected String ImageURL;
 
+    //Getters and setters for variables
     public String getFileName() { return FileName; }
 
     public void setFileName(String fileName) { FileName = fileName;}

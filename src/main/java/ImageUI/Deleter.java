@@ -33,7 +33,7 @@ public class Deleter implements ActionListener {
                 System.out.println("Deleting: " + img.getFileName());
                 makeDeleteRequest(img);
                 JOptionPane.showMessageDialog(null, "The image was deleted successfully!");
-                Searcher.searchAction();
+                Searcher.searchAction(); //Does a new search to refresh the interface
                 new_frame.dispose();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -46,6 +46,7 @@ public class Deleter implements ActionListener {
     protected static void makeDeleteRequest(Img deleteImage) throws IOException {
         // Set up the body data
         System.out.println("Sending delete request to server");
+        // Sends image data to be deleted from database by converting the Img object of said image to json
         Gson gson = new Gson();
         String jsonString = gson.toJson(deleteImage);
         byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);

@@ -13,8 +13,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class ImageEnlarger implements ActionListener {
-    private String location,patient,modality, body_part, date, file_name;
-    private Img img;
+    protected String location,patient,modality, body_part, date, file_name;
+    protected Img img;
 
     public ImageEnlarger(Img img){
         this.img = img;

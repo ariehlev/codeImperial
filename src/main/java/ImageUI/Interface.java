@@ -98,7 +98,7 @@ public class Interface{
         assert image != null;
         logo.setIcon(new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(240, 45, Image.SCALE_SMOOTH)));
 
-        search.addActionListener(new Searcher());
+        search.addActionListener(new Searcher()); //adds an action listener to the search button which starts a search
 
         top_bar_logo.add(logo);
         top_bar_title.add(title);

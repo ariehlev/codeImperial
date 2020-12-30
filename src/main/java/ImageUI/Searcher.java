@@ -12,6 +12,8 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+//Searcher class searches the database by reading input fields from Interface and searching the database through the server
+//Since the checkboxes are made in interface, search inherits from it
 public class Searcher extends Interface implements ActionListener {
     private Load load;
     @Override
@@ -42,13 +44,13 @@ public class Searcher extends Interface implements ActionListener {
 
     }
 
-    public static void searchAction(){ //sends the filter parameters to the server and receives images. It then outputs then into the JPanel
+    public static void searchAction(){ //sends the filter parameters to the server and receives images. It then outputs them into the JPanel
         Thread.currentThread().setPriority(Thread.MAX_PRIORITY); //gives the search method the maximum priority between the load barand itself
         ArrayList<String> filter_body_select = new ArrayList<>();
         ArrayList<String> filter_modality_select = new ArrayList<>();
         ArrayList<String> filter_dates_select = new ArrayList<>();
 
-        if(checkBox1.isSelected()){//checks which checkboxes with filter options were selected
+        if(checkBox1.isSelected()){//checks which checkboxes with filter options were selected and what was written in input fields
             filter_modality_select.add("MRI");
         }
         if(checkBox2.isSelected()){
@@ -94,6 +96,7 @@ public class Searcher extends Interface implements ActionListener {
         }
         String patient_id=patient_id_window.getText();
 
+        //Saves search parameters in a SearchParameters object
         SearchParameters pars = new SearchParameters();
         pars.setModality(filter_modality_select.toArray(new String [0]));
         pars.setBodyPart(filter_body_select.toArray(new String [0]));
@@ -103,7 +106,7 @@ public class Searcher extends Interface implements ActionListener {
         Img_lib libr = new Img_lib();//makes the request to the server and receives back the needed images
         try {
             libr = makeSearchRequest(pars);
-        }catch (InvalidObjectException o){
+        }catch (InvalidObjectException o){ //Exception for no images found in database
             Toolkit.getDefaultToolkit().beep();
             System.out.println(o.getMessage());
             JOptionPane.showMessageDialog(null, o.getMessage());
@@ -241,6 +244,7 @@ public class Searcher extends Interface implements ActionListener {
     public static Img_lib makeSearchRequest(SearchParameters pars) throws IOException {
         // Set up the body data
         System.out.println("Sending search to servlet");
+        //Convert search parameters to json and send as body of request
         Gson gson = new Gson();
         String jsonString = gson.toJson(pars);
         System.out.println(jsonString);

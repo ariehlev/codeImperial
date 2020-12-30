@@ -29,7 +29,7 @@ import java.util.Calendar;
 
 public class Uploader implements ActionListener {
 
-    boolean Dicomchecker = false;
+    boolean Dicomchecker = false;//Marker for checking if the file uploaded is a Dicom
 
     @Override
     public void actionPerformed(ActionEvent e) { //the following code asks the user to select the image or dicom file to upload to the database. After that, the user can input the necessary details about image - patient id, date, modality and etc.
@@ -38,6 +38,7 @@ public class Uploader implements ActionListener {
         file_select.setDialogTitle("Choose a file to upload: "); //promts a user to select an image to upload.
         file_select.setFileSelectionMode(JFileChooser.FILES_ONLY);
         file_select.setAcceptAllFileFilterUsed(false);
+        //Accepts only Dicom,jpg,png,jfif and gif
         FileNameExtensionFilter filter = new FileNameExtensionFilter("DICOM, JPG, PNG, JFIF, GIF Files","dcm","dicom","jpg","png","jfif","gif");
         file_select.addChoosableFileFilter(filter);
 
@@ -48,23 +49,23 @@ public class Uploader implements ActionListener {
 
             Img img = new Img();
 
-            if("dcm".equalsIgnoreCase(file_type) || "dicom".equalsIgnoreCase(file_type)){ //checks the file format to be uploaded
+            if("dcm".equalsIgnoreCase(file_type) || "dicom".equalsIgnoreCase(file_type)){ //checks if file to upload is Dicom as more processing required
                 Dicomchecker = true;
                 try {
-                    img = getTagByFile(file.getPath());
+                    img = getTagByFile(file.getPath());//Gets image metadata and stores them in an img object
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Dicom file not supported");
                     return;
                 }
-                StringBuilder date_dashes = new StringBuilder(img.getDate());
+                StringBuilder date_dashes = new StringBuilder(img.getDate()); //Adds dashes to the date to match date format supported by the database
                 date_dashes.insert(4,'-');
                 date_dashes.insert(7, '-');
                 img.setDate(date_dashes.toString());
 
                 try {
-                    file = jpgconvert(file.getPath());
-                    file_type = (FilenameUtils.getExtension(file.toString()));
+                    file = dcm2jpgConvert(file.getPath()); //Converts dicom to a jpg image for storage and to display
+                    file_type = (FilenameUtils.getExtension(file.toString())); //Updates file type to jpg
 
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
@@ -73,7 +74,9 @@ public class Uploader implements ActionListener {
                 }
 
             }
-            img.setFileName(file.getName());
+            img.setFileName(file.getName());//Sets image name
+
+            //Preview window made with input fields for image data to be filled in by user before upload
             JFrame new_frame = new JFrame("Enlarged Picture");
             ImageIcon image = new ImageIcon(file.getPath());
 
@@ -92,6 +95,8 @@ public class Uploader implements ActionListener {
             JTextField date_field = new JTextField();
             JTextField id_field = new JTextField();
 
+            //Add the file format to the end of the file name so that the user can't change file format and cause issues
+            //Fills in text fields with data from the image metadata (only works for dicom images)
             if("jpg".equalsIgnoreCase(file_type)) {
                 jpg_label.setText(".jpg");
                 name_field.setText(img.getFileName().substring(0,file.getName().length() - 4));
@@ -111,7 +116,7 @@ public class Uploader implements ActionListener {
 
             modality_field.setText(img.getModality());
             body_field.setText(img.getBodyPart());
-            if (img.getDate() == null){
+            if (img.getDate() == null){ //If the date field is empty, puts today's date by default in supported date format to aid the user
                 Calendar cal = Calendar.getInstance();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 date_field.setText(sdf.format(cal.getTime()));
@@ -206,13 +211,14 @@ public class Uploader implements ActionListener {
             String finalFile_type = file_type;
             upload.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void actionPerformed(ActionEvent e) { //Action listener for the upload button, saves input fields in an img object and sends image for upload
                     Img img = new Img();
                     String name_input = name_field.getText();
                     String modality_input = modality_field.getText();
                     String body_part_input = body_field.getText();
                     String date_input = date_field.getText();
                     String id_input = id_field.getText();
+                    //Checks to make sure user has filled in all fields
                     if (name_input.equals("") || modality_input.equals("") || body_part_input.equals("") || date_input.equals("") || id_input.equals("")){
                         Toolkit.getDefaultToolkit().beep();
                         JOptionPane.showMessageDialog(null, "Please input something in all fields");
@@ -225,10 +231,10 @@ public class Uploader implements ActionListener {
                     img.setDate(date_input);
                     img.setPatientID(id_input);
                     try {
-                        img.setImageURL(makeUploadImagePOSTRequest(finalFile, img.getFileName()));
-                        makeUploadPostRequest(img);
+                        img.setImageURL(makeUploadImagePOSTRequest(finalFile, img.getFileName()));//Sends image to server for uploading to s3, receives the url where it's stored which is saved in img object
+                        makeUploadPostRequest(img);//sends image object with all information to the server to be uploaded to postgresSQL database
 
-                        if (Dicomchecker){
+                        if (Dicomchecker){ //Deletes temporary Dicom converted jpg file in temporary folder
                             Files.deleteIfExists(finalFile.toPath());
                             System.out.println("Temporary jpg deleted from local temporary folder");
                         }
@@ -257,9 +263,9 @@ public class Uploader implements ActionListener {
             new_frame.setVisible(true);
             new_frame.addWindowListener(new WindowAdapter() {
                                             @Override
-                                            public void windowClosing(WindowEvent e) {
+                                            public void windowClosing(WindowEvent e) { //Makes sure temporary dicom gets deleted from local system
                                                 try {
-                                                    if (Dicomchecker){
+                                                    if (Dicomchecker){//Deletes temporary Dicom converted jpg file in temporary folder
                                                         Files.deleteIfExists(finalFile.toPath());
                                                         System.out.println("Temporary jpg deleted from local temporary folder");
                                                     }
@@ -272,48 +278,47 @@ public class Uploader implements ActionListener {
         }
     }
 
-    public static File jpgconvert (String filePath) throws IOException {
+    public static File dcm2jpgConvert (String filePath) throws IOException { //Converts Dicom file to jpg (dcm4che Dcm2Jpg would not work, this is a workaround)
         System.out.println("Opening Dicom File");
-        //Reference X - taken from https://www.programmersought.com/article/21235554230/
+        //Reference 1 - taken from https://www.programmersought.com/article/21235554230/
         File src = new File(filePath);
         String destPath = System.getProperty("java.io.tmpdir")+ src.getName().substring(0,src.getName().length() - 4) + "temporary.dcm";
         File dest = new File(destPath);
         String imagePath = System.getProperty("java.io.tmpdir")+ src.getName().substring(0,src.getName().length() - 4) + ".jpg";
         File destjpg = new File(imagePath);
-        try (Transcoder transcoder = new Transcoder(src)) {
+        try (Transcoder transcoder = new Transcoder(src)) { //Begins by decompressing the image
             System.out.println("Decompressing Image");
             transcoder.setDestinationTransferSyntax(UID.ExplicitVRLittleEndian);
             transcoder.transcode(new Transcoder.Handler(){
                 @Override
                 public OutputStream newOutputStream(Transcoder transcoder, Attributes dataset) throws IOException {
-                    return new FileOutputStream(dest);
+                    return new FileOutputStream(dest); //Stores decompressed image in a temporary Dicom file
                 }
             });
             System.out.println("Image Decompressed");
             System.out.println("Temporary Dicom saved in local temporary folder");
-            //End of Reference X
-            //Reference X - taken from https://www.programmersought.com/article/51681500761/
-            DICOM dicom = new DICOM();
+            //End of Reference 1
+            //Reference 2 - taken from https://www.programmersought.com/article/51681500761/
+            DICOM dicom = new DICOM(); //Converts decompressed Dicom into jpg
             dicom.run(String.valueOf(dest));
             BufferedImage bi = (BufferedImage) dicom.getImage();
             ImageIO.write(bi, "jpg", destjpg);
             System.out.println("Image converted to jpg");
             System.out.println("Temporary jpg saved in local temporary folder");
-            //End of Reference X
+            //End of Reference 2
         } catch (Exception e) {
             System.out.println("Could not decompress image");
-            Files.deleteIfExists(dest.toPath());
+            Files.deleteIfExists(dest.toPath()); //Deletes temporary Dicom
             System.out.println("Temporary Dicom deleted from local temporary folder");
             throw e;
         }
-        Files.deleteIfExists(dest.toPath());
+        Files.deleteIfExists(dest.toPath()); //Deletes temporary Dicom
         System.out.println("Temporary Dicom deleted from local temporary folder");
         return destjpg;
     }
 
-
-    //Reference X - taken from https://www.programmersought.com/article/73222342075/
-    public static Img getTagByFile(String pathFile) throws IOException {
+    //Reference 3 - taken from https://www.programmersought.com/article/73222342075/
+    public static Img getTagByFile(String pathFile) throws IOException { //Retrieves metadata from Dicom and stores it into an img object
         System.out.println("Retrieving image data");
         Img img = new Img();
         File file = new File(pathFile);
@@ -328,10 +333,10 @@ public class Uploader implements ActionListener {
         System.out.println("Image data successfully retrieved");
         return img;
     }
-    //End of Reference X
+    //End of Reference 3
 
-    /* Reference X - taken from https://www.codejava.net/java-ee/servlet/upload-file-to-servlet-without-using-html-form */
-    protected static String makeUploadImagePOSTRequest(File file, String name) throws IOException {
+    /* Reference 4 - taken from https://www.codejava.net/java-ee/servlet/upload-file-to-servlet-without-using-html-form */
+    protected static String makeUploadImagePOSTRequest(File file, String name) throws IOException { //Sends image to be uploaded to s#
         final String UPLOAD_URL = "https://hlabsmedimagedatabase.herokuapp.com/uploadimage";
         final int BUFFER_SIZE = 4096;
 
@@ -388,11 +393,12 @@ public class Uploader implements ActionListener {
         }
 
     }
-    //End of Reference X
+    //End of Reference 4
 
     protected static void makeUploadPostRequest(Img newImage) throws IOException {
         System.out.println("Adding image to database");
         // Set up the body data
+        // Sends image data to be uploaded to database by converting an Img object to json
         Gson gson = new Gson();
         String jsonString = gson.toJson(newImage);
         byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);
