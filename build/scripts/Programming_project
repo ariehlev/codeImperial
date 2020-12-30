@@ -80,7 +80,7 @@ case "`uname`" in
     ;;
 esac
 
-CLASSPATH=$APP_HOME/lib/Programming_project-1.0-SNAPSHOT.jar:$APP_HOME/lib/gson-2.7.jar:$APP_HOME/lib/commons-io-2.6.jar
+CLASSPATH=$APP_HOME/lib/Programming_project-1.0-SNAPSHOT.jar:$APP_HOME/lib/gson-2.7.jar:$APP_HOME/lib/dcm4che-tool-dcm2jpg-5.12.0.jar:$APP_HOME/lib/dcm4che-imageio-5.12.0.jar:$APP_HOME/lib/dcm4che-image-5.12.0.jar:$APP_HOME/lib/dcm4che-imageio-rle-5.12.0.jar:$APP_HOME/lib/dcm4che-tool-common-5.12.0.jar:$APP_HOME/lib/dcm4che-net-5.12.0.jar:$APP_HOME/lib/dcm4che-core-5.12.0.jar:$APP_HOME/lib/ij-1.52o.jar:$APP_HOME/lib/httpclient-4.5.12.jar:$APP_HOME/lib/commons-codec-1.11.jar:$APP_HOME/lib/commons-io-2.6.jar:$APP_HOME/lib/dcm4che-dict-5.12.0.jar:$APP_HOME/lib/slf4j-log4j12-1.7.5.jar:$APP_HOME/lib/slf4j-api-1.7.5.jar:$APP_HOME/lib/jai_imageio-1.2-pre-dr-b04.jar:$APP_HOME/lib/httpcore-4.4.13.jar:$APP_HOME/lib/commons-logging-1.2.jar:$APP_HOME/lib/log4j-1.2.17.jar:$APP_HOME/lib/clibwrapper_jiio-1.2-pre-dr-b04.jar:$APP_HOME/lib/clib_jiio-1.2-pre-dr-b04.zip:$APP_HOME/lib/commons-cli-1.2.jar
 
 # Determine the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then
