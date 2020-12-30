@@ -1,15 +1,15 @@
 package ImageUI;
 
 import Entities.*;
+import com.google.gson.Gson;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.InvalidObjectException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.*;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Searcher extends Interface implements ActionListener {
@@ -25,7 +25,7 @@ public class Searcher extends Interface implements ActionListener {
         });
     }
 
-    class Load extends SwingWorker<String, Void>{
+    static class Load extends SwingWorker<String, Void>{
         @Override
         public String doInBackground(){
             load_bar();
@@ -41,7 +41,6 @@ public class Searcher extends Interface implements ActionListener {
         }
 
     }
-
 
     public static void searchAction(){ //sends the filter parameters to the server and receives images. It then outputs then into the JPanel
         Thread.currentThread().setPriority(Thread.MAX_PRIORITY); //gives the search method the maximum priority between the load barand itself
@@ -103,15 +102,20 @@ public class Searcher extends Interface implements ActionListener {
 
         Img_lib libr = new Img_lib();//makes the request to the server and receives back the needed images
         try {
-            libr = ServerComm.makeSearchRequest(pars);
+            libr = makeSearchRequest(pars);
         }catch (InvalidObjectException o){
             Toolkit.getDefaultToolkit().beep();
+            System.out.println(o.getMessage());
             JOptionPane.showMessageDialog(null, o.getMessage());
-
+            return;
         }
         catch (IOException ioException) {
             ioException.printStackTrace();
+            System.out.println("Could not connect to database");
+            JOptionPane.showMessageDialog(null, "Could not connect to database, please check your internet connection");
+            return;
         }
+        System.out.println("Search results received, displaying results");
 
         ArrayList<String> file_location;
         file_location = libr.getURLs();
@@ -231,6 +235,66 @@ public class Searcher extends Interface implements ActionListener {
         frame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         progress_bar.setVisible(true);
         progress_bar.setIndeterminate(true);
+    }
+
+
+    public static Img_lib makeSearchRequest(SearchParameters pars) throws IOException {
+        // Set up the body data
+        System.out.println("Sending search to servlet");
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(pars);
+        System.out.println(jsonString);
+        byte[] body = jsonString.getBytes(StandardCharsets.UTF_8);
+
+        URL myURL = null;
+        try {
+            myURL = new URL("https://hlabsmedimagedatabase.herokuapp.com/main");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        HttpURLConnection conn = null;
+
+        try {
+            conn = (HttpURLConnection) myURL.openConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Set up the header
+        try {
+            conn.setRequestMethod("POST");
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        }
+        conn.setRequestProperty("Accept", "application/json");
+        conn.setRequestProperty("charset", "utf-8");
+        conn.setRequestProperty("Content-Length", Integer.toString(body.length));
+        conn.setDoOutput(true);
+        // Write the body of the request
+        try (OutputStream outputStream = conn.getOutputStream()) {
+            try {
+                outputStream.write(body, 0, body.length);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Search sent");
+        BufferedReader bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String inputLine;
+        inputLine = bufferedReader.readLine();
+        bufferedReader.close();
+        Gson gson2 = new Gson();
+        Img_lib libr = gson2.fromJson(inputLine, Img_lib.class);
+        if (libr.isEmpty()){
+            throw new InvalidObjectException("No images found in database");
+        }
+        return libr;
     }
 
 }

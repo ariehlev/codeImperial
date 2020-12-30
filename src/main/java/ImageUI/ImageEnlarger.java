@@ -29,7 +29,7 @@ public class ImageEnlarger implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) { //creates a frame with larger image view and with more details listed
         JFrame new_frame = new JFrame("Enlarged Picture");
-
+        System.out.println("Enlarging " + img.getFileName());
         URL url = null;
         try {
             url = new URL(location);
@@ -59,6 +59,9 @@ public class ImageEnlarger implements ActionListener {
             image = ImageIO.read(url);
         } catch (IOException ioException) {
             ioException.printStackTrace();
+            System.out.println("Could not connect to database");
+            JOptionPane.showMessageDialog(null, "Could not connect to database, please check your internet connection");
+            return;
         }
         int image_height = image.getHeight();
         int image_width = image.getWidth();

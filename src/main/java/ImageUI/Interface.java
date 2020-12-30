@@ -95,9 +95,9 @@ public class Interface{
         logo.setVerticalAlignment(JLabel.CENTER);
         logo.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         logo.setAlignmentY(JLabel.CENTER_ALIGNMENT);
+        assert image != null;
         logo.setIcon(new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(240, 45, Image.SCALE_SMOOTH)));
 
-        //search.addActionListener(new ImageUI.Search(images,frame,checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6,checkBox7,checkBox8,checkBox9,checkBox10,start_date,end_date,patient_id_window));
         search.addActionListener(new Searcher());
 
         top_bar_logo.add(logo);

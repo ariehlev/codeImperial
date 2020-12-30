@@ -20,7 +20,7 @@ public class Downloader implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {//downloads the image from the url of the selected image to the default download folder of the computer system
-
+            System.out.println("Downloading Image");
             try(InputStream in = new URL(location).openStream()){
                 String home = System.getProperty("user.home");
                 File file_name = new File(location);
@@ -28,17 +28,20 @@ public class Downloader implements ActionListener {
                 File file = new File(path);
                 if(file.exists() && !file.isDirectory()) {
                     Toolkit.getDefaultToolkit().beep();
+                    System.out.println("Image already present in download directory");
                     JOptionPane.showMessageDialog(null, "The Image already exists at: "+path);
                 }
                 else{
                     Files.copy(in, Paths.get(path));
+                    System.out.println("Download successful");
                     JOptionPane.showMessageDialog(null, "The Image has been downloaded to: "+path);
                 }
 
             } catch (IOException ioException) {
                 ioException.printStackTrace();
+                System.out.println("Could not connect to database");
+                JOptionPane.showMessageDialog(null, "Could not connect to database, please check your internet connection");
             }
-
 
     }
 }
