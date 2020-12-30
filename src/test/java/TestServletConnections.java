@@ -66,7 +66,7 @@ public class TestServletConnections {
         assertThat(mimeType2, isOneOf(htmlMimeType1, htmlMimeType2));
         //assertEquals( htmlMimeType, mimeType2 );
         //Check that Search Servlet response is json (returns image library corresponding to search params)
-        HttpUriRequest request3 = new HttpPost( "https://hlabsmedimagedatabase.herokuapp.com/main" );
+        HttpUriRequest request3 = new HttpPost( "https://hlabsmedimagedatabase.herokuapp.com/search" );
         CloseableHttpResponse response3 = HttpClientBuilder.create().build().execute( request3 );
         String mimeType3 = ContentType.getOrDefault(response3.getEntity()).getMimeType();
         assertEquals(jsonMimeType, mimeType3 );
